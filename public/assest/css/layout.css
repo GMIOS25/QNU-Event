@@ -7,4 +7,12 @@
 body
 {
     background-color: #F6F8FB;
+    overflow: hidden;
+}
+.main{
+    display: flex;
+}
+.app{
+    overflow: scroll;
+    max-height: calc(100vh - 50px);
 }

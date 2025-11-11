@@ -16,7 +16,7 @@
     </header>
     <div class="main">
         <div class="menubars">
-            <?php include __DIR__ . "/partials/header.php" ?>
+            <?php include __DIR__ . "/partials/menubar.php" ?>
         </div>
         <div class="app">
             <?php include $render ?>

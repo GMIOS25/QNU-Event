@@ -1,0 +1,15 @@
+.footer-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    border: 2px #E5E7EB solid;
+}
+.footer-container label{
+    font-size: 1rem;
+}

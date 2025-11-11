@@ -1,1 +1,3 @@
-<h1>Footer</h1>
+<div class="footer-container">
+    <label for="">Copyright © Group 1 . All rights reserved.</label>
+</div>

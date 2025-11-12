@@ -13,9 +13,11 @@ body
     display: flex;
 }
 .app{
-    overflow: scroll;
+    overflow-x: scroll;
+    overflow-y: scroll;
     height: calc(100vh - 100px);
     width: 100vw;
+
 }
 .menubars{
     background: #fff;   

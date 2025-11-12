@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 12, 2025 lúc 01:11 PM
+-- Thời gian đã tạo: Th10 12, 2025 lúc 01:17 PM
 -- Phiên bản máy phục vụ: 9.1.0
 -- Phiên bản PHP: 8.3.14
 
@@ -325,7 +325,9 @@ CREATE TABLE IF NOT EXISTS `sinhvien` (
 
 INSERT INTO `sinhvien` (`MSSV`, `Ho`, `Ten`, `Email`, `Password`, `MaLop`, `isBanCanSu`) VALUES
 ('4651050044', 'Nguyễn Khánh', 'Dương', 'khanhduong18072005@gmail.com', '18072005', 'CNTTK46D', NULL),
-('4651050189', 'Nguyễn Yến', 'Nhi', NULL, 'haru', 'CNTTK46B', NULL);
+('4651050189', 'Nguyễn Yến', 'Nhi', NULL, 'haru', 'CNTTK46B', NULL),
+('bcs', 'Họ tên', NULL, NULL, NULL, NULL, 1),
+('sv', 'Cậu bé tê liệt', NULL, NULL, 'sv', 'CNTTK46A', 0);
 
 -- --------------------------------------------------------
 

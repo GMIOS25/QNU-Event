@@ -7,23 +7,6 @@
     <link rel="stylesheet" href="./assest/css/homepage.css">
 </head>
 <body>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-        <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-        <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
-    <h1>Hello word</h1>
+    <h1>Content nằm ở đây</h1>
 </body>
 </html>

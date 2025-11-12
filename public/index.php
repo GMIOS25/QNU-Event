@@ -14,19 +14,25 @@
     $requestPath = '/' . ltrim($requestPath, '/');
 
     // Controllers
-    require_once BASE_PATH . '/app/Controllers/homepageController.php';
     require_once BASE_PATH . '/app/Controllers/authController.php';
     require_once BASE_PATH . '/app/Controllers/baseController.php';
-    require_once BASE_PATH . '/app/Controllers/userController.php';
+    require_once BASE_PATH . '/app/Controllers/studentController.php';
     require_once BASE_PATH . '/app/Controllers/adminController.php';
     
-    $baseController = new baseController();
-
+    
     // vì mọi request đổ về index nên phải kiểm tra quyền thực thi, tức trạng thái đăng nhập trước khi thực hiện route
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
+    
     }
+
+    // khởi tạo controller
+    $baseController = new baseController();
     $authController = new authController();
+    $studentController = new studentController();
+    $adminController = new adminController();
+
+
     $unauthPaths = ['/Auth/Login', '/Auth/Logout'];
     if (!isset($_SESSION['UID']) && !in_array($requestPath, $unauthPaths)) {
         header('Location: ' . $publicBase . '/Auth/Login');
@@ -39,6 +45,9 @@
 
 
     switch ($requestPath) {
+        case '/':
+            $baseController->redirect();
+            break;
         case '/Auth/Login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $authController->login();
@@ -51,17 +60,17 @@
             $authController->logout();
             break;
 
-        case '/':
-            $userController = new userController();
-            $userController->index();
+        case '/Student':
+            
+            $studentController->index();
             break;
 
         case '/Admin':
-            $adminController = new adminController();
+            
             $adminController->index();
             break;
 
-        case '/Staff':
+
         case '/Account':
         default:
             $baseController->ErrorNotFound();

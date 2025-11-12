@@ -1,4 +1,8 @@
 <?php 
+    
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
     class authController
     {
         
@@ -14,20 +18,19 @@
         }
         public function login()
         {
+            global $publicBase;
             $userModal = new User();
             
-            global $publicBase;
+            
             $userName = $_POST['txt_username'];
             $password = $_POST['txt_password'];
             $loginUID = $userModal->login($userName, $password);
 
             if ($loginUID != NULL) {
-                if (session_status() === PHP_SESSION_NONE) {
-                    session_start();
-                }
+  
                 $_SESSION['UID'] = $loginUID;
                 $_SESSION['role'] = 0; // role sinh viên
-                header('Location: ' . $publicBase . '/');
+                header('Location: ' . $publicBase . '/Student');
                 exit;
 
             }

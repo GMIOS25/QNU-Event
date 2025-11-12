@@ -1,5 +1,9 @@
 <?php 
-    class userController
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    
+    }
+    class studentController
     {
         public function index()
         {

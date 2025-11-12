@@ -14,5 +14,8 @@ body
 }
 .app{
     overflow: scroll;
-    max-height: calc(100vh - 50px);
+    max-height: calc(100vh - 100px);
+}
+.menubars{
+    background: #fff;   
 }

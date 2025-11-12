@@ -17,7 +17,7 @@
     body { background:#f8f9fa; }
     .sidebar {
       width: var(--sidebar-width);
-      min-height: 100vh;
+      max-height: 100vh;
       background: #fff;
     }
     .sidebar .section-title {

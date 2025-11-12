@@ -14,10 +14,29 @@
 
     // Controllers
     require_once BASE_PATH . '/app/Controllers/homepageController.php';
+    require_once BASE_PATH . '/app/Controllers/authController.php';
     $homeController = new HomepageController();
+    $authController = new authController();
+
+    // vì mọi request đổ về index nên phải kiểm tra quyền thực thi, tức trạng thái đăng nhập trước khi thực hiện route
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if(!isset($_SESSION['UID']) && $requestPath != '/Login')
+    {
+        header('Location: ' . $publicBase . '/Login');
+        exit; 
+    }
+
 
     // Các route
     switch (true) {
+        // kiểm tra nếu chưa đăng nhập thì dẫn về trang đăng nhập
+        case $requestPath === '/Login' && $_SERVER['REQUEST_METHOD'] === "POST":
+            $authController->login(); break;
+        case $requestPath === '/Login':
+            $authController->renderLogin(""); break;
         case $requestPath === '/' || $requestPath === '/index.php':
             $homeController->index();
             break;

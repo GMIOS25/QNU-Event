@@ -1,10 +1,8 @@
-# Bật rewrite để mọi request đổ về public/index.php
 RewriteEngine On
-RewriteBase /
+RewriteBase /QNU-Event/public/
 
-# nếu file/thư mục thật thì cho phép truy cập trực tiếp
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-# còn lại chuyển về index.php
-RewriteRule ^ index.php [QSA,L]
+RewriteRule . index.php [QSA,L]

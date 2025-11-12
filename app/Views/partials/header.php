@@ -8,6 +8,20 @@
   </div>
   <div class="qnu-header-right">
     <i class="fa fa-user-circle"></i>
-    <span class="username">Tên đăng nhập</span>
+    <div class="user-info">
+        <span class="username"><?php echo $_SESSION['FullName']?></span>
+        <span class="rolename"><?php 
+          if ($_SESSION['role'] == 0)
+            echo "Sinh viên";
+          else if($_SESSION['role'] == 1)
+            echo "Ban cán sự";
+          else if($_SESSION['role'] == 2)
+            echo "Admin";
+          else
+            echo "404";
+        
+    
+        ?></span>
+    </div>
   </div>
 </header>

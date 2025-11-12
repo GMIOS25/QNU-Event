@@ -1,6 +1,7 @@
 <?php
     // Error reporting for development
-    error_reporting(E_ALL);
+    error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+
     ini_set('display_errors', 1);
     define('BASE_PATH', dirname(__DIR__));
 
@@ -16,6 +17,8 @@
     require_once BASE_PATH . '/app/Controllers/homepageController.php';
     require_once BASE_PATH . '/app/Controllers/authController.php';
     require_once BASE_PATH . '/app/Controllers/baseController.php';
+    require_once BASE_PATH . '/app/Controllers/userController.php';
+    require_once BASE_PATH . '/app/Controllers/adminController.php';
     
     $baseController = new baseController();
 
@@ -23,17 +26,22 @@
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-
+    $authController = new authController();
     if(!isset($_SESSION['UID']) && $requestPath != '/Login')
     {
         header('Location: ' . $publicBase . '/Login');
+        
         exit; 
     }
 
-    // ROUTE CHO CÁC CHỨC NĂNG LOGIN
+    $authController->loadUserData();
+
+
+    // load data user
+
     if($requestPath === "/Login")
     {
-        $authController = new authController();
+       
         switch(true)
         {
             // nếu gửi form login bằng post
@@ -50,12 +58,14 @@
     // ROUTE CHO CÁC PAGE CỦA STUDENT
     else if($requestPath === "/")
     {
-        $homeController = new HomepageController();
+        //$homeController = new HomepageController();
+
+        $userController = new userController();
         switch (true)
         {
             // để tạm
             case $requestPath === "/":
-                $homeController->index();
+                $userController->index();
             default:
                 $baseController->ErrorNotFound();
             break;
@@ -74,8 +84,12 @@
     // ROUTE CHO CÁC PAGE CỦA ADMIN
     else if($requestPath === "/Admin")
     {
+        $adminController = new adminController();
         switch (true)
         {
+            // để tạm
+            case $requestPath === "/Admin":
+                $adminController->index();break;
             default:
                 $baseController->ErrorNotFound();
             break;
@@ -96,4 +110,6 @@
         $baseController->ErrorNotFound();
     }
 
+    
+    // ROUTE CHO CÁC CHỨC NĂNG LOGIN
 ?>

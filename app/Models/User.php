@@ -8,10 +8,10 @@
            require_once __DIR__ . "/../Configs/database.php";
            $this->conn = Database::getConnection();
         }
-        public function  __destruct() 
-        {
-            //Database::closeConnection($this->conn);
-        }
+        // public function  __destruct() 
+        // {
+        //     Database::closeConnection($this->conn);
+        // }
         // trả về uid nếu login thành công
         public function login($userName, $password)
         {

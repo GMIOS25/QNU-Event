@@ -5,6 +5,7 @@
         {
             include __DIR__ . "/../Views/404.php";
         }
+
     }
 
 ?>

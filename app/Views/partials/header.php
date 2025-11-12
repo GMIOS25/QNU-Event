@@ -6,22 +6,31 @@
       <p class="en">QUY NHON UNIVERSITY</p>
     </div>
   </div>
-  <div class="qnu-header-right">
-    <i class="fa fa-user-circle"></i>
-    <div class="user-info">
+  <div class="qnu-header-right dropdown">
+    <div class="qnu-header-toggle dropdown-toggle" data-bs-toggle="dropdown">
+      <i class="fa fa-user-circle"></i>
+      <div class="user-info">
         <span class="username"><?php echo $_SESSION['FullName']?></span>
-        <span class="rolename"><?php 
-          if ($_SESSION['role'] == 0)
-            echo "Sinh viên";
-          else if($_SESSION['role'] == 1)
-            echo "Ban cán sự";
-          else if($_SESSION['role'] == 2)
-            echo "Admin";
-          else
-            echo "404";
-        
+        <span class="rolename">
+          <?php 
+            if ($_SESSION['role'] == 0)
+              echo "Sinh viên";
+            else if($_SESSION['role'] == 1)
+              echo "Ban cán sự";
+            else if($_SESSION['role'] == 2)
+              echo "Admin";
+            else
+              echo "404";
+          ?>
+        </span>
+      </div>
+    </div> 
     
-        ?></span>
-    </div>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+      <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+      <li><a class="dropdown-item" href="Auth/Logout">Đăng xuất</a></li>
+    </ul>
   </div>
+
 </header>

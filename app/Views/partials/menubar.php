@@ -89,7 +89,45 @@
         <a href="#" class="list-group-item d-flex align-items-center gap-2">
           <i class="bi bi-house-door"></i> Tổng quan
         </a>
+      <?php if($_SESSION['role']  < 2): ?>
+        <div>
+          <button class="toggle" data-bs-toggle="collapse" data-bs-target="#grpAccounts" aria-expanded="false">
+            <span class="label"><i class="bi bi-calendar-event"></i> Sự kiện</span>
+            <i class="bi bi-chevron-down chevron"></i>
+          </button>
+          <div id="grpAccounts" class="collapse submenu">
+            <a class="list-group-item" href="#">Đăng ký sự kiện</a>
+            <a class="list-group-item" href="#">Lịch sự kiện</a>
+            <a class="list-group-item" href="#">Nộp minh chứng</a>
+          </div>
+        </div>
 
+
+        <div>
+          <button class="toggle" data-bs-toggle="collapse" data-bs-target="#grpDRL" aria-expanded="false">
+            <span class="label"><i class="bi bi-trophy"></i> Quản lý điểm rèn luyện</span>
+            <i class="bi bi-chevron-down chevron"></i>
+          </button>
+          <div id="grpDRL" class="collapse submenu">
+            <a class="list-group-item" href="#">Xem điểm</a>
+            <a class="list-group-item" href="#">Tự đánh giá rèn luyện</a>
+          </div>
+        </div>
+
+        <?php if($_SESSION['role'] == 1): ?>
+        <div>
+          <button class="toggle" data-bs-toggle="collapse" data-bs-target="#grpSystem" aria-expanded="false">
+            <span class="label"><i class="bi bi-gear"></i> Ban cán sự</span>
+            <i class="bi bi-chevron-down chevron"></i>
+          </button>
+          <div id="grpSystem" class="collapse submenu">
+            <a class="list-group-item" href="#">Duyệt minh chứng</a>
+            <a class="list-group-item" href="#">Duyệt phiếu tự đánh giá RL</a>
+
+          </div>
+        </div>
+        <?php endif ?>
+        <?php elseif($_SESSION['role'] == 2): ?>
         <!-- Quản lý sự kiện (mục đơn, đang active) -->
         <a href="#" class="list-group-item active d-flex align-items-center gap-2">
           <i class="bi bi-calendar-event"></i> Quản lý sự kiện
@@ -133,6 +171,8 @@
             <a class="list-group-item" href="#">Phòng</a>
           </div>
         </div>
+
+        <?php endif ?>
       </div>
     </aside>
 

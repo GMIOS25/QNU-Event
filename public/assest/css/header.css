@@ -37,11 +37,32 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
   color: #000;
   font-size: 14px;
 }
-
+.qnu-header-toggle{
+  display: flex;
+  gap: 10px;
+}
+.qnu-header-right .user-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+.qnu-header-right:hover{
+  background-color: rgba(0, 0, 0, 0.1);
+}
 .qnu-header-right i {
-  font-size: 20px;
+  font-size: 50px;
+}
+.qnu-header-right .username
+{
+  font-weight: bold;
+}
+
+.qnu-header-right .rolename{
+  font-style: italic;
 }

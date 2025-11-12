@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 12, 2025 lúc 02:50 AM
+-- Thời gian đã tạo: Th10 12, 2025 lúc 01:11 PM
 -- Phiên bản máy phục vụ: 9.1.0
 -- Phiên bản PHP: 8.3.14
 
@@ -37,6 +37,13 @@ CREATE TABLE IF NOT EXISTS `admin` (
   PRIMARY KEY (`AdminID`),
   UNIQUE KEY `Email` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `admin`
+--
+
+INSERT INTO `admin` (`AdminID`, `Ho`, `Ten`, `Email`, `Password`) VALUES
+('admin', 'YangKlee', NULL, 'dasdsads', 'admin');
 
 -- --------------------------------------------------------
 
@@ -306,6 +313,7 @@ CREATE TABLE IF NOT EXISTS `sinhvien` (
   `Email` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `Password` varchar(255) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `MaLop` varchar(10) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `isBanCanSu` int DEFAULT NULL,
   PRIMARY KEY (`MSSV`),
   UNIQUE KEY `Email` (`Email`),
   KEY `MaLop` (`MaLop`)
@@ -315,9 +323,9 @@ CREATE TABLE IF NOT EXISTS `sinhvien` (
 -- Đang đổ dữ liệu cho bảng `sinhvien`
 --
 
-INSERT INTO `sinhvien` (`MSSV`, `Ho`, `Ten`, `Email`, `Password`, `MaLop`) VALUES
-('4651050044', 'Nguyễn Khánh', 'Dương', 'khanhduong18072005@gmail.com', '18072005', 'CNTTK46D'),
-('4651050189', 'Nguyễn Yến', 'Nhi', NULL, 'haru', 'CNTTK46B');
+INSERT INTO `sinhvien` (`MSSV`, `Ho`, `Ten`, `Email`, `Password`, `MaLop`, `isBanCanSu`) VALUES
+('4651050044', 'Nguyễn Khánh', 'Dương', 'khanhduong18072005@gmail.com', '18072005', 'CNTTK46D', NULL),
+('4651050189', 'Nguyễn Yến', 'Nhi', NULL, 'haru', 'CNTTK46B', NULL);
 
 -- --------------------------------------------------------
 

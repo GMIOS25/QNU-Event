@@ -27,89 +27,44 @@
         session_start();
     }
     $authController = new authController();
-    if(!isset($_SESSION['UID']) && $requestPath != '/Login')
-    {
-        header('Location: ' . $publicBase . '/Login');
-        
-        exit; 
+    $unauthPaths = ['/Auth/Login', '/Auth/Logout'];
+    if (!isset($_SESSION['UID']) && !in_array($requestPath, $unauthPaths)) {
+        header('Location: ' . $publicBase . '/Auth/Login');
+        exit;
     }
 
-    $authController->loadUserData();
+    if (isset($_SESSION['UID'])) {
+        $authController->loadUserData();
+    }
 
 
-    // load data user
-
-    if($requestPath === "/Login")
-    {
-       
-        switch(true)
-        {
-            // nếu gửi form login bằng post
-            case $requestPath === '/Login' && $_SERVER['REQUEST_METHOD'] === "POST":
-                $authController->login(); break;
-            // nếu vô đường dẫn login
-            case $requestPath === '/Login':
-                $authController->renderLogin(""); break;
-            default:
-                $baseController->ErrorNotFound();
+    switch ($requestPath) {
+        case '/Auth/Login':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $authController->login();
+            } else {
+                $authController->renderLogin('');
+            }
             break;
-        }
-    }
-    // ROUTE CHO CÁC PAGE CỦA STUDENT
-    else if($requestPath === "/")
-    {
-        //$homeController = new HomepageController();
 
-        $userController = new userController();
-        switch (true)
-        {
-            // để tạm
-            case $requestPath === "/":
-                $userController->index();
-            default:
-                $baseController->ErrorNotFound();
+        case '/Auth/Logout':
+            $authController->logout();
             break;
-        }
-    }
-    // ROUTE CHO CÁC PAGE CỦA BCS
-    else if($requestPath === "/Staff")
-    {
-        switch (true)
-        {
-            default:
-                $baseController->ErrorNotFound();
-            break;
-        }
-    }
-    // ROUTE CHO CÁC PAGE CỦA ADMIN
-    else if($requestPath === "/Admin")
-    {
-        $adminController = new adminController();
-        switch (true)
-        {
-            // để tạm
-            case $requestPath === "/Admin":
-                $adminController->index();break;
-            default:
-                $baseController->ErrorNotFound();
-            break;
-        }
-    }
-    // ROUTE CHO CÁC PAGE QUẢN LÝ TÀI KHOẢN CÁ NHÂN
-    else if($requestPath === "/Account")
-    {
-        switch (true)
-        {
-            default:
-                $baseController->ErrorNotFound();
-            break;
-        }
-    }
-    else
-    {
-        $baseController->ErrorNotFound();
-    }
 
-    
-    // ROUTE CHO CÁC CHỨC NĂNG LOGIN
+        case '/':
+            $userController = new userController();
+            $userController->index();
+            break;
+
+        case '/Admin':
+            $adminController = new adminController();
+            $adminController->index();
+            break;
+
+        case '/Staff':
+        case '/Account':
+        default:
+            $baseController->ErrorNotFound();
+            break;
+    }
 ?>

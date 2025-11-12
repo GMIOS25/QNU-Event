@@ -4,12 +4,7 @@
         private $conn;
         public function __construct()
         {
-           require_once __DIR__ . "/../Configs/database.php";
-           $this->conn = Database::getConnection();
-        }
-        public function  __destruct() 
-        {
-            Database::closeConnection($this->conn);
+           require_once __DIR__ . "/../Models/User.php";
         }
         public function renderLogin($message)
         {
@@ -18,25 +13,21 @@
         }
         public function login()
         {
+            $userModal = new User();
+            
             global $publicBase;
             $userName = $_POST['txt_username'];
             $password = $_POST['txt_password'];
-            
-            $stm = $this->conn->prepare("Select * from sinhvien where (MSSV = ? or Email = ?) and Password = ?");
-            $stm->bind_param("sss", $userName, $userName, $password);
-            $stm->execute();
-            $result = $stm->get_result();
-            $stm->close();
-            if ($result->num_rows > 0) {
-                $userData = $result->fetch_assoc();
+            $loginUID = $userModal->login($userName, $password);
+
+            if ($loginUID != NULL) {
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
-                $_SESSION['UID'] = $userData['MSSV'];
+                $_SESSION['UID'] = $loginUID;
 
                 // về index (này exmaple thôi, sau này tùy vào role route hướng khác nữa)
                 header('Location: ' . $publicBase . '/');
-                exit;
                 exit;
 
             } else {

@@ -15,8 +15,9 @@
     // Controllers
     require_once BASE_PATH . '/app/Controllers/homepageController.php';
     require_once BASE_PATH . '/app/Controllers/authController.php';
-    $homeController = new HomepageController();
-    $authController = new authController();
+    require_once BASE_PATH . '/app/Controllers/baseController.php';
+    
+    $baseController = new baseController();
 
     // vì mọi request đổ về index nên phải kiểm tra quyền thực thi, tức trạng thái đăng nhập trước khi thực hiện route
     if (session_status() === PHP_SESSION_NONE) {
@@ -29,20 +30,70 @@
         exit; 
     }
 
-
-    // Các route
-    switch (true) {
-        // kiểm tra nếu chưa đăng nhập thì dẫn về trang đăng nhập
-        case $requestPath === '/Login' && $_SERVER['REQUEST_METHOD'] === "POST":
-            $authController->login(); break;
-        case $requestPath === '/Login':
-            $authController->renderLogin(""); break;
-        case $requestPath === '/' || $requestPath === '/index.php':
-            $homeController->index();
+    // ROUTE CHO CÁC CHỨC NĂNG LOGIN
+    if($requestPath === "/Login")
+    {
+        $authController = new authController();
+        switch(true)
+        {
+            // nếu gửi form login bằng post
+            case $requestPath === '/Login' && $_SERVER['REQUEST_METHOD'] === "POST":
+                $authController->login(); break;
+            // nếu vô đường dẫn login
+            case $requestPath === '/Login':
+                $authController->renderLogin(""); break;
+            default:
+                $baseController->ErrorNotFound();
             break;
-        default:
-            // Fallback: show homepage for unknown root paths
-            $homeController->index();
-            break;
+        }
     }
+    // ROUTE CHO CÁC PAGE CỦA STUDENT
+    else if($requestPath === "/")
+    {
+        $homeController = new HomepageController();
+        switch (true)
+        {
+            // để tạm
+            case $requestPath === "/":
+                $homeController->index();
+            default:
+                $baseController->ErrorNotFound();
+            break;
+        }
+    }
+    // ROUTE CHO CÁC PAGE CỦA BCS
+    else if($requestPath === "/Staff")
+    {
+        switch (true)
+        {
+            default:
+                $baseController->ErrorNotFound();
+            break;
+        }
+    }
+    // ROUTE CHO CÁC PAGE CỦA ADMIN
+    else if($requestPath === "/Admin")
+    {
+        switch (true)
+        {
+            default:
+                $baseController->ErrorNotFound();
+            break;
+        }
+    }
+    // ROUTE CHO CÁC PAGE QUẢN LÝ TÀI KHOẢN CÁ NHÂN
+    else if($requestPath === "/Account")
+    {
+        switch (true)
+        {
+            default:
+                $baseController->ErrorNotFound();
+            break;
+        }
+    }
+    else
+    {
+        $baseController->ErrorNotFound();
+    }
+
 ?>

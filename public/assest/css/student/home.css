@@ -1,0 +1,159 @@
+.home-student-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f4f7fb;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+/* Tiêu đề */
+.home-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.home-title {
+  font-size: 50px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #0b4d9c;
+  text-transform: uppercase;
+}
+
+/* Card chung */
+.home-section-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  margin-bottom: 24px;
+  padding: 16px 20px 20px;
+}
+
+.home-section-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.home-section-icon {
+  font-size: 18px;
+}
+
+.home-section-title {
+  font-weight: 600;
+  font-size: 25px;
+}
+
+/* Truy cập nhanh */
+.home-section-body {
+  margin-top: 4px;
+}
+
+.home-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.home-quick-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 14px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #e6f2ff, #ffffff);
+  text-decoration: none;
+  border: 1px solid #d0e4ff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.home-quick-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.18);
+  border-color: #3b82f6;
+}
+
+.home-quick-icon {
+  font-size: 28px;
+}
+
+.home-quick-title {
+  font-weight: 600;
+  font-size: 30px;
+  color: #1e293b;
+}
+
+.home-quick-desc {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Thống kê sự kiện */
+.home-semester-title {
+  text-align: center;
+  font-size: 25px;
+  font-weight: 700;
+  color: #e11d48;
+  margin: 4px 0 18px;
+}
+
+.home-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 740px;
+  margin: 0 auto;
+}
+
+.home-stat-item {
+
+  text-align: center;
+  padding: 18px 10px 14px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #e0f2ff, #ffffff);
+  border: 1px solid #cbdffb;
+}
+
+.home-stat-number {
+  font-size: 80px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.home-stat-label {
+  font-size: 25px;
+  font-weight: 500;
+  color: #1d4ed8;
+}
+.home-date-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+/* Responsive */
+@media (max-width: 900px) {
+  .home-quick-grid,
+  .home-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .home-student-container {
+    padding: 16px 12px;
+  }
+
+  .home-quick-grid,
+  .home-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-title {
+    font-size: 22px;
+  }
+}

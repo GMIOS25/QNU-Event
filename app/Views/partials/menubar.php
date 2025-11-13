@@ -105,7 +105,7 @@
 
         <div>
           <button class="toggle" data-bs-toggle="collapse" data-bs-target="#grpDRL" aria-expanded="false">
-            <span class="label"><i class="bi bi-trophy"></i> Quản lý điểm rèn luyện</span>
+            <span class="label"><i class="bi bi-trophy"></i> Điểm rèn luyện</span>
             <i class="bi bi-chevron-down chevron"></i>
           </button>
           <div id="grpDRL" class="collapse submenu">

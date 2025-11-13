@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <base href="<?php global $publicBase; echo $publicBase; ?>/" />
 </head>
 <body>
     <form action="<?php  $_SERVER['PHP_SELF'] ?>" method="POST">

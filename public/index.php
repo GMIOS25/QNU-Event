@@ -64,7 +64,21 @@
             
             $studentController->index();
             break;
-
+        case '/Student/NopMinhChungThamGiaSK':
+            $studentController->showNopMinhChung();
+            break;
+        case '/Student/DangKySuKien':
+            $studentController->showDKSK();
+            break;
+        case '/Student/LichSuKien':
+            $studentController->showLichSK();
+            break;
+        case '/Student/XemDiemRL':
+            $studentController->showXemDiem();
+            break;
+        case '/Student/TuDanhGiaRL':
+            $studentController->showTuDanhGiaRL();
+            break;
         case '/Admin':
             
             $adminController->index();

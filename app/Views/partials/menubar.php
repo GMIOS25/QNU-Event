@@ -86,7 +86,7 @@
       </div>
 
       <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item d-flex align-items-center gap-2">
+        <a href="Student" class="list-group-item d-flex align-items-center gap-2">
           <i class="bi bi-house-door"></i> Tổng quan
         </a>
       <?php if($_SESSION['role']  < 2): ?>
@@ -96,9 +96,9 @@
             <i class="bi bi-chevron-down chevron"></i>
           </button>
           <div id="grpAccounts" class="collapse submenu">
-            <a class="list-group-item" href="#">Đăng ký sự kiện</a>
-            <a class="list-group-item" href="#">Lịch sự kiện</a>
-            <a class="list-group-item" href="#">Nộp minh chứng</a>
+            <a class="list-group-item" href="Student/DangKySuKien">Đăng ký sự kiện</a>
+            <a class="list-group-item" href="Student/LichSuKien">Lịch sự kiện</a>
+            <a class="list-group-item" href="Student/NopMinhChungThamGiaSK">Nộp minh chứng</a>
           </div>
         </div>
 
@@ -109,8 +109,8 @@
             <i class="bi bi-chevron-down chevron"></i>
           </button>
           <div id="grpDRL" class="collapse submenu">
-            <a class="list-group-item" href="#">Xem điểm</a>
-            <a class="list-group-item" href="#">Tự đánh giá rèn luyện</a>
+            <a class="list-group-item" href="Student/XemDiemRL">Xem điểm</a>
+            <a class="list-group-item" href="Student/TuDanhGiaRL">Tự đánh giá rèn luyện</a>
           </div>
         </div>
 

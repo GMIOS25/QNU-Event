@@ -4,8 +4,8 @@
     <base href="<?php global $publicBase; echo $publicBase; ?>/" />
 </head>
 <body>
-    <form action="<?php  $_SERVER['PHP_SELF'] ?>" method="POST">
-        <label for="txt_username">Tên đăng nhập</label>
+    <form action="" method="POST">
+        <label for="txt_username">Mã sinh viên hoặc Email</label>
         <input type="text" name="txt_username" required>
         <label for="txt_password">Mật khẩu</label>
         <input type="password" name="txt_password" required>

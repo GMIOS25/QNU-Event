@@ -22,9 +22,6 @@
             $stm->close();
             if ($result->num_rows > 0) {
                 $userData = $result->fetch_assoc();
-                if (session_status() === PHP_SESSION_NONE) {
-                    session_start();
-                }
                 return $userData["MSSV"];
 
             } else {
@@ -43,9 +40,6 @@
             $stm->close();
             if ($result->num_rows > 0) {
                 $userData = $result->fetch_assoc();
-                if (session_status() === PHP_SESSION_NONE) {
-                    session_start();
-                }
                 return $userData["AdminID"];
 
             } else {

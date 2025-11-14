@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"my-mcp-server-e915ef2e": {
+			"url": "http://127.0.0.1:3845/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}

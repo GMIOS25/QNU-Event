@@ -15,6 +15,7 @@
 
     // Controllers
     require_once BASE_PATH . '/app/Controllers/authController.php';
+    require_once BASE_PATH . '/app/Controllers/bcsController.php';
     require_once BASE_PATH . '/app/Controllers/baseController.php';
     require_once BASE_PATH . '/app/Controllers/studentController.php';
     require_once BASE_PATH . '/app/Controllers/adminController.php';
@@ -31,7 +32,7 @@
     $authController = new authController();
     $studentController = new studentController();
     $adminController = new adminController();
-
+    $bcsController = new bcsController();
 
     $unauthPaths = ['/Auth/Login', '/Auth/Logout'];
     if (!isset($_SESSION['UID']) && !in_array($requestPath, $unauthPaths)) {
@@ -78,6 +79,12 @@
             break;
         case '/Student/TuDanhGiaRL':
             $studentController->showTuDanhGiaRL();
+            break;
+        case '/BCS/DuyetMinhChung':
+            $bcsController->showDuyetMinhChung();
+            break;
+        case '/BCS/DuyetPhieuRL':
+            $bcsController->showDuyetPhieuRL();
             break;
         case '/Admin':
             

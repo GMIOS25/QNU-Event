@@ -121,8 +121,8 @@
             <i class="bi bi-chevron-down chevron"></i>
           </button>
           <div id="grpSystem" class="collapse submenu">
-            <a class="list-group-item" href="#">Duyệt minh chứng</a>
-            <a class="list-group-item" href="#">Duyệt phiếu tự đánh giá RL</a>
+            <a class="list-group-item" href="BCS/DuyetMinhChung">Duyệt minh chứng</a>
+            <a class="list-group-item" href="BCS/DuyetPhieuRL">Duyệt phiếu tự đánh giá RL</a>
 
           </div>
         </div>

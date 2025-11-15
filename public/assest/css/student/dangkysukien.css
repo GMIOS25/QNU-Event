@@ -1,0 +1,110 @@
+/* PAGE WRAPPER */
+.event-register-page {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  padding: 16px;
+  background: #f5f7fb;
+}
+
+/* SECTION CARD */
+.section-card {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+  padding: 16px 18px 20px;
+}
+
+.section-card-header {
+  margin-bottom: 12px;
+}
+
+.section-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+/* TABLE WRAPPER */
+.section-card-body {
+  overflow-x: auto;
+}
+
+/* TABLE */
+.event-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 760px;
+}
+
+.event-table thead {
+  background: #e9eef7;
+}
+
+.event-table th,
+.event-table td {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 15px;
+  border-bottom: 1px solid #e2e6ee;
+}
+
+.event-table th {
+  font-weight: 700;
+  color: #2d3648;
+}
+
+.event-table tbody tr:hover {
+  background: #f2f4f8;
+}
+
+/* BUTTON LINKS */
+.btn-link {
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+/* Đăng ký */
+.btn-register {
+  background: #1d72f2;
+  color: #fff;
+}
+.btn-register:hover {
+  background: #0d5fd8;
+}
+
+/* Xem chi tiết */
+.btn-detail {
+  background: #6b7280;
+  color: #fff;
+}
+.btn-detail:hover {
+  background: #4b5563;
+}
+
+/* Hủy đăng ký */
+.btn-cancel {
+  background: #ef4444;
+  color: white;
+}
+.btn-cancel:hover {
+  background: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .section-card-title {
+    font-size: 16px;
+  }
+  
+  .event-table th,
+  .event-table td {
+    font-size: 14px;
+    padding: 8px;
+  }
+}

@@ -77,14 +77,14 @@ body {
   justify-content: center;
 }
 .logo-wrap img {
-  width: 86px;
-  height: 86px;
+  width: 138px;
+  height: 138px;
   object-fit: contain;
 }
 .card-title {
   color: #e53935;
-  font-size: 14px;
-  margin: 10px 0 12px;
+  font-size: 20px;
+  margin: 10px 0 20px;
   font-weight: 700;
   letter-spacing: 0.6px;
 }
@@ -103,7 +103,7 @@ body {
 }
 label {
   display: block;
-  font-size: rem(14px);
+  font-size: 16px;
   color: var(--muted);
   margin-top: 8px;
   margin-bottom: 8px;
@@ -128,23 +128,24 @@ input::placeholder {
   margin-top: 12px;
 }
 .remember {
-  font-size: 14px;
+  font-size: px;
   color: var(--muted);
   display: flex;
   align-items: center;
 }
 .remember input {
-  margin-right: 8px;
+  margin-right: 14px;
 }
 .btn-submit {
-  margin-top: 18px;
+  margin-top: 20px;
   width: 100%;
-  padding: 11px 14px;
+  padding: 16px 14px;
   background: var(--accent);
   color: white;
   border: none;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
 }
 .btn-submit:hover {

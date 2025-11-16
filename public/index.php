@@ -90,9 +90,10 @@
             
             $adminController->index();
             break;
-        case '/Admin/QLSuKien':
-            
-            $adminController->showQLSuKien();
+        case '/Admin/QLSuKien' && $_SERVER['REQUEST_METHOD'] ===  'GET':
+
+            $adminController->showQLSuKien((isset($_GET['state'])) ? $_GET['state'] : NULL , 
+            (isset($_GET['txtSearch'])) ? $_GET['txtSearch'] : NULL, (isset($_GET['page'])) ? $_GET['page'] : NULL);
             break;
         case '/Admin/QLSuKien/ThemSuKien': 
             if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form

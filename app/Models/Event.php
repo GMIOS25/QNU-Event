@@ -59,6 +59,23 @@
                 return 0;
             }            
         }
+        public function getListEvent($sql)
+        {
+            $result = $this->conn->query($sql);
+            $data = [];
+            if (mysqli_num_rows($result) > 0)   
+            {
+                while ($row = mysqli_fetch_array($result))
+                {
+                    $data[] = $row;
+                }
+                return $data;
+            }
+            else
+            {
+                return 0;
+            }  
+        }
 
     }
 

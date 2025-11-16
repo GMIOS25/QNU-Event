@@ -22,24 +22,33 @@
             <div class="filter-bar d-flex align-items-center mb-3">
                 <div class="filter-item d-flex align-items-center me-3">
                     <span class="me-2">Trạng thái:</span>
-                    <select class="form-select custom-filter-select">
-                        <option selected>Tất cả</option>
-                        <option value="1">Sắp diễn ra</option>
-                        <option value="2">Đang mở đăng ký</option>
-                        <option value="3">Đã kết thúc</option>
-                    </select>
-                </div>
-                <div class="filter-item d-flex align-items-center me-3">
-                    <span class="me-2">Phòng:</span>
-                    <select class="form-select custom-filter-select">
-                        <option selected>Tất cả</option>
-                        <option value="1">Nhà thi đấu</option>
-                        <option value="2">Hội trường A</option>
+                    <select class="form-select custom-filter-select"   
+                    onchange="window.location.href = 'Admin/QLSuKien?state='+ this.value">
+                        <option value="0">Tất cả </option>
+                        <option value="1" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 1) echo "selected";} ?>>Sắp diễn ra</option>
+                        <option value="4" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 4) echo "selected";} ?>>Đang diễn ra</option>
+                        <option value="2" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 2) echo "selected";} ?>>Đang mở đăng ký</option>
+                        <option value="3" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 3) echo "selected";} ?>>Đã kết thúc</option>
                     </select>
                 </div>
                 <div class="search-bar ms-auto position-relative">
-                    <input type="text" class="form-control custom-search" placeholder="Tìm kiếm ...">
-                    <i class="bi bi-search search-icon"></i>
+                    <form action="Admin/QLSuKien" method="GET" class="form d-flex">
+                        <?php 
+                            if(isset($_GET["txtSearch"]))
+                                echo '<a  href="Admin/QLSuKien">Hủy tìm kiếm</a>
+                                         <input type="text" name="txtSearch" class="form-control custom-search" required value="'.$_GET["txtSearch"].'" placeholder="Tìm kiếm ...">';
+                            else
+                            {
+                                echo '<input type="text" name="txtSearch" class="form-control custom-search" required placeholder="Tìm kiếm ...">';
+                            }
+                        ?>
+                       
+                       <button type="submit" 
+                                class="btn btn-primary d-flex justify-content-center align-items-center"
+                                style="width: 50px;">
+                            <i class="bi bi-search" style="font-size: 10px;"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
 

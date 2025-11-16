@@ -12,16 +12,53 @@
         public function showQLSuKien($state = null, $search = null, $pageNumber = null)
         {
             $eventModel = new Event();
-            $listEventRaw = $eventModel->getAllEvent();
+            $listEventRaw = [];
+            if(!is_null($search))
+            {
+                $listEventRaw = $eventModel->getListEvent("Select * from sukien where MaSK = '$search' or TenSK like '%$search%'") ;
+            }
+            else if(!is_null($state))
+            {
+                if($state == 1)
+                {
+                    $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
+                        WHERE NOW() BETWEEN ThoiGianDongDK AND ThoiGianBatDauSK") ;
+                }
+                else if($state == 2)
+                {
+                    $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
+                        WHERE NOW() BETWEEN ThoiGianMoDK AND ThoiGianDongDK") ;
+                }
+                else if($state == 3)
+                {
+                    $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
+                        WHERE NOW() > ThoiGianKetThucSK") ;
+                }
+                else if($state == 4)
+                {
+                    $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
+                        WHERE NOW() BETWEEN ThoiGianBatDauSK AND ThoiGianKetThucSK") ;
+                }
+                else
+                {
+                    $listEventRaw = $eventModel->getAllEvent();
+                }
+
+            }
+            else
+            {
+                $listEventRaw = $eventModel->getAllEvent();
+            }
+            
             $listEvent = [];
             foreach ($listEventRaw as $eventRawData)    
             {
                 $currentTime = time();
 
-                $moDK      = strtotime($eventRawData["ThoiGianMoDK"]);
-                $dongDK    = strtotime($eventRawData["ThoiGianDongDK"]);
-                $batDau    = strtotime($eventRawData["ThoiGianBatDauSK"]);
-                $ketThuc   = strtotime($eventRawData["ThoiGianKetThucSK"]);
+                $moDK = strtotime($eventRawData["ThoiGianMoDK"]);
+                $dongDK = strtotime($eventRawData["ThoiGianDongDK"]);
+                $batDau = strtotime($eventRawData["ThoiGianBatDauSK"]);
+                $ketThuc = strtotime($eventRawData["ThoiGianKetThucSK"]);
 
                 if ($currentTime >= $batDau && $currentTime <= $ketThuc) {
                     $descripState = "Đang diễn ra";

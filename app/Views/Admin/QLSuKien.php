@@ -53,7 +53,7 @@
                 </div>
                 
                 <div class="event-table-body">
-                    <div class="event-table-row">
+                    <!-- <div class="event-table-row">
                         <div class="data-cell" style="flex-basis: 12%;">SK0036</div>
                         <div class="data-cell" style="flex-basis: 33%;">Tham dự giải cầu lông QNU 2025</div>
                         <div class="data-cell" style="flex-basis: 18%;">Sắp diễn ra</div>
@@ -64,31 +64,27 @@
                                 <span>Quản lý chi tiết</span>
                             </button>
                         </div>
-                    </div>
-                    <div class="event-table-row">
-                        <div class="data-cell" style="flex-basis: 12%;">SK0037</div>
-                        <div class="data-cell" style="flex-basis: 33%;">ITQNU Challenge</div>
-                        <div class="data-cell" style="flex-basis: 18%;">Đang mở đăng ký</div>
-                        <div class="data-cell" style="flex-basis: 17%;">Nhà thi đấu</div>
-                        <div class="data-cell" style="flex-basis: 20%;">
-                            <button class="btn btn-detail">
-                                <i class="bi bi-camera"></i>
-                                <span>Quản lý chi tiết</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="event-table-row">
-                        <div class="data-cell" style="flex-basis: 12%;">SK0038</div>
-                        <div class="data-cell" style="flex-basis: 33%;">Giải thể thao điện tử ITQNU</div>
-                        <div class="data-cell" style="flex-basis: 18%;">Đang mở đăng ký</div>
-                        <div class="data-cell" style="flex-basis: 17%;">Nhà thi đấu</div>
-                        <div class="data-cell" style="flex-basis: 20%;">
-                            <button class="btn btn-detail">
-                                <i class="bi bi-camera"></i>
-                                <span>Quản lý chi tiết</span>
-                            </button>
-                        </div>
-                    </div>
+                    </div> -->
+                    <?php 
+                        foreach ($listEvent as $event) 
+                        {
+                            echo '
+                                <div class="event-table-row">
+                                    <div class="data-cell" style="flex-basis: 12%;">'.$event['MaSK'].'</div>
+                                    <div class="data-cell" style="flex-basis: 33%;">'.$event['TenSK'].'</div>
+                                    <div class="data-cell" style="flex-basis: 18%;">'.$event['TrangThai'].'</div>
+                                    <div class="data-cell" style="flex-basis: 17%;">'.$event['NoiToChuc'].'</div>
+                                    <div class="data-cell" style="flex-basis: 20%;">
+                                        <button class="btn btn-detail">
+                                            <i class="bi bi-camera"></i>
+                                            <span>Quản lý chi tiết</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            ';
+                        }
+                    
+                    ?>
                 </div>
             </div>
 

@@ -4,7 +4,7 @@
 
     ini_set('display_errors', 1);
     define('BASE_PATH', dirname(__DIR__));
-
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
     // Normalize request path relative to the public directory
     $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $publicBase  = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');

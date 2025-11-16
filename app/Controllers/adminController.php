@@ -9,45 +9,58 @@
             $render = __DIR__ . "/../Views/home.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
-        public function showQLSuKien($state = null, $search = null, $pageNumber = null)
+        public function showQLSuKien($state = null, $search = null, $page = null, $limitElement = null)
         {
+             
             $eventModel = new Event();
+            $numRows = 0;
             $listEventRaw = [];
             if(!is_null($search))
             {
-                $listEventRaw = $eventModel->getListEvent("Select * from sukien where MaSK = '$search' or TenSK like '%$search%'") ;
+                $numRows = $eventModel->getNumRows("Select * from SuKien where MaSK = '$search' or TenSK like '%$search%' ");
+                $listEventRaw = $eventModel->getListEvent("Select * from sukien where MaSK = '$search' or TenSK like '%$search%' LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
             }
             else if(!is_null($state))
             {
                 if($state == 1)
                 {
+                    $numRows = $eventModel->getNumRows("SELECT * FROM sukien 
+                        WHERE NOW() BETWEEN ThoiGianDongDK AND ThoiGianBatDauSK ORDER BY ThoiGianBatDauSK");
                     $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
-                        WHERE NOW() BETWEEN ThoiGianDongDK AND ThoiGianBatDauSK") ;
+                        WHERE NOW() BETWEEN ThoiGianDongDK AND ThoiGianBatDauSK ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
                 }
                 else if($state == 2)
                 {
+                    $numRows = $eventModel->getNumRows("ELECT * FROM sukien 
+                        WHERE NOW() BETWEEN ThoiGianMoDK AND ThoiGianDongDK ORDER BY ThoiGianBatDauSK DESC");
                     $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
-                        WHERE NOW() BETWEEN ThoiGianMoDK AND ThoiGianDongDK") ;
+                        WHERE NOW() BETWEEN ThoiGianMoDK AND ThoiGianDongDK ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
                 }
                 else if($state == 3)
                 {
+                    $numRows = $eventModel->getNumRows("SELECT * FROM sukien 
+                        WHERE NOW() > ThoiGianKetThucSK ORDER BY ThoiGianBatDauSK DESC ");
                     $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
-                        WHERE NOW() > ThoiGianKetThucSK") ;
+                        WHERE NOW() > ThoiGianKetThucSK ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
                 }
                 else if($state == 4)
                 {
+                    $numRows = $eventModel->getNumRows("SELECT * FROM sukien 
+                        WHERE NOW() BETWEEN ThoiGianBatDauSK AND ThoiGianKetThucSK ORDER BY ThoiGianBatDauSK DESC");
                     $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
-                        WHERE NOW() BETWEEN ThoiGianBatDauSK AND ThoiGianKetThucSK") ;
+                        WHERE NOW() BETWEEN ThoiGianBatDauSK AND ThoiGianKetThucSK ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
                 }
                 else
                 {
-                    $listEventRaw = $eventModel->getAllEvent();
+                    $numRows = $eventModel->getNumRows("Select * from SuKien");
+                    $listEventRaw = $eventModel->getAllEvent($limitElement,$page);
                 }
 
             }
             else
             {
-                $listEventRaw = $eventModel->getAllEvent();
+                $numRows = $eventModel->getNumRows("Select * from SuKien");
+                $listEventRaw = $eventModel->getAllEvent($limitElement, $page);
             }
             
             $listEvent = [];

@@ -41,9 +41,17 @@
                 return 0;
             }
         }
-        public function getAllEvent()
+        public function getNumRows($sql)
         {
-            $sql = "Select * from SuKien ORDER BY ThoiGianBatDauSK DESC";
+            $result = $this->conn->query($sql);      
+            return (int)mysqli_num_rows($result); 
+        }
+        public function getAllEvent($limitElement=null,$page=null)
+        {
+            if($page == null)
+                $sql = "Select * from SuKien ORDER BY ThoiGianBatDauSK DESC";
+            else
+                $sql = "Select * from SuKien ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement).""; 
             $result = $this->conn->query($sql);
             $data = [];
             if (mysqli_num_rows($result) > 0)   
@@ -59,6 +67,7 @@
                 return 0;
             }            
         }
+        
         public function getListEvent($sql)
         {
             $result = $this->conn->query($sql);

@@ -99,14 +99,63 @@
 
             <div class="pagination-container d-flex justify-content-center mt-4">
                 <div class="pagination">
-                    <div class="page-item disabled"><a class="page-link" href="#">&lt;</a></div>
-                    <div class="page-item active"><a class="page-link" href="#">1</a></div>
-                    <div class="page-item"><a class="page-link" href="#">2</a></div>
-                    <div class="page-item"><a class="page-link" href="#">3</a></div>
-                    <div class="page-item"><a class="page-link" href="#">4</a></div>
-                    <div class="page-item"><a class="page-link" href="#">&gt;</a></div>
+                    <?php 
+                        function buildPageUrl($i) {
+                            $base = 'Admin/QLSuKien?page=' . $i;
+
+                            if (isset($_GET['txtSearch'])) {
+                                $base .= '&txtSearch=' . urlencode($_GET['txtSearch']);
+                            }
+                            if (isset($_GET['state'])) {
+                                $base .= '&state=' . urlencode($_GET['state']);
+                            }
+                            return $base;
+                        }
+
+                        $currentPage = isset($_GET['page']) ? $_GET['page'] :1; 
+                        $maxPage = ceil($numRows/5);
+                        echo '<ul class="pagination">';
+
+                        for ($i = max(1, $currentPage - 3); $i < $currentPage; $i++) {
+                            echo '
+                                <li class="page-item">
+                                    <a class="page-link" href="'. buildPageUrl($i) .'">'. $i .'</a>
+                                </li>
+                            ';
+                        }
+
+                        echo '
+                            <li class="page-item active">
+                                <a class="page-link" href="'. buildPageUrl($i) .'">'. $currentPage .'</a>
+                            </li>
+                        ';
+
+                        for ($i = $currentPage + 1; $i <= min($maxPage, $currentPage + 3); $i++) {
+                            echo '
+                                <li class="page-item">
+                                    <a class="page-link" href="'. buildPageUrl($i) .'">'. $i .'</a>
+                                </li>
+                            ';
+                        }
+
+                        echo '</ul>';
+
+                    
+                    ?>
                 </div>
             </div>
 
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentPage = urlParams.get("page") || "1"; 
+    
+    document.querySelectorAll(".page-item a").forEach(a => {
+        if (a.textContent.trim() === currentPage) {
+            a.parentElement.classList.add("active");
+        }
+        });
+    });
+    </script>

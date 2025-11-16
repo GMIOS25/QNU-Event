@@ -90,8 +90,21 @@
             
             $adminController->index();
             break;
+        case '/Admin/QLSuKien':
+            
+            $adminController->showQLSuKien();
+            break;
+        case '/Admin/QLSuKien/ThemSuKien': 
+            if($_SESSION['REQUEST_METHOD'] == 'POST') // dành cho submit form
+            {
 
-
+            }
+            else
+            {
+                $adminController->showThemSuKien();
+            }
+            
+            break;
         case '/Account':
         default:
             $baseController->ErrorNotFound();

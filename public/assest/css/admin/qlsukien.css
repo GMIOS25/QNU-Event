@@ -1,0 +1,190 @@
+/* Thiết lập cơ bản */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f0f2f5; /* Màu nền xám nhạt */
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+/* Thẻ card chính */
+.event-manager-card {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 28px;
+}
+
+/* Tiêu đề */
+.card-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+}
+
+/* Thanh công cụ */
+.toolbar-left {
+    font-size: 18px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.toolbar-left i {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.toolbar-right .btn-primary {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+/* Thanh Lọc */
+.filter-bar span {
+    color: #555;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.custom-filter-select {
+    width: auto;
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 32px 8px 12px;
+}
+
+.custom-filter-select:focus {
+    background-color: #e9ecef;
+    box-shadow: none;
+}
+
+.search-bar .custom-search {
+    border-radius: 8px;
+    padding-right: 40px; /* Thêm space cho icon */
+    background-color: #f0f2f5;
+    border: none;
+}
+
+.search-bar .custom-search:focus {
+    background-color: #e9ecef;
+    box-shadow: none;
+}
+
+.search-bar .search-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+/* Cấu trúc Bảng (dùng DIV) */
+.event-table-header,
+.event-table-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.event-table-header {
+    background-color: #0091ff; /* Màu xanh dương từ hình */
+    color: #ffffff;
+    font-weight: 600;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.header-cell,
+.data-cell {
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+    /* flex-basis được đặt inline trong HTML để dễ tùy chỉnh */
+}
+
+.event-table-body .event-table-row {
+    border-bottom: 1px solid #dee2e6; /* Đường kẻ ngang */
+}
+
+.event-table-body .event-table-row:last-child {
+    border-bottom: none; /* Bỏ đường kẻ ở hàng cuối */
+}
+
+.data-cell {
+    color: #495057;
+    font-size: 15px;
+}
+
+/* Nút chi tiết tùy chỉnh */
+.btn-detail {
+    background-color: #e6f2ff; /* Màu nền xanh nhạt */
+    color: #007bff; /* Màu chữ xanh đậm */
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.btn-detail:hover {
+    background-color: #d1e9ff;
+    color: #0056b3;
+}
+
+.btn-detail i {
+    margin-right: 6px;
+    font-size: 1.1rem;
+}
+
+/* Phân trang (dùng DIV) */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+
+.page-item .page-link {
+    color: #007bff;
+    border: 1px solid #dee2e6;
+    margin: 0 4px;
+    border-radius: 50% !important; /* Bắt buộc hình tròn */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.page-item .page-link:hover {
+    background-color: #f0f2f5;
+}
+
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+}
+
+.page-item.disabled .page-link {
+    color: #adb5bd;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+

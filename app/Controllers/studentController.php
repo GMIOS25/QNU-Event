@@ -9,7 +9,7 @@
         public function index()
         {
             $title = "Trang chủ";
-            $render = __DIR__ . "/../Views/Student/home.php";
+            $render = __DIR__ . "/../Views/home.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
         public function showDKSK()

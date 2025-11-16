@@ -129,7 +129,7 @@
         <?php endif ?>
         <?php elseif($_SESSION['role'] == 2): ?>
         <!-- Quản lý sự kiện (mục đơn, đang active) -->
-        <a href="#" class="list-group-item active d-flex align-items-center gap-2">
+        <a href="Admin/QLSuKien" class="list-group-item d-flex align-items-center gap-2">
           <i class="bi bi-calendar-event"></i> Quản lý sự kiện
         </a>
 

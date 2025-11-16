@@ -8,43 +8,35 @@
     <title>Đăng nhập - QNU Event</title>
 </head>
 <body>
-    <main class="login-page">
-        <section class="login-card">
-            <div class="login-brand">
-                <h1>QNU Event</h1>
-                <p>Quản lý sự kiện - Trường Đại học</p>
+    <div class="bg-wrap"></div>
+    <div class="bg-frame"></div>
+
+    <main class="center-wrap">
+        <div class="login-card">
+            <div class="logo-wrap">
+                <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/11/Logo-Dai-hoc-Quy-Nhon-1.png" alt="QNU logo" onerror="this.style.display='none'" />
             </div>
 
-            <form class="login-form" action="" method="POST" autocomplete="off">
-                <h2>Đăng nhập</h2>
+            <h3 class="card-title">HỆ THỐNG QUẢN LÝ SỰ KIỆN</h3>
 
-                 <?php if(!empty($message)): ?>
+            <form class="login-form" action="" method="POST" autocomplete="off">
+                <?php if(!empty($message)): ?>
                     <div class="form-message"><?php echo $message; ?></div>
                 <?php endif; ?>
 
-                <label for="txt_username">Mã sinh viên hoặc Email</label>
-                <input id="txt_username" type="text" name="txt_username" required value="<?php echo isset($_POST['txt_username'])?htmlspecialchars($_POST['txt_username']):''; ?>" />
+                <label for="txt_username">Mã sinh viên hoặc Email :</label>
+                <input id="txt_username" type="text" name="txt_username" placeholder="Nhập tài khoản ..." required value="<?php echo isset($_POST['txt_username'])?htmlspecialchars($_POST['txt_username']):''; ?>" />
 
-                <label for="txt_password">Mật khẩu</label>
-                <input id="txt_password" type="password" name="txt_password" required />
+                <label for="txt_password">Mật khẩu :</label>
+                <input id="txt_password" type="password" name="txt_password" placeholder="Nhập mật khẩu ..." required />
 
                 <div class="form-row">
-                    <label class="remember"><input type="checkbox" name="remember" /> Ghi nhớ đăng nhập</label>
-                    <a class="forgot" href="#">Quên mật khẩu?</a>
+                    <label class="remember"><input type="checkbox" name="remember" /> Lưu đăng nhập</label>
                 </div>
 
                 <button type="submit" class="btn-submit">Đăng nhập</button>
-
-                <div class="signup-link">Bạn chưa có tài khoản? <a href="#">Đăng ký</a></div>
             </form>
-
-            <aside class="login-aside">
-                <div class="aside-content">
-                    <h3>Chào mừng đến với QNU Event</h3>
-                    <p>Quản lý đăng ký, minh chứng và điểm rèn luyện tín chỉ cho sinh viên.</p>
-                </div>
-            </aside>
-        </section>
+        </div>
     </main>
 </body>
 </html>

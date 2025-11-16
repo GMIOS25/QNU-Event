@@ -1,47 +1,163 @@
-/* Login page styles for QNU-Event
-   Simple, responsive layout inspired by the provided design.
-*/
-:root{
-	--bg:#f4f7fb;
-	--card:#ffffff;
-	--accent:#0b5ed7; /* blue */
-	--muted:#6b7280;
-	--radius:12px;
-	--shadow: 0 6px 24px rgba(15,23,42,0.08);
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;background:var(--bg);color:#0f172a;}
-.login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
-.login-card{display:flex;width:100%;max-width:980px;background:linear-gradient(90deg, rgba(255,255,255,1) 60%, rgba(243,247,255,1) 100%);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+/* Login page styles for QNU-Event — refined to match provided design */
 
-.login-brand{display:none}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-.login-form{flex:1;padding:44px 40px 40px 40px;background:var(--card)}
-.login-form h2{margin:0 0 18px;font-size:24px}
-.form-message{background:#fff3f2;color:#c92a2a;border:1px solid #ffd7d4;padding:10px;border-radius:8px;margin-bottom:12px}
-label{display:block;font-size:13px;color:var(--muted);margin-top:12px;margin-bottom:6px}
-input[type="text"],input[type="password"]{width:100%;padding:12px 14px;border:1px solid #e6e9ee;border-radius:8px;font-size:15px}
-.form-row{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
-.remember{font-size:13px;color:var(--muted)}
-.forgot{font-size:13px;color:var(--accent);text-decoration:none}
-.btn-submit{margin-top:18px;width:100%;padding:12px 14px;background:var(--accent);color:white;border:none;border-radius:8px;font-weight:600;cursor:pointer}
-.btn-submit:hover{filter:brightness(.98)}
-.signup-link{margin-top:12px;font-size:13px;color:var(--muted)}
-.signup-link a{color:var(--accent);text-decoration:none;font-weight:600}
-
-.login-aside{width:360px;padding:40px;background:linear-gradient(180deg,var(--accent),#3b82f6);color:white;display:flex;align-items:center;justify-content:center}
-.aside-content h3{margin:0 0 8px;font-size:20px}
-.aside-content p{margin:0;color:rgba(255,255,255,0.9)}
-
-/* Responsive */
-@media (max-width:880px){
-	.login-card{flex-direction:column}
-	.login-aside{display:none}
-	.login-form{padding:28px}
+:root {
+  --bg-overlay: rgba(0, 0, 0, 0.45);
+  --card: #ffffff;
+  --accent: #00A8E8; /* button */
+  --accent-dark: #007EA7;
+  --muted: #6b7280;
+  --radius: 12px;
+  --shadow: 0 18px 60px rgba(2, 6, 23, 0.45);
+  --bg-link: url("https://sceneplus.vn/storage/photos/shares/CONG/CANH-QUAN/DH-QUY-NHON/57.jpg");
 }
 
-@media (max-width:420px){
-	.login-form{padding:18px}
-	.btn-submit,input[type="text"],input[type="password"]{font-size:14px}
+* {
+  box-sizing: border-box;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  z-index: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  color: #000000;
+  min-height: 100vh;
+}
+
+/* full-screen background image layer (place image at public/assest/img/bg.jpg) */
+.bg-wrap {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-link);
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.bg-frame {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: var(--bg-overlay);
+}
+
+.center-wrap {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.login-card {
+  width: 420px;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 32px 34px 30px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.logo-wrap {
+  margin: auto;
+  border-radius: 24px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo-wrap img {
+  width: 86px;
+  height: 86px;
+  object-fit: contain;
+}
+.card-title {
+  color: #e53935;
+  font-size: 14px;
+  margin: 10px 0 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+}
+
+.login-form {
+  display: block;
+  text-align: left;
+}
+.form-message {
+  background: #fff3f2;
+  color: #c92a2a;
+  border: 1px solid #ffd7d4;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+label {
+  display: block;
+  font-size: rem(14px);
+  color: var(--muted);
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e9eef3;
+  border-radius: 8px;
+  background: #f7fbfe;
+  font-size: 14px;
+  color: #0f172a;
+}
+input::placeholder {
+  color: #9aa6b2;
+}
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 12px;
+}
+.remember {
+  font-size: 14px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+}
+.remember input {
+  margin-right: 8px;
+}
+.btn-submit {
+  margin-top: 18px;
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  opacity: 0.96;
+}
+
+/* small screens */
+@media (max-width: 480px) {
+  .login-card {
+    width: 92%;
+    padding: 22px;
+  }
+  .logo-wrap {
+    margin-top: -46px;
+  }
+}

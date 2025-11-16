@@ -95,9 +95,9 @@
             $adminController->showQLSuKien();
             break;
         case '/Admin/QLSuKien/ThemSuKien': 
-            if($_SESSION['REQUEST_METHOD'] == 'POST') // dành cho submit form
+            if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
             {
-
+                $adminController->submitThemSuKien();
             }
             else
             {

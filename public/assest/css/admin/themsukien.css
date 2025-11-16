@@ -136,6 +136,8 @@
   background: #f9fafb;
   padding: 10px 12px;
   max-width: 360px;
+  max-height: 200px;
+  overflow-y: scroll;
 }
 
 .dept-item {

@@ -18,11 +18,11 @@
     </div>
 
     <!-- Form -->
-    <form class="event-form">
+    <form class="event-form" method="POST">
       <!-- Tên sự kiện -->
       <div class="event-form-group">
         <label for="event-name">Tên sự kiện:</label>
-        <input type="text" name="txtTenSuKien" id="event-name" placeholder="Nhập tên sự kiện ..." />
+        <input type="text" name="txtTenSuKien" id="event-name" placeholder="Nhập tên sự kiện ..." required/>
       </div>
 
       <!-- Thời gian sự kiện -->
@@ -30,7 +30,7 @@
         <div class="event-form-group">
           <label for="start-time">Thời gian bắt đầu sự kiện:</label>
           <div class="input-with-icon">
-            <input name = "txtThoiGianBatDauSK" type="datetime-local" id="start-time" />
+            <input name = "txtThoiGianBatDauSK" type="datetime-local" id="start-time" required />
              
           </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="event-form-group">
           <label for="end-time">Thời gian kết thúc sự kiện:</label>
           <div class="input-with-icon">
-            <input name="txtThoiGianKetThucSK" type="datetime-local" id="end-time" />
+            <input name="txtThoiGianKetThucSK" type="datetime-local" id="end-time"  required/>
              
           </div>
         </div>
@@ -49,14 +49,14 @@
         <div class="event-form-group">
           <label for="reg-open">Thời gian mở đăng ký:</label>
           <div class="input-with-icon">
-            <input name="txtThoiGianMoDK" type="datetime-local" id="reg-open" />
+            <input name="txtThoiGianMoDK" type="datetime-local" id="reg-open" required />
           </div>
         </div>
 
         <div class="event-form-group">
           <label for="reg-close">Thời gian đóng đăng ký:</label>
           <div class="input-with-icon">
-            <input   name="txtThoiGianDongDK" type="datetime-local" id="reg-close" />
+            <input   name="txtThoiGianDongDK" type="datetime-local" id="reg-close" required />
              
           </div>
         </div>
@@ -66,7 +66,7 @@
       <div class="event-form-row">
         <div class="event-form-group">
           <label for="room">Nơi tổ chức:</label>
-            <input  name="txtNoiToChuc" type="text" id="event-place" placeholder="Nhập nơi tổ chức" />
+            <input  name="txtNoiToChuc" type="text" id="event-place" placeholder="Nhập nơi tổ chức"  required/>
         </div>
 
 
@@ -78,32 +78,44 @@
           type="number"
           id="limit"
           min="0"
-          placeholder="Nhập số lượng (nhập 0 để không giới hạn) ..."
+          placeholder="Nhập số lượng (nhập 0 để không giới hạn) ..." required
         />
       </div>
 </div>
       <div class="event-form-group">
         <label for="limit">Số điểm cộng:</label>
         <input
-             name="txtSoDiemCong"
+             name="txtDiemCong"
           type="number"
           id="limit"
           min="0"
-          placeholder="Nhập số điểm "
+          placeholder="Nhập số điểm " required
         />
       </div>
-
+        
+      <div class="event-form-group">
+        <label for="txtKhoaToChuc">Chọn khoa tổ chức:</label>
+        <select name="txtKhoaToChuc" id="cars" require>
+            <!-- <option value="volvo">Volvo</option> -->
+            <?php 
+                foreach ($listKhoa as $row)
+                {
+                    echo '<option value="'.$row['MaKhoa'].'">'.$row['TenKhoa'].'</option>';
+                }
+            ?>
+        </select>
+      </div>
 
             <!-- Khoa tham gia -->
         <div class="event-form-group">
         <label>Cho phép những khoa sau tham gia sự kiện:</label>
         <div class="department-box">
             <label class="dept-item">
-            <input type="checkbox" id="check-all-departments" />
+            <input type="checkbox" id="check-all-departments"/>
             <span>Chọn tất cả các khoa</span>
             </label>
 
-            <label class="dept-item">
+            <!-- <label class="dept-item">
             <input
                 type="checkbox"
                 name="listkhoathamgia[]"
@@ -111,25 +123,22 @@
                 class="dept-checkbox"
             />
             <span>Khoa sư phạm</span>
-            </label>
-            <label class="dept-item">
-            <input
-                type="checkbox"
-                name="listkhoathamgia[]"
-                value="CNTT"
-                class="dept-checkbox"
-            />
-            <span>Khoa CNTT</span>
-            </label>
-            <label class="dept-item">
-            <input
-                type="checkbox"
-                name="listkhoathamgia[]"
-                value="KTKT"
-                class="dept-checkbox"
-            />
-            <span>Khoa kinh tế - kế toán</span>
-            </label>
+            </label> -->    
+            <?php 
+                foreach ($listKhoa as $row)
+                {
+                    echo '<label class="dept-item">
+                        <input
+                            type="checkbox"
+                            name="listkhoathamgia[]"
+                            value="'.$row['MaKhoa'].'"
+                            class="dept-checkbox"
+                        />
+                        <span>'.$row['TenKhoa'].'</span>
+                        </label>';
+                        
+                }
+            ?>
         </div>
         </div>
 

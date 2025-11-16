@@ -29,4 +29,13 @@
         <?php include __DIR__ . "/partials/footer.php" ?>
     </footer>
 </body>
+<?php 
+    if(isset($message))
+    {
+        echo '<script>
+        alert("'.$message.'");
+    </script>';
+    }
+
+?>
 </html>

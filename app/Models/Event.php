@@ -150,6 +150,51 @@
             }
             return NULL;
         }
+        // 0 - chưa mở dk
+        // 1 - đang mở dk
+        // 2 - đang chờ diễn ra
+        // 3 - đang diễn ra
+        // 4 - đã kết thúc
+        public function getStateEvent($eventID)
+        {
+            $sttm = $this->conn->prepare("select * from SuKien 
+                                WHERE MaSK = ?");
+            $sttm->bind_param('s', $eventID);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    $eventRawData = $result->fetch_assoc();
+                    $currentTime = time();
+                    $descripState = 0;
+                    $moDK = strtotime($eventRawData["ThoiGianMoDK"]);
+                    $dongDK = strtotime($eventRawData["ThoiGianDongDK"]);
+                    $batDau = strtotime($eventRawData["ThoiGianBatDauSK"]);
+                    $ketThuc = strtotime($eventRawData["ThoiGianKetThucSK"]);
+
+                    if ($currentTime >= $batDau && $currentTime <= $ketThuc) {
+                        $descripState = 3;
+                    } elseif ($currentTime > $ketThuc) {
+                        $descripState = 4;
+                    } elseif ($currentTime >= $moDK && $currentTime <= $dongDK) {
+                        $descripState = 1;
+                    } elseif ($currentTime < $moDK) {
+                        $descripState = 0;
+                    } else {
+                        // Sau khi đóng đăng ký nhưng chưa tới ngày diễn ra
+                        $descripState = 2; // hoặc đổi text khác tùy cậu
+                    }
+                    return $descripState;
+
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
 
     }
 

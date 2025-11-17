@@ -107,14 +107,18 @@
             </div>
 
             <div class="card-footer-actions">
+                <?php if($stateEvent < 3 ): ?>
                 <button class="btn btn-action-edit">
                     <i class="bi bi-pencil-square"></i>
                     <span>Sửa sự kiện</span>
                 </button>
+                <?php endif ?>
+                 <?php if($stateEvent < 4 ): ?>
                 <button class="btn btn-action-delete">
                     <i class="bi bi-trash"></i>
                     <span>Xóa sự kiện</span>
                 </button>
+                <?php endif ?>
             </div>
         </div>
 
@@ -124,10 +128,12 @@
                     <i class="bi bi-grid-3x3-gap-fill"></i>
                     <span>Quản lý sinh viên tham gia sự kiện:</span>
                 </div>
+                <?php if($stateEvent < 3 ): ?>
                 <button class="btn btn-primary btn-add-student">
                     <i class="bi bi-plus-circle me-2"></i>
                     <span>Thêm sinh viên</span>
                 </button>
+                <?php endif ?>
             </div>
 
             <div class="card-body-main">

@@ -147,7 +147,7 @@
             $title = "Quản lý chi tiết sự kiện";
             $dataEvent = $eventModel->getEvent($_GET['EventID']);
             $tenKhoaToChuc = $eventModel->getTenKhoaToChuc($_GET['EventID']);
-
+            $stateEvent = $eventModel->getStateEvent($_GET['EventID']);
             $listKhoaThamGia = $eventModel->getDSTenKhoaDuocPhepThamGia($_GET['EventID']);
             $render = __DIR__ . "/../Views/Admin/QLChiTiet.php";
             include __DIR__ . "/../Views/layout.php" ;

@@ -266,8 +266,8 @@
         public function getListSKDangKy($MaKhoa)
         {
             $data = [];
-            $sttm = $this->conn->prepare("Select DISTINCT sukien.* from sukien RIGHT JOIN chophepsvkhoathamgia on sukien.`MaSK` = chophepsvkhoathamgia.`MaSK`
-                         WHERE sukien.`MaKhoa`= ? AND (NOW() BETWEEN `ThoiGianMoDK` AND `ThoiGianDongDK`)");
+            $sttm = $this->conn->prepare("Select DISTINCT sukien.* from sukien JOIN chophepsvkhoathamgia on sukien.`MaSK` = chophepsvkhoathamgia.`MaSK`
+                         WHERE chophepsvkhoathamgia.`MaKhoa`= ? AND (NOW() BETWEEN `ThoiGianMoDK` AND `ThoiGianDongDK`)");
             $sttm->bind_param('s', $MaKhoa);
             if($sttm->execute())
             {

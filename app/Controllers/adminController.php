@@ -31,7 +31,7 @@
                 }
                 else if($state == 2)
                 {
-                    $numRows = $eventModel->getNumRows("ELECT * FROM sukien 
+                    $numRows = $eventModel->getNumRows("SELECT * FROM sukien 
                         WHERE NOW() BETWEEN ThoiGianMoDK AND ThoiGianDongDK ORDER BY ThoiGianBatDauSK DESC");
                     $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
                         WHERE NOW() BETWEEN ThoiGianMoDK AND ThoiGianDongDK ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
@@ -49,6 +49,13 @@
                         WHERE NOW() BETWEEN ThoiGianBatDauSK AND ThoiGianKetThucSK ORDER BY ThoiGianBatDauSK DESC");
                     $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
                         WHERE NOW() BETWEEN ThoiGianBatDauSK AND ThoiGianKetThucSK ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
+                }
+                else if($state == 5)
+                {
+                    $numRows = $eventModel->getNumRows("SELECT * FROM sukien 
+                        WHERE NOW() < ThoiGianMoDK ORDER BY ThoiGianBatDauSK DESC");
+                    $listEventRaw = $eventModel->getListEvent("SELECT * FROM sukien 
+                        WHERE NOW() < ThoiGianMoDK ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
                 }
                 else
                 {

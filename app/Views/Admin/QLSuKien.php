@@ -25,9 +25,10 @@
                     <select class="form-select custom-filter-select"   
                     onchange="window.location.href = 'Admin/QLSuKien?state='+ this.value">
                         <option value="0">Tất cả </option>
+                        <option value="5" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 5) echo "selected";} ?>>Chưa mở đăng ký</option>
+                        <option value="2" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 2) echo "selected";} ?>>Đang mở đăng ký</option>
                         <option value="1" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 1) echo "selected";} ?>>Sắp diễn ra</option>
                         <option value="4" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 4) echo "selected";} ?>>Đang diễn ra</option>
-                        <option value="2" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 2) echo "selected";} ?>>Đang mở đăng ký</option>
                         <option value="3" <?php if(isset($_GET['state'])) { if ($_GET['state'] == 3) echo "selected";} ?>>Đã kết thúc</option>
                     </select>
                 </div>

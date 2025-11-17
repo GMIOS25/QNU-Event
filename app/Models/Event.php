@@ -18,6 +18,17 @@
             else
                 return 0;
         }
+        public function deleteAllKhoaThamGia($MaSK)
+        {
+            $stmt = $this->conn->prepare("DELETE FROM `chophepsvkhoathamgia` WHERE MaSK = ?");
+            $stmt->bind_param("s", $MaSK);
+            if ($stmt->execute())
+            {
+                return 1;
+            }
+            else
+                return 0;
+        }
         public function addEvent($tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc, $DiemCong, $KhoaToChuc, $GhiChu, $listKhoaThamGia)
         {
             $stmt = $this->conn->prepare("INSERT INTO `sukien`( `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`,`NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`) 
@@ -129,7 +140,7 @@
         public function getDSTenKhoaDuocPhepThamGia($eventID)
         {
             $data = [];
-            $sttm = $this->conn->prepare("select Khoa.TenKhoa from chophepsvkhoathamgia JOIN Khoa on chophepsvkhoathamgia.MaKhoa = Khoa.MaKhoa 
+            $sttm = $this->conn->prepare("select * from chophepsvkhoathamgia JOIN Khoa on chophepsvkhoathamgia.MaKhoa = Khoa.MaKhoa 
                                 WHERE MaSK = ?");
             $sttm->bind_param('s', $eventID);
             if($sttm->execute())
@@ -194,6 +205,45 @@
                 }
             }
             return NULL;
+        }
+
+        public function modifyEvent($eventID, $tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc, $DiemCong, $KhoaToChuc, $GhiChu, $listKhoaThamGia)
+        {
+            $sttm =  $this->conn->prepare("UPDATE sukien 
+            SET TenSK = ?, ThoiGianMoDK = ?, ThoiGianDongDK = ?, ThoiGianBatDauSK = ?, ThoiGianKetThucSK = ?, 
+                GioiHanThamGia = ?, NoiToChuc = ?, DiemCong = ?, MaKhoa = ?, GhiChu = ?
+            WHERE MaSK = ?");
+            $sttm->bind_param(
+                    "sssssisisss",
+                    $tenSK,
+                    $thoiGianMoDK,
+                    $thoiGianDongDK,
+                    $thoiGianBatDauSK,
+                    $thoiGianKetThucSK,
+                    $GioiHanThamGia,
+                    $NoiToChuc,
+                    $DiemCong,
+                    $KhoaToChuc,
+                    $GhiChu,
+                    $eventID
+                );
+            if($sttm->execute())
+            {
+                $this->deleteAllKhoaThamGia($eventID);
+                foreach($listKhoaThamGia as $maKhoa)
+                {
+                    $mess = $this->addKhoaThamGia($eventID, $maKhoa); // lấy id cột autoincrement để insert
+                    if(!$mess)
+                    {
+                        return 0;
+                    }
+                }
+                return 1;
+            }
+            else 
+            {
+                return 0;
+            }
         }
 
     }

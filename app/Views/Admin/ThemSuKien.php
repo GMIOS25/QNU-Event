@@ -12,17 +12,24 @@
         <span class="icon-circle">
           <i class="bi bi-plus-lg"></i>
         </span>
-        <span>Thêm sự kiện</span>
+        <span><?php 
+          if(!isset($_GET['EventID']))
+            echo 'Thêm sự kiện';
+          else
+            echo 'Sửa sự kiện';
+        ?></span>
       </div>
       <a href="#" class="event-back-link">&gt; Quay lại</a>
     </div>
 
     <!-- Form -->
     <form class="event-form" method="POST">
-      <!-- Tên sự kiện -->
+      <!-- Để phụ giúp cho quá trình modify nhàn hơn -->
+       <input hidden type="text" name="EventID" value="<?= $dataEvent['MaSK'] ?? '' ?>">
+       <!-- Tên sự kiện -->
       <div class="event-form-group">
         <label for="event-name">Tên sự kiện:</label>
-        <input type="text" name="txtTenSuKien" id="event-name" placeholder="Nhập tên sự kiện ..." required/>
+        <input type="text" name="txtTenSuKien" id="event-name" placeholder="Nhập tên sự kiện ..." required value="<?= $dataEvent['TenSK'] ?? '' ?>" />
       </div>
 
       <!-- Thời gian sự kiện -->
@@ -30,7 +37,7 @@
         <div class="event-form-group">
           <label for="start-time">Thời gian bắt đầu sự kiện:</label>
           <div class="input-with-icon">
-            <input name = "txtThoiGianBatDauSK" type="datetime-local" id="start-time" required />
+            <input name = "txtThoiGianBatDauSK" type="datetime-local" id="start-time" required value="<?= $dataEvent['ThoiGianBatDauSK'] ?? '' ?>" />
              
           </div>
         </div>
@@ -38,7 +45,7 @@
         <div class="event-form-group">
           <label for="end-time">Thời gian kết thúc sự kiện:</label>
           <div class="input-with-icon">
-            <input name="txtThoiGianKetThucSK" type="datetime-local" id="end-time"  required/>
+            <input name="txtThoiGianKetThucSK" type="datetime-local" id="end-time"  required value="<?= $dataEvent['ThoiGianKetThucSK'] ?? '' ?>"/>
              
           </div>
         </div>
@@ -49,14 +56,14 @@
         <div class="event-form-group">
           <label for="reg-open">Thời gian mở đăng ký:</label>
           <div class="input-with-icon">
-            <input name="txtThoiGianMoDK" type="datetime-local" id="reg-open" required />
+            <input name="txtThoiGianMoDK" type="datetime-local" id="reg-open" required value="<?= $dataEvent['ThoiGianMoDK'] ?? '' ?>"/>
           </div>
         </div>
 
         <div class="event-form-group">
           <label for="reg-close">Thời gian đóng đăng ký:</label>
           <div class="input-with-icon">
-            <input   name="txtThoiGianDongDK" type="datetime-local" id="reg-close" required />
+            <input   name="txtThoiGianDongDK" type="datetime-local" id="reg-close" required value="<?= $dataEvent['ThoiGianDongDK'] ?? '' ?>"/>
              
           </div>
         </div>
@@ -66,7 +73,7 @@
       <div class="event-form-row">
         <div class="event-form-group">
           <label for="room">Nơi tổ chức:</label>
-            <input  name="txtNoiToChuc" type="text" id="event-place" placeholder="Nhập nơi tổ chức"  required/>
+            <input  name="txtNoiToChuc" type="text" id="event-place" placeholder="Nhập nơi tổ chức"  required value="<?= $dataEvent['NoiToChuc'] ?? '' ?>"/>
         </div>
 
 
@@ -78,7 +85,7 @@
           type="number"
           id="limit"
           min="0"
-          placeholder="Nhập số lượng (nhập 0 để không giới hạn) ..." required
+          placeholder="Nhập số lượng (nhập 0 để không giới hạn) ..." required value="<?= $dataEvent['GioiHanThamGia'] ?? '' ?>"
         />
       </div>
 </div>
@@ -89,13 +96,13 @@
           type="number"
           id="limit"
           min="0"
-          placeholder="Nhập số điểm " required
+          placeholder="Nhập số điểm " required value="<?= $dataEvent['DiemCong'] ?? '' ?>"
         />
       </div>
         
       <div class="event-form-group">
         <label for="txtKhoaToChuc">Chọn khoa tổ chức:</label>
-        <select name="txtKhoaToChuc" id="cars" require>
+        <select name="txtKhoaToChuc" id="dsKhoaToChuc" require>
             <!-- <option value="volvo">Volvo</option> -->
             <?php 
                 foreach ($listKhoa as $row)
@@ -105,6 +112,9 @@
             ?>
         </select>
       </div>
+      <script>
+         document.getElementById('dsKhoaToChuc').value = "<?= $dataEvent['MaKhoa'] ?? '' ?>"; 
+      </script>
 
             <!-- Khoa tham gia -->
         <div class="event-form-group">
@@ -141,22 +151,45 @@
             ?>
         </div>
         </div>
+      
+      <?php 
+        if(isset($_GET['EventID']))
+        {
+          foreach($dsKhoaThamGia as $khoa)
+          {
+                        echo '       <script> document.addEventListener("DOMContentLoaded", function () {
+            const deptCheckboxes = document.querySelectorAll(".dept-checkbox");
+            deptCheckboxes.forEach(checkBoxElement => {
+                if(checkBoxElement.value == "'.$khoa["MaKhoa"].'")
+                  checkBoxElement.checked = true;
+                });})
+            </script>';
+          }
 
+        }
+      ?>
       <!-- Ghi chú -->
       <div class="event-form-group">
         <label for="note">Ghi chú nhắc nhở:</label>
         <textarea
           id="note"
-          rows="3"
-          placeholder="Nhập ghi chú ..."
-        ></textarea>
+          rows="3" name="txtGhiChu"
+          placeholder="Nhập ghi chú ..." text=""
+        ><?= $dataEvent['GhiChu'] ?? '' ?></textarea>
       </div>
       <!-- Actions -->
       <div class="event-form-actions">
+        <?php if(!isset($_GET['EventID'])): ?>
         <button type="submit" class="btn-event-primary">
           <i class="bi bi-plus-circle"></i>
           <span>Thêm sự kiện</span>
         </button>
+        <?php else: ?>
+        <button type="submit" class="btn-event-primary">
+          <i class="bi bi-pen"></i>
+          <span>Sửa sự kiện</span>
+        </button>
+         <?php endif ?> 
         <button type="button" class="btn-event-danger">
           <i class="bi bi-trash3"></i>
           <span>Hủy</span>

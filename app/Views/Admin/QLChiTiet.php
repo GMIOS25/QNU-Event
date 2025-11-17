@@ -108,16 +108,16 @@
 
             <div class="card-footer-actions">
                 <?php if($stateEvent < 3 ): ?>
-                <button class="btn btn-action-edit">
+                <a href="Admin/QLSuKien/SuaSuKien?EventID=<?php echo $dataEvent['MaSK'] ?>" class="btn btn-action-edit">
                     <i class="bi bi-pencil-square"></i>
                     <span>Sửa sự kiện</span>
-                </button>
+                </a>
                 <?php endif ?>
                  <?php if($stateEvent < 4 ): ?>
-                <button class="btn btn-action-delete">
+                <a class="btn btn-action-delete">
                     <i class="bi bi-trash"></i>
                     <span>Xóa sự kiện</span>
-                </button>
+                 </a>
                 <?php endif ?>
             </div>
         </div>

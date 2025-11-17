@@ -110,8 +110,18 @@
             {
                 $adminController->showThemSuKien();
             }
-            
             break;
+        case '/Admin/QLSuKien/SuaSuKien': 
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['EventID'])) 
+            {
+                $adminController->showSuaSuKien();
+                break;
+            }
+            else if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitSuaSuKien();
+                break;
+            }            
         case '/Account':
         default:
             $baseController->ErrorNotFound();

@@ -90,7 +90,7 @@
                     $descripState = "Chưa mở đăng ký";
                 } else {
                     // Sau khi đóng đăng ký nhưng chưa tới ngày diễn ra
-                    $descripState = "Chờ diễn ra"; // hoặc đổi text khác tùy cậu
+                    $descripState = "Chờ diễn ra";
                 }
 
                 $listEvent[] = [
@@ -134,14 +134,14 @@
             if($message )
             {
 
-                $this->showThemSuKien("Thêm sự kiện thành công!");
+                $this->showQLSuKien("Thêm sự kiện thành công!");
             }
             else
             {
                 $this->showThemSuKien("Thêm sự kiện thất bại!");
             }
         }
-        public function showQLChiTiet()
+        public function showQLChiTiet($message = null)
         {
             $eventModel = new Event();
             $title = "Quản lý chi tiết sự kiện";
@@ -149,8 +149,46 @@
             $tenKhoaToChuc = $eventModel->getTenKhoaToChuc($_GET['EventID']);
             $stateEvent = $eventModel->getStateEvent($_GET['EventID']);
             $listKhoaThamGia = $eventModel->getDSTenKhoaDuocPhepThamGia($_GET['EventID']);
-            $render = __DIR__ . "/../Views/Admin/QLChiTiet.php";
+            $render = __DIR__ . "/../Views/Admin/QLChiTiet.php"; 
             include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function showSuaSuKien()
+        {
+            $khoaModel = new Khoa();
+            $eventModel = new Event();
+            $title = "Sửa sự kiện";
+            $dataEvent = $eventModel->getEvent($_GET['EventID']);
+
+            $dsKhoaThamGia = $eventModel->getDSTenKhoaDuocPhepThamGia($_GET['EventID']);
+            $listKhoa = $khoaModel->getAll();
+            $render = __DIR__ . "/../Views/Admin/ThemSuKien.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitSuaSuKien()
+        {
+            $eventModel = new Event();
+            $message = $eventModel->modifyEvent( 
+                $_POST['EventID'],               
+                $_POST['txtTenSuKien'],
+                $_POST['txtThoiGianMoDK'],
+                $_POST['txtThoiGianDongDK'],
+                $_POST['txtThoiGianBatDauSK'],
+                $_POST['txtThoiGianKetThucSK'],
+                $_POST['txtGioiHanSLSV'],
+                $_POST['txtNoiToChuc'],
+                $_POST['txtDiemCong'],
+                $_POST['txtKhoaToChuc'],
+                $_POST['txtGhiChu'],
+                $_POST['listkhoathamgia']);
+            if($message )
+            {
+                
+                $this->showQLChiTiet("Sửa sự kiện thành công!");
+            }
+            else
+            {
+                $this->showQLChiTiet("Sửa sự kiện thất bại!");
+            }
         }
     }
 

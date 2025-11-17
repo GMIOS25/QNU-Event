@@ -19,7 +19,7 @@
             echo 'Sửa sự kiện';
         ?></span>
       </div>
-      <a href="#" class="event-back-link">&gt; Quay lại</a>
+      <a href="Admin/QLSuKien" class="event-back-link">&gt; Quay lại</a>
     </div>
 
     <!-- Form -->
@@ -190,10 +190,10 @@
           <span>Sửa sự kiện</span>
         </button>
          <?php endif ?> 
-        <button type="button" class="btn-event-danger">
+        <a type="button" href="Admin/QLSuKien" class="btn-event-danger">
           <i class="bi bi-trash3"></i>
           <span>Hủy</span>
-        </button>
+        </a>
       </div>
     </form>
   </div>

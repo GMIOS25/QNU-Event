@@ -13,6 +13,19 @@
         //     Database::closeConnection($this->conn);
         // }
         // trả về uid nếu login thành công
+        public function getKhoaSV($MSSV)
+        {
+            $sql = "SELECT Khoa.* FROM sinhvien JOIN lop ON sinhvien.MaLop = lop.MaLop JOIN nganh ON lop.MaNganh = nganh.MaNganh JOIN khoa on khoa.MaKhoa = nganh.MaKhoa
+             WHERE sinhvien.MSSV = '".$MSSV."'";
+            if($result = $this->conn->query($sql))
+            {
+                if($result->num_rows >0 )
+                    return $result->fetch_assoc();
+
+            }
+            return NULL;
+           
+        }
         public function login($userName, $password)
         {
             $stm = $this->conn->prepare("Select * from sinhvien where (MSSV = ? or Email = ?) and Password = ?");

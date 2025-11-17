@@ -245,6 +245,107 @@
                 return 0;
             }
         }
+        public function getSLSinhVienDangKySK($MaSK)
+        {
+            $sttm = $this->conn->prepare("Select COUNT(MSSV) as SL from SuKien join dksukien on sukien.MaSK = dksukien.MaSK
+             where sukien.MaSK = ? and TrangThai = 'Đăng ký'");
+            $sttm->bind_param('s', $MaSK);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    return $result->fetch_assoc()['SL'];
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+        }
+        public function getListSKDangKy($MaKhoa)
+        {
+            $data = [];
+            $sttm = $this->conn->prepare("Select DISTINCT sukien.* from sukien RIGHT JOIN chophepsvkhoathamgia on sukien.`MaSK` = chophepsvkhoathamgia.`MaSK`
+                         WHERE sukien.`MaKhoa`= ? AND (NOW() BETWEEN `ThoiGianMoDK` AND `ThoiGianDongDK`)");
+            $sttm->bind_param('s', $MaKhoa);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
+        public function getListSKDaDangKy($MSSV)
+        {
+            $data = [];
+            $sttm = $this->conn->prepare("Select SuKien.* from dksukien join sukien on sukien.MaSk = dksukien.MaSK
+             Where TrangThai = 'Đăng ký' and MSSV = ?");
+            $sttm->bind_param('s', $MSSV);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
+        public function DangKySuKien($MSSV, $EventID)
+        {
+            $sttm = $this->conn->prepare("INSERT INTO dksukien(MSSV, MaSK, ThoiGianDK, TrangThai) values(?, ?, NOW(), 'Đăng ký')");
+            $sttm->bind_param('ss', $MSSV, $EventID);
+            if($sttm->execute())
+            {
+                return 1;
+            }
+            return 0;
+        }
+        public function HuyDKSuKien($MSSV, $eventID)
+        {
+            $sttm = $this->conn->prepare("UPDATE dksukien SET TrangThai = 'Hủy đăng ký' where MSSV=? and MaSK=? and TrangThai = 'Đăng ký'");
+            $sttm->bind_param('ss', $MSSV, $eventID);
+            if($sttm->execute())
+            {
+                return 1;
+            }
+            return 0;
+        }
+        public function checkDKTrung($eventID, $MSSV)
+        {
+            $eventData = $this->getEvent($eventID);
+            $sql = "SELECT * FROM dksukien JOIN sukien on dksukien.MaSK = sukien.MaSK
+                WHERE ('".$eventData['ThoiGianBatDauSK']."' between ThoiGianBatDauSK and ThoiGianKetThucSK) AND MSSV = '".$MSSV."' AND  TrangThai = 'Đăng ký'";
+            $result = $this->conn->query($sql);
+            if($result->num_rows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 

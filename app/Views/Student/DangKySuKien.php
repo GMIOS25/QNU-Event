@@ -1,85 +1,99 @@
 <head>
-    <link rel="stylesheet" href="assest/css/student/dangkysukien.css">
+  <link rel="stylesheet" href="assest/css/student/dangkysukien.css">
 </head>
-<div class="event-register-page">
+<div class="page-container">
+        
+        <h1 class="main-page-title">ĐĂNG KÝ THAM GIA SỰ KIỆN</h1>
 
-  <!-- SECTION: Sự kiện đang mở đăng ký -->
-  <section class="section-card">
-    <div class="section-card-header">
-      <h2 class="section-card-title">Danh sách sự kiện đang mở đăng ký</h2>
+        <div class="custom-card mb-5">
+            <div class="card-toolbar d-flex justify-content-between align-items-center mb-4">
+                <div class="toolbar-title">
+                    <i class="bi bi-grid-3x3-gap-fill me-2"></i>
+                    <span>Đăng ký sự kiện</span>
+                </div>
+                <div class="search-wrapper position-relative">
+                    <input type="text" class="form-control search-input" placeholder="Tìm kiếm ....">
+                    <i class="bi bi-search search-icon"></i>
+                </div>
+            </div>
+
+            <div class="custom-table">
+                <div class="table-header">
+                    <div class="col-cell c-code">Mã SK</div>
+                    <div class="col-cell c-name">Tên sự kiện</div>
+                    <div class="col-cell c-time">Thời gian sự kiện</div>
+                    <div class="col-cell c-time">Nơi tổ chức</div>
+                    <div class="col-cell c-qty">Số lượng đăng ký</div>
+                    <div class="col-cell c-action">Chức năng</div>
+                </div>
+
+                <div  class="table-body">
+                    <!-- <div class="table-row">
+                        <div class="col-cell c-code">4651050044</div>
+                        <div class="col-cell c-name">Nguyễn Khánh Dương</div>
+                        <div class="col-cell c-time">CNTT</div>
+                        <div class="col-cell c-time">CNTT K46D</div>
+                        <div class="col-cell c-qty">6/50</div>
+                        <div class="col-cell c-action text-action-register">[Đăng ký]</div>
+                    </div> -->
+                    <?php 
+                      foreach($listEvent as $event)
+                      {
+                          echo '
+                              <div class="table-row">
+                                <div class="col-cell c-code">'.$event['MaSK'].'</div>
+                                <div class="col-cell c-name">'.$event['TenSK'].'</div>
+                                <div class="col-cell c-time">'.$event['ThoiGianBatDauSK'].'-'.$event['ThoiGianKetThucSK'].'</div>
+                                <div class="col-cell c-time">'.$event['NoiToChuc'].'</div>
+                                <div class="col-cell c-qty">'.$event['SoLuongDK'].'</div>
+                                <div class="col-cell c-action text-action-register"><a  onclick="return confirm(`Bạn chắc đăng ký sự kiện '.$event['TenSK'].'`);"  href="Student/DangKySuKien/DangKy?EventID='.$event['MaSK'].'">[Đăng ký]</a></div>
+                            </div>
+                          ';
+                      }
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="custom-card">
+            <div class="card-toolbar d-flex justify-content-between align-items-center mb-4">
+                <div class="toolbar-title no-icon">
+                    <span>Danh sách sự kiện đã đăng ký</span>
+                </div>
+                <div class="search-wrapper position-relative">
+                    <input type="text" class="form-control search-input" placeholder="Tìm kiếm ....">
+                    <i class="bi bi-search search-icon"></i>
+                </div>
+            </div>
+
+            <div class="custom-table">
+                <div class="table-header">
+                    <div class="col-cell c-code">Mã SK</div>
+                    <div class="col-cell c-name">Tên sự kiện</div>
+                    <div class="col-cell c-time">Thời gian sự kiện</div>
+                    <div class="col-cell c-time">Nơi tổ chức</div>
+                    <div class="col-cell c-qty">Ghi chú</div>
+                    <div class="col-cell c-action">Chức năng</div>
+                </div>
+                
+                <div class="table-body">
+                    <?php 
+                      foreach($eventDaDKList  as $event)
+                      {
+                          echo '
+                              <div class="table-row">
+                                <div class="col-cell c-code">'.$event['MaSK'].'</div>
+                                <div class="col-cell c-name">'.$event['TenSK'].'</div>
+                                <div class="col-cell c-time">'.$event['ThoiGianBatDauSK'].'-'.$event['ThoiGianKetThucSK'].'</div>
+                                <div class="col-cell c-time">'.$event['NoiToChuc'].'</div>
+                                <div class="col-cell c-qty">'.$event['GhiChu'].'</div>
+                                <div class="col-cell c-action text-action-register"><a  onclick="return confirm(`Bạn chắc hủy đăng ký sự kiện '.$event['TenSK'].'`);"  href="Student/DangKySuKien/HuyDangKy?EventID='.$event['MaSK'].'">[Hủy đăng ký]</a></div>
+                            </div>
+                          ';
+                      }
+                    ?>
+                </div>
+            </div>
+        </div>
+
     </div>
-
-    <div class="section-card-body">
-      <table class="event-table open-event-table">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Tên sự kiện</th>
-            <th>Thời gian</th>
-            <th>Phòng</th>
-            <th>Chức năng</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Ví dụ mẫu, sau này thay bằng dữ liệu PHP -->
-          <tr>
-            <td>1</td>
-            <td>Hội thảo Định hướng Nghề nghiệp cho Sinh viên QNU</td>
-            <td>20/11/2025 08:00 - 10:00</td>
-            <td>A1.101</td>
-            <td>
-              <a href="#" class="btn-link btn-register">Đăng ký</a>
-              <a href="#" class="btn-link btn-detail">Xem chi tiết</a>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Talkshow Kỹ năng Thuyết trình</td>
-            <td>22/11/2025 14:00 - 16:00</td>
-            <td>B2.202</td>
-            <td>
-              <a href="#" class="btn-link btn-register">Đăng ký</a>
-              <a href="#" class="btn-link btn-detail">Xem chi tiết</a>
-            </td>
-          </tr>
-          <!-- /Hết ví dụ -->
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- SECTION: Sự kiện đã đăng ký -->
-  <section class="section-card">
-    <div class="section-card-header">
-      <h2 class="section-card-title">Sự kiện đã đăng ký</h2>
-    </div>
-
-    <div class="section-card-body">
-      <table class="event-table registered-event-table">
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Tên sự kiện</th>
-            <th>Thời gian</th>
-            <th>Phòng</th>
-            <th>Chức năng</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Ví dụ mẫu: những sự kiện SV đã đăng ký -->
-          <tr>
-            <td>1</td>
-            <td>Hội thảo Định hướng Nghề nghiệp cho Sinh viên QNU</td>
-            <td>20/11/2025 08:00 - 10:00</td>
-            <td>A1.101</td>
-            <td>
-              <a href="#" class="btn-link btn-cancel">Hủy đăng ký</a>
-            </td>
-          </tr>
-          <!-- Sau này nếu không có sự kiện, có thể echo 1 dòng "Bạn chưa đăng ký sự kiện nào" -->
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-</div>

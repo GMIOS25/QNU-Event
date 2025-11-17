@@ -71,6 +71,12 @@
         case '/Student/DangKySuKien':
             $studentController->showDKSK();
             break;
+        case '/Student/DangKySuKien/DangKy':
+            $studentController->submitDKSK();
+            break;
+        case '/Student/DangKySuKien/HuyDangKy':
+            $studentController->huyDKSK();
+            break;
         case '/Student/LichSuKien':
             $studentController->showLichSK();
             break;

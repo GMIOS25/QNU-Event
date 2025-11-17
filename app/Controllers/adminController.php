@@ -11,7 +11,11 @@
         }
         public function showQLSuKien($state = null, $search = null, $page = null, $limitElement = null)
         {
-             
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
             $eventModel = new Event();
             $numRows = 0;
             $listEventRaw = [];
@@ -104,8 +108,9 @@
             $render = __DIR__ . "/../Views/Admin/QLSuKien.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
-        public function showThemSuKien($message = null)
+        public function showThemSuKien()
         {
+
             $khoaModel = new Khoa();
             $title = "Thêm sự kiện";
             $listKhoa = $khoaModel->getAll();
@@ -134,15 +139,22 @@
             if($message )
             {
 
-                $this->showQLSuKien("Thêm sự kiện thành công!");
+                $_SESSION['message'] = "Thêm sự kiện thành công";
             }
             else
             {
-                $this->showThemSuKien("Thêm sự kiện thất bại!");
+                $_SESSION['message'] = "Thêm sự kiện thất bại";
             }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/QLSuKien");
         }
-        public function showQLChiTiet($message = null)
+        public function showQLChiTiet()
         {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
             $eventModel = new Event();
             $title = "Quản lý chi tiết sự kiện";
             $dataEvent = $eventModel->getEvent($_GET['EventID']);
@@ -182,13 +194,15 @@
                 $_POST['listkhoathamgia']);
             if($message )
             {
-                
-                $this->showQLChiTiet("Sửa sự kiện thành công!");
+
+                $_SESSION['message'] = "Sửa sự kiện thành công";
             }
             else
             {
-                $this->showQLChiTiet("Sửa sự kiện thất bại!");
+                $_SESSION['message'] = "Sửa sự kiện thất bại";
             }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/QLSuKien/QLChiTiet?EventID=".$_POST['EventID']."");
         }
     }
 

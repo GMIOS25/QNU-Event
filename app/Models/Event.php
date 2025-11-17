@@ -334,8 +334,17 @@
         public function checkDKTrung($eventID, $MSSV)
         {
             $eventData = $this->getEvent($eventID);
-            $sql = "SELECT * FROM dksukien JOIN sukien on dksukien.MaSK = sukien.MaSK
-                WHERE ('".$eventData['ThoiGianBatDauSK']."' between ThoiGianBatDauSK and ThoiGianKetThucSK) AND MSSV = '".$MSSV."' AND  TrangThai = 'Đăng ký'";
+            $start = $eventData['ThoiGianBatDauSK'];
+            $end   = $eventData['ThoiGianKetThucSK'];
+               $sql = "
+                    SELECT 1
+                    FROM dksukien JOIN sukien ON dksukien.MaSK = sukien.MaSK WHERE dksukien.MSSV = '".$MSSV."'
+                    AND dksukien.TrangThai = 'Đăng ký' AND NOT (
+                            sukien.ThoiGianKetThucSK <= '".$start."' 
+                        OR sukien.ThoiGianBatDauSK >= '".$end."' 
+                    )
+                    LIMIT 1
+                ";
             $result = $this->conn->query($sql);
             if($result->num_rows > 0)
             {

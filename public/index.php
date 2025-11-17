@@ -94,6 +94,13 @@
             $adminController->showQLSuKien((isset($_GET['state'])) ? $_GET['state'] : NULL , 
             (isset($_GET['txtSearch'])) ? $_GET['txtSearch'] : NULL, (isset($_GET['page'])) ? $_GET['page'] :1, 5);
             break;
+        case '/Admin/QLSuKien/QLChiTiet':
+
+            if($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET['EventID']))
+            {
+                $adminController->showQLChiTiet();
+                break;
+            }
         case '/Admin/QLSuKien/ThemSuKien': 
             if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
             {

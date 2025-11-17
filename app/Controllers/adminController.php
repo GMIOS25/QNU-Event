@@ -134,6 +134,17 @@
                 $this->showThemSuKien("Thêm sự kiện thất bại!");
             }
         }
+        public function showQLChiTiet()
+        {
+            $eventModel = new Event();
+            $title = "Quản lý chi tiết sự kiện";
+            $dataEvent = $eventModel->getEvent($_GET['EventID']);
+            $tenKhoaToChuc = $eventModel->getTenKhoaToChuc($_GET['EventID']);
+
+            $listKhoaThamGia = $eventModel->getDSTenKhoaDuocPhepThamGia($_GET['EventID']);
+            $render = __DIR__ . "/../Views/Admin/QLChiTiet.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
     }
 
 ?>

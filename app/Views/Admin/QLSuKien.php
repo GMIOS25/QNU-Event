@@ -84,10 +84,10 @@
                                     <div class="data-cell" style="flex-basis: 18%;">'.$event['TrangThai'].'</div>
                                     <div class="data-cell" style="flex-basis: 17%;">'.$event['NoiToChuc'].'</div>
                                     <div class="data-cell" style="flex-basis: 20%;">
-                                        <button class="btn btn-detail">
+                                        <a href="Admin/QLSuKien/QLChiTiet?EventID='.$event['MaSK'].'" class="btn btn-detail">
                                             <i class="bi bi-camera"></i>
                                             <span>Quản lý chi tiết</span>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             ';

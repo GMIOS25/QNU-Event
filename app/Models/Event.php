@@ -85,6 +85,71 @@
                 return 0;
             }  
         }
+        public function getEvent($eventID)
+        {
+            $data = [];
+            $sttm = $this->conn->prepare("Select * from SuKien where MaSK = ?");
+            $sttm->bind_param('s', $eventID);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    $data = $result->fetch_assoc();
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
+        public function getTenKhoaToChuc($eventID)
+        {
+            $data = [];
+            $sttm = $this->conn->prepare("select TenKhoa from SuKien join Khoa on SuKien.MaKhoa = Khoa.MaKhoa
+                                WHERE sukien.MaSK = ?");
+            $sttm->bind_param('s', $eventID);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    $data = $result->fetch_assoc();
+                    return $data['TenKhoa'];
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
+        public function getDSTenKhoaDuocPhepThamGia($eventID)
+        {
+            $data = [];
+            $sttm = $this->conn->prepare("select Khoa.TenKhoa from chophepsvkhoathamgia JOIN Khoa on chophepsvkhoathamgia.MaKhoa = Khoa.MaKhoa 
+                                WHERE MaSK = ?");
+            $sttm->bind_param('s', $eventID);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
 
     }
 

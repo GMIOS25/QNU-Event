@@ -1,0 +1,281 @@
+/* Thiết lập cơ bản */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f0f2f5;
+}
+
+.page-container {
+    width: 100%;
+    max-width: 1300px; /* Rộng hơn cho trang chi tiết */
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Tiêu đề trang chính */
+.page-title {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333;
+}
+
+/* Thẻ chung */
+.event-manager-card {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 28px;
+}
+
+/* Header chung của thẻ */
+.card-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.card-header-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.card-header-title i {
+    font-size: 1.25rem;
+    margin-right: 8px;
+    color: #555;
+}
+
+.back-link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #0d6efd;
+}
+
+.btn-add-student {
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+
+/* --- Thẻ 1: Chi tiết sự kiện --- */
+.info-item {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    padding: 5px 0;
+}
+
+.info-icon {
+    font-size: 1.1rem;
+    color: #555;
+    margin-right: 10px;
+    width: 20px; /* Đảm bảo các icon thẳng hàng */
+    text-align: center;
+}
+
+.info-label {
+    color: #6c757d;
+    margin-right: 6px;
+    white-space: nowrap;
+}
+
+.info-value {
+    color: #212529;
+    font-weight: 500;
+}
+
+.card-footer-actions {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.card-footer-actions .btn {
+    border-radius: 20px;
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 15px;
+    margin: 0 8px;
+    border: none;
+}
+
+.btn-action-edit {
+    background-color: #e6f2ff;
+    color: #007bff;
+}
+.btn-action-edit:hover {
+    background-color: #d1e9ff;
+}
+
+.btn-action-delete {
+    background-color: #fde8e8;
+    color: #dc3545;
+}
+.btn-action-delete:hover {
+    background-color: #fbd3d3;
+}
+
+
+/* --- Thẻ 2: Quản lý sinh viên --- */
+
+/* Biểu đồ và Chú thích */
+.chart-container {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    position: relative;
+    /* Dùng conic-gradient để mô phỏng biểu đồ */
+    /* Giá trị % = tổng các phần trước đó */
+    background-image: conic-gradient(
+        #e5e7eb 0% 20%,     /* 20% Chưa đăng ký */
+        #34d399 20% 35%,    /* 15% Đăng ký (35-20) */
+        #0091ff 35% 100%    /* 65% Đã tham gia (100-35) */
+    );
+}
+
+/* Tạo lỗ ở giữa (doughnut) */
+.chart-container::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
+    height: 65%;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.legend-color-box {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* Thanh lọc */
+.filter-bar {
+    gap: 10px; /* Khoảng cách giữa các item */
+}
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.filter-item span {
+    white-space: nowrap;
+    font-weight: 500;
+}
+.custom-filter-select {
+    width: auto;
+    background-color: #f0f2f5;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 8px 32px 8px 12px;
+}
+.btn-filter, .btn-search {
+    border-radius: 8px;
+    font-weight: 500;
+}
+.custom-search {
+    border: 1px solid #ced4da;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.btn-search {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+/* Bảng (Dùng DIV) */
+.event-table-header,
+.event-table-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.event-table-header {
+    background-color: #f0f2f5; /* Màu xám nhạt */
+    color: #333;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.header-cell,
+.data-cell {
+    padding: 16px 12px;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+}
+
+.event-table-body .event-table-row {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.event-table-body .event-table-row:last-child {
+    border-bottom: none;
+}
+
+.data-cell {
+    color: #495057;
+}
+
+.action-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+}
+.action-links a:hover {
+    text-decoration: underline;
+}
+
+/* Phân trang */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+}
+.page-item .page-link {
+    color: #007bff;
+    border: 1px solid #dee2e6;
+    margin: 0 4px;
+    border-radius: 50% !important;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+.page-item .page-link:hover {
+    background-color: #f0f2f5;
+}
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+}
+.page-item.disabled .page-link {
+    color: #adb5bd;
+}

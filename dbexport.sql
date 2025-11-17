@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 12, 2025 lúc 01:17 PM
+-- Thời gian đã tạo: Th10 17, 2025 lúc 01:16 AM
 -- Phiên bản máy phục vụ: 9.1.0
 -- Phiên bản PHP: 8.3.14
 
@@ -76,6 +76,69 @@ CREATE TABLE IF NOT EXISTS `chophepsvkhoathamgia` (
   PRIMARY KEY (`MaSK`,`MaKhoa`),
   KEY `MaKhoa` (`MaKhoa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `chophepsvkhoathamgia`
+--
+
+INSERT INTO `chophepsvkhoathamgia` (`MaSK`, `MaKhoa`) VALUES
+(15, 'CK'),
+(17, 'CK'),
+(18, 'CK'),
+(14, 'CNTT'),
+(15, 'CNTT'),
+(16, 'CNTT'),
+(17, 'CNTT'),
+(15, 'CT'),
+(17, 'CT'),
+(15, 'DL'),
+(17, 'DL'),
+(14, 'DTVT'),
+(15, 'DTVT'),
+(17, 'DTVT'),
+(15, 'GD'),
+(17, 'GD'),
+(15, 'HH'),
+(17, 'HH'),
+(15, 'KT'),
+(17, 'KT'),
+(15, 'LS'),
+(17, 'LS'),
+(15, 'MT'),
+(17, 'MT'),
+(14, 'NN'),
+(15, 'NN'),
+(17, 'NN'),
+(14, 'NNAN'),
+(15, 'NNAN'),
+(17, 'NNAN'),
+(15, 'NNHQ'),
+(17, 'NNHQ'),
+(15, 'NNLT'),
+(17, 'NNLT'),
+(15, 'NNNB'),
+(17, 'NNNB'),
+(15, 'PL'),
+(17, 'PL'),
+(15, 'QTKD'),
+(17, 'QTKD'),
+(19, 'QTKD'),
+(15, 'SH'),
+(17, 'SH'),
+(15, 'SP'),
+(17, 'SP'),
+(15, 'TCNH'),
+(17, 'TCNH'),
+(15, 'VH'),
+(17, 'VH'),
+(15, 'VL'),
+(17, 'VL'),
+(15, 'XD'),
+(17, 'XD'),
+(15, 'XH'),
+(17, 'XH'),
+(15, 'YT'),
+(17, 'YT');
 
 -- --------------------------------------------------------
 
@@ -326,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `sinhvien` (
 INSERT INTO `sinhvien` (`MSSV`, `Ho`, `Ten`, `Email`, `Password`, `MaLop`, `isBanCanSu`) VALUES
 ('4651050044', 'Nguyễn Khánh', 'Dương', 'khanhduong18072005@gmail.com', '18072005', 'CNTTK46D', NULL),
 ('4651050189', 'Nguyễn Yến', 'Nhi', NULL, 'haru', 'CNTTK46B', NULL),
-('bcs', 'Họ tên', NULL, NULL, NULL, NULL, 1),
+('bcs', 'Họ tên', NULL, NULL, 'bcs', NULL, 1),
 ('sv', 'Cậu bé tê liệt', NULL, NULL, 'sv', 'CNTTK46A', 0);
 
 -- --------------------------------------------------------
@@ -344,11 +407,25 @@ CREATE TABLE IF NOT EXISTS `sukien` (
   `ThoiGianBatDauSK` datetime DEFAULT NULL,
   `ThoiGianKetThucSK` datetime DEFAULT NULL,
   `GioiHanThamGia` int DEFAULT NULL,
+  `NoiToChuc` varchar(255) COLLATE utf8mb4_vietnamese_ci NOT NULL,
+  `DiemCong` int NOT NULL,
   `MaKhoa` varchar(10) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `GhiChu` text COLLATE utf8mb4_vietnamese_ci,
   PRIMARY KEY (`MaSK`),
   KEY `MaKhoa` (`MaKhoa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `sukien`
+--
+
+INSERT INTO `sukien` (`MaSK`, `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`, `NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`) VALUES
+(14, 'Lọ giao hữu Khoa CNTT và Khoa Điện tử - Viễn thông', '2025-11-16 00:00:00', '2025-11-17 00:00:00', '2025-11-18 07:00:00', '2025-11-18 12:00:00', 200, 'Hội trường B', 2, 'CNTT', NULL),
+(15, 'Giải đua xe bát hương vàng mở rộng', '2025-11-15 15:00:00', '2025-11-16 17:00:00', '2025-11-20 16:30:00', '2025-11-20 17:30:00', 100, 'Bãi tha ma', 5, 'VL', NULL),
+(16, 'Chào tân sinh viên Khoa CNTT QNU K48', '2025-10-30 00:00:00', '2025-10-30 23:59:00', '2025-11-01 18:30:00', '2025-11-01 20:30:00', 1000, 'Hội trường B', 3, 'CNTT', NULL),
+(17, 'Giao hữu với đội tuyển Manchester United', '2025-11-15 00:00:00', '2025-11-15 23:59:00', '2025-11-16 00:00:00', '2025-11-20 00:00:00', 1000, 'Sân vận động Quy Nhơn', 100, 'XH', NULL),
+(18, 'Xem T1 đánh giải', '2025-11-11 11:11:00', '2025-11-11 11:11:00', '2025-11-11 11:11:00', '2025-11-11 11:11:00', 1, 'cdzdsads', 1, 'CK', NULL),
+(19, 'Thực tập nhận thức quản trị kinh doanh', '2025-11-01 00:00:00', '2025-11-19 23:59:00', '2025-11-20 06:00:00', '2025-11-25 06:00:00', 500, 'Quán phở Anh Hai, số 10 Đan Phượng, Hà Nội', 5, 'QTKD', NULL);
 
 --
 -- Các ràng buộc cho các bảng đã đổ

@@ -85,6 +85,33 @@
             }
             return NULL;
         }
+        public function loadDanhSachMinhChungChoDuyet($EventID)
+        {
+                        $data = [];
+            $sql = "Select * from minhchungthamgiask 
+            join sinhvien on minhchungthamgiask.MSSV = sinhvien.MSSV
+            where MaSK = ? and TrangThai = 'Chờ duyệt'";
+            $sttm = $this->conn->prepare($sql);
+            $sttm->bind_param("s", $EventID);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
+
 
     }
 ?>

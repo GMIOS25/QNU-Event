@@ -29,6 +29,27 @@
             include __DIR__ . "/../Views/layout.php" ;
 
         }
+        public function showDanhSachMinhChung()
+        {
+            $minhChungModel = new MinhChung();
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Minh chứng tham gia sự kiện ";
+            $eventModel = new Event();
+            $userModel = new User();
+            if(isset($_GET['EventID']))
+            {
+                $eventID = $_GET['EventID'];
+                $listMinhChung = $minhChungModel->loadDanhSachMinhChungChoDuyet($eventID);
+            }
+            $title = "Danh sách minh chứng chờ duyệt";
+            $render = __DIR__ . "/../Views/BCS/DanhSachMinhChung.php";
+            include __DIR__ . "/../Views/layout.php" ;
+
+        }
     }
 
 ?>

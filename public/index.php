@@ -100,6 +100,12 @@
         case '/BCS/DuyetMinhChung':
             $bcsController->showDuyetMinhChung();
             break;
+        case '/BCS/DuyetMinhChung/DanhSachMinhChung':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['EventID'])) 
+            {
+                $bcsController->showDanhSachMinhChung();
+                break;
+            }
         case '/BCS/DuyetPhieuRL':
             $bcsController->showDuyetPhieuRL();
             break;

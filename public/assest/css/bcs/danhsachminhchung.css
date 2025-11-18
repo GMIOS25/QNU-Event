@@ -1,0 +1,207 @@
+/* Reset & Font */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* Tiêu đề chính */
+.main-page-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    color: #000;
+}
+
+/* Card Container */
+.custom-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 20px;
+}
+
+/* --- TOOLBAR STYLES --- */
+.toolbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.toolbar-title {
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+/* Select Lọc */
+.custom-select-filter {
+    background-color: #e9ecef; /* Màu xám nhạt như hình */
+    border: none;
+    border-radius: 20px;
+    padding: 5px 30px 5px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    width: auto;
+    cursor: pointer;
+}
+
+/* Search Box */
+.search-wrapper {
+    width: 250px;
+}
+
+.search-input {
+    border-radius: 50px; /* Bo tròn viên thuốc */
+    padding-right: 35px;
+    border: 1px solid #ced4da;
+    font-size: 14px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    cursor: pointer;
+}
+
+/* Export Button */
+.btn-export {
+    border-radius: 4px;
+    background-color: #009be5; /* Màu xanh dương giống hình */
+    border: none;
+    padding: 6px 16px;
+    font-weight: 500;
+    font-size: 14px;
+}
+.btn-export:hover {
+    background-color: #0086c9;
+}
+
+/* --- TABLE STYLES --- */
+.custom-table {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* Header */
+.table-header {
+    display: flex;
+    background-color: #00a8e8; /* Xanh dương sáng header */
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    padding-right: 6px; /* Bù trừ thanh cuộn */
+}
+
+/* Body Scrollable */
+.table-body {
+    display: block;
+    max-height: 400px; /* Chiều cao bảng */
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    background-color: #fff;
+}
+
+/* Custom Scrollbar */
+.table-body::-webkit-scrollbar { width: 6px; }
+.table-body::-webkit-scrollbar-track { background: #f1f1f1; }
+.table-body::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+
+/* Rows */
+.table-row {
+    display: flex;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+    color: #333;
+    font-size: 14px;
+    align-items: stretch; /* Để các ô cao bằng nhau */
+}
+.table-row:hover {
+    background-color: #f8f9fa;
+}
+
+/* Cells */
+.col-cell {
+    padding: 15px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #f0f0f0;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+}
+.col-cell:last-child { border-right: none; }
+
+/* Column Widths (Total ~100%) */
+.c-stt    { flex: 0 0 5%; }
+.c-msv    { flex: 0 0 15%; }
+.c-name   { flex: 0 0 25%; }
+.c-img    { flex: 0 0 15%; }
+.c-status { flex: 0 0 20%; }
+.c-action { flex: 0 0 20%; }
+
+/* --- BUTTONS TRONG BẢNG --- */
+
+/* Nút Upload */
+.btn-upload {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: #555;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+.btn-upload:hover {
+    background-color: #f1f1f1;
+    border-color: #ccc;
+}
+
+/* Nút Thao tác (Duyệt/Từ chối) */
+.btn-action {
+    border: none;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 4px;
+    border-radius: 2px; /* Hình chữ nhật góc hơi bo nhẹ */
+    min-width: 70px;
+}
+
+.btn-approve {
+    background-color: #3add2c; /* Xanh lá tươi (Duyệt) */
+}
+.btn-approve:hover {
+    background-color: #32c426;
+}
+
+.btn-reject {
+    background-color: #ff0000; /* Đỏ tươi (Từ chối) */
+}
+.btn-reject:hover {
+    background-color: #d90000;
+}

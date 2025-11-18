@@ -39,7 +39,7 @@
                         <div class="col-cell c-code">'.$skmc['MaSK'].'</div>
                         <div class="col-cell c-name">'.$skmc['TenSK'].'</div>
                         <div class="col-cell c-time">'.$skmc['ThoiGianBatDauSK'].' - '.$skmc['ThoiGianKetThucSK'].'</div>
-                        <div class="col-cell c-action"><a href="BCS/DuyetMinhChung/XemDSThamGia?EventID='.$skmc['MaSK'].'">Xem danh sách sv đăng ký tham gia</a></div>
+                        <div class="col-cell c-action"><a href="BCS/DuyetMinhChung/DanhSachMinhChung?EventID='.$skmc['MaSK'].'">Xem danh sách minh chứng chờ duyệt</a></div>
                     </div>
                         </div>';
 

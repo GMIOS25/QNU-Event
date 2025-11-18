@@ -42,7 +42,7 @@
 .event-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .event-table thead tr {
@@ -95,12 +95,17 @@
 .event-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
-  table-layout: fixed; /* <--- THÊM DÒNG NÀY */
+  font-size: 15px;
+  table-layout: fixed
 }
 .event-date{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center ;
+  vertical-align: middle !important;  
+  align-content: center;
+
+}
+.event-date span {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; 
 }

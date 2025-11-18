@@ -59,7 +59,7 @@
                   // Ngày không có sự kiện
                   echo '<tr>';
                   echo '<td class="event-date" rowspan="1">
-                          <span class="event-date-circle">'.date('d', strtotime($listEventDate['date'])).'<br> </span>
+                          <span class="event-date-circle">'.date('d', strtotime($listEventDate['date'])).' </span>
                           <span class="event-day-label">'.$mapThu[$thu].'</span>
                           </td>';
                   echo '<td colspan="4" class="no-event">Không có sự kiện</td>';
@@ -77,14 +77,22 @@
                               <span class="event-date-circle">'.date('d', strtotime($listEventDate['date'])).'</span>
                               <span class="event-day-label">'.$mapThu[$thu].'</span>
                             </td>';
+                      echo '<td>'.(!empty($event['ThoiGianBatDauSK']) ? date('H:i', strtotime($event['ThoiGianBatDauSK'])) : '--:--').'</td>';
+                      echo '<td>'.$event['TenSK'].'</td>';
+                      echo '<td>'.$event['NoiToChuc'].'</td>';
+                      echo '<td>'.$event['Ghi chú'].'</td>';
                       $first = false;
                   }
+                  else
+                  {
 
-                  echo '<td>'.(!empty($event['ThoiGianBatDauSK']) ? date('H:i', strtotime($event['ThoiGianBatDauSK'])) : '--:--').'</td>';
-                  echo '<td>'.$event['TenSK'].'</td>';
-                  echo '<td>'.$event['NoiToChuc'].'</td>';
-                  echo '<td>'.$event['Ghi chú'].'</td>';
+                      echo '<td>' . (!empty($event['ThoiGianBatDauSK']) ? date('H:i', strtotime($event['ThoiGianBatDauSK'])) : '--:--') . '</td>';
+                              echo '<td>' . $event['TenSK'] . '</td>';
+                              echo '<td>' . $event['NoiToChuc'] . '</td>';
+                              echo '<td>' . $event['Ghi chú'] . '</td>';
+                  }
                   echo '</tr>';
+
               }
           }
 

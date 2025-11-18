@@ -6,6 +6,7 @@
     
     require_once __DIR__ . "/../Models/Event.php";
     require_once __DIR__ . "/../Models/User.php";
+    require_once __DIR__ . "/../Models/MinhChung.php";
     // controller này cho chức năng của sinh viên
     class studentController
     {
@@ -91,18 +92,56 @@
         }
         public function showNopMinhChung()
         {
+            $minhChungModel = new MinhChung();
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
             $title = "Minh chứng tham gia sự kiện ";
             $eventModel = new Event();
             $listSKMinhChung = $eventModel->loadSKCanNopMinhChung($_SESSION['UID']);
-
+            $listMinhChungNop = $minhChungModel->getMinhChungDaNop($_SESSION['UID']);
             $render = __DIR__ . "/../Views/Student/MinhChungSuKien.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
         public function showNopMinhChungThamGiaSK()
         {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
             $title = "Nộp minh chứng";
             $render = __DIR__ . "/../Views/Student/uploadMinhChung.php";
             include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitNopMinhChungThamGiaSK()
+        {
+            $minhChungModel = new MinhChung();
+            // upload file
+            $target_dir = __DIR__ . "/../../public/userdata/imgMinhChung/";
+            $target_file = $target_dir  .time()."_". basename($_FILES["imgMinhChung"]["name"]);
+            global $publicBase;
+            $messageUpload = 0;
+            if(isset($_FILES["imgMinhChung"])) {
+                $messageUpload = move_uploaded_file($_FILES["imgMinhChung"]["tmp_name"], $target_file);
+            }
+            if($messageUpload)
+            {
+                
+                if($minhChungModel->NopMinhChung($_SESSION['UID'], $_GET['EventID'],
+                 str_replace(__DIR__ . "/../../public/", "", $target_file)))
+                {
+                    $_SESSION['message'] = "Nộp minh chứng thành công!";
+                    header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK");
+                    exit();
+                }
+            }
+            $_SESSION['message'] = "Nộp minh chứng thất bại!";
+            header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK/NopMinhChung?EventID=".$_GET['EventID']);
+            exit();
+
         }
         public function showTuDanhGiaRL()
         {

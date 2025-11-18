@@ -9,7 +9,7 @@
 
         <form action="" method="POST" enctype="multipart/form-data">
             
-            <input type="hidden" name="ma_sk" value="<?php echo isset($maSK) ? $maSK : ''; ?>">
+            <input type="hidden" name="EventID" value="<?php echo isset($maSK) ? $maSK : ''; ?>">
 
             <label for="file-upload" class="upload-area">
                 <div class="upload-icon">📂</div>
@@ -17,7 +17,7 @@
                 <span class="upload-hint">(JPG, PNG - Tối đa 1 ảnh)</span>
             </label>
             
-            <input id="file-upload" class="file-input" type="file" name="minhchung_img" accept="image/*" required onchange="previewImage(event)">
+            <input id="file-upload" class="file-input" type="file" name="imgMinhChung" accept="image/*" required onchange="previewImage(event)">
 
             <div id="preview-box" class="preview-container">
                 <p style="font-size: 0.8rem; color: #666; margin-bottom: 5px;">Ảnh đã chọn:</p>

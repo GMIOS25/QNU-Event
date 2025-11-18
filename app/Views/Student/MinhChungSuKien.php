@@ -76,16 +76,20 @@
                     <div class="col-cell c-time">Thời gian nộp</div>
                     <div class="col-cell c-qty">Trạng thái</div>
                 </div>
-                
-                <div class="table-body">
+                <?php 
+                    foreach($listMinhChungNop as $mcnop)
+                    {
+                        echo '<div class="table-body">
                     <div class="table-row">
-                        <div class="col-cell c-code">test</div>
-                        <div class="col-cell c-name">test</div>
-                        <div class="col-cell c-time">test</div>
-                        <div class="col-cell c-qty">test</div>
+                        <div class="col-cell c-code">'.$mcnop['IDMinhChung'].'</div>
+                        <div class="col-cell c-name">'.$mcnop['TenSK'].'</div>
+                        <div class="col-cell c-time">'.$mcnop['ThoiGianNop'].'</div>
+                        <div class="col-cell c-qty">'.$mcnop['TrangThai'].'</div>
                     </div>
-                   
-                </div>
+                        </div>';
+
+                    }
+                ?>
             </div>
         </div>
 

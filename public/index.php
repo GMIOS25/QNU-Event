@@ -74,6 +74,11 @@
                 $studentController->showNopMinhChungThamGiaSK();
                 break;
             }
+            else if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $studentController->submitNopMinhChungThamGiaSK();
+                break;
+            }
         case '/Student/DangKySuKien':
             $studentController->showDKSK();
             break;

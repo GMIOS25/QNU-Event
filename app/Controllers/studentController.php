@@ -92,7 +92,7 @@
         public function showNopMinhChung()
         {
             $title = "Nộp minh chứng";
-            $render = __DIR__ . "/../Views/Student/NopMinhChung.php";
+            $render = __DIR__ . "/../Views/Student/MinhChungSuKien.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
         public function showTuDanhGiaRL()

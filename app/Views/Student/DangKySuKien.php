@@ -16,7 +16,10 @@
                     <i class="bi bi-search search-icon"></i>
                 </div>
             </div>
-
+            <div class="warning-box">
+                <i class="bi bi-exclamation-triangle-fill warning-icon"></i>
+                <span class="warning-text">Sinh viên chịu tránh nhiệm với sự kiện mình đăng ký</span>
+            </div>
             <div class="custom-table">
                 <div class="table-header">
                     <div class="col-cell c-code">Mã SK</div>

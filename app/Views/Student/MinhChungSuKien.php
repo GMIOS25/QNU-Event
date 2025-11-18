@@ -21,7 +21,7 @@
             </div>
             <div class="warning-box">
                 <i class="bi bi-exclamation-triangle-fill warning-icon"></i>
-                <span class="warning-text">Thời gian nộp minh chứng chỉ có hiệu lực từ khi sự kiện bắt đầu cho đến 2 ngày sau khi sự kiện kết thúc. <br> Không nộp minh chứng đồng nghĩa với không tham gia sự kiện</span>
+                <span class="warning-text">Thời gian nộp minh chứng và duyệt chỉ có hiệu lực từ khi sự kiện bắt đầu cho đến 7 ngày sau khi sự kiện kết thúc. <br> Không nộp minh chứng đồng nghĩa với không tham gia sự kiện</span>
             </div>
             <div class="custom-table">
                 <div class="table-header">

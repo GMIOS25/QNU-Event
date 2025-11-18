@@ -100,7 +100,7 @@
             }
             $title = "Minh chứng tham gia sự kiện ";
             $eventModel = new Event();
-            $listSKMinhChung = $eventModel->loadSKCanNopMinhChung($_SESSION['UID']);
+            $listSKMinhChung = $minhChungModel->loadSKCanNopMinhChung($_SESSION['UID']);
             $listMinhChungNop = $minhChungModel->getMinhChungDaNop($_SESSION['UID']);
             $render = __DIR__ . "/../Views/Student/MinhChungSuKien.php";
             include __DIR__ . "/../Views/layout.php" ;

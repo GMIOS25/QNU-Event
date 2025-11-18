@@ -98,3 +98,9 @@
   font-size: 14px;
   table-layout: fixed; /* <--- THÊM DÒNG NÀY */
 }
+.event-date{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center ;
+}

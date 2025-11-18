@@ -110,6 +110,23 @@
         public  function showLichSK()
         {
             $title = "Lịch sự kiện";
+            global $publicBase;
+            $eventModel = new Event();
+
+            $startWeekDate = date('Y-m-d', strtotime('monday this week'));
+            $endWeekDate = date('Y-m-d', strtotime('sunday this week'));
+
+            $currentDate = $startWeekDate;
+            while(strtotime($currentDate) <= strtotime($endWeekDate)) {
+                $dailyEvents = $eventModel->getSKDaDangKyByDay($_SESSION['UID'], $currentDate);
+                $listEventWeek[] = [
+                    'date' => $currentDate,
+                    'eventsList' => $dailyEvents
+                ];
+                $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+
+            }
+            //$rawDataEvent = $eventModel->getSKDaDangKyByDayRange($_SESSION['UID'], $startWeekDate, $endWeekDate);
             $render = __DIR__ . "/../Views/Student/LichSuKien.php";
             include __DIR__ . "/../Views/layout.php" ;
         }

@@ -8,7 +8,7 @@
     <!-- Header -->
     <div class="event-header">
       <i class="bi bi-calendar-event"></i>
-      <span>Lịch sự kiện</span>
+      <span>Lịch sự kiện tuần</span>
     </div>
 
     <!-- Thời gian hiện tại -->
@@ -32,14 +32,65 @@
       <th>Ngày</th>
       <th>Thời gian</th>
       <th>Tên sự kiện</th>
-      <th>Phòng</th>
-      <th>Trạng thái</th>
+      <th>Nơi tổ chức</th>
+      <th>Ghi chú</th>
     </tr>
   </thead>
   
         <tbody>
+          <?php 
+            // var_dump($listEventWeek);
+            // exit; 
+          foreach ($listEventWeek as $listEventDate)
+          {
+              $events = $listEventDate['eventsList'] ?? [];   
+              $rowspan = count($events);
+              $thu = date('N', strtotime($listEventDate['date']));
+              $mapThu = [
+                  1 => 'Thứ 2',
+                  2 => 'Thứ 3',
+                  3 => 'Thứ 4',
+                  4 => 'Thứ 5',
+                  5 => 'Thứ 6',
+                  6 => 'Thứ 7',
+                  7 => 'Chủ nhật'
+              ];
+              if ($rowspan == 0) {
+                  // Ngày không có sự kiện
+                  echo '<tr>';
+                  echo '<td class="event-date" rowspan="1">
+                          <span class="event-date-circle">'.date('d', strtotime($listEventDate['date'])).'<br> </span>
+                          <span class="event-day-label">'.$mapThu[$thu].'</span>
+                          </td>';
+                  echo '<td colspan="4" class="no-event">Không có sự kiện</td>';
+                  echo '</tr>';
+                  continue;
+              }
 
-          <!-- Ngày 30 -->
+              $first = true;
+              foreach ($events as $event)
+              {
+                  echo '<tr>';
+                  
+                  if ($first) {
+                      echo '<td class="event-date" rowspan="'.$rowspan.'">
+                              <span class="event-date-circle">'.date('d', strtotime($listEventDate['date'])).'</span>
+                              <span class="event-day-label">'.$mapThu[$thu].'</span>
+                            </td>';
+                      $first = false;
+                  }
+
+                  echo '<td>'.(!empty($event['ThoiGianBatDauSK']) ? date('H:i', strtotime($event['ThoiGianBatDauSK'])) : '--:--').'</td>';
+                  echo '<td>'.$event['TenSK'].'</td>';
+                  echo '<td>'.$event['NoiToChuc'].'</td>';
+                  echo '<td>'.$event['Ghi chú'].'</td>';
+                  echo '</tr>';
+              }
+          }
+
+          
+          ?>
+          <!-- Ngày 30
           <tr>
             <td  rowspan="3">
               <span class="event-date-circle">30</span>
@@ -64,23 +115,6 @@
             <td  class="col-5 event-status">Đang diễn ra</td>
           </tr>
 
-          <!-- Ngày 31 -->
-          <tr>
-            <td rowspan="2">
-              <span class="event-date-circle">31</span>
-            </td>
-            <td>Body</td>
-            <td>Body</td>
-            <td>Body</td>
-            <td class="event-status">Body</td>
-          </tr>
-
-          <tr>
-            <td>Body</td>
-            <td>Body</td>
-            <td>Body</td>
-            <td class="event-status">Body</td>
-          </tr>
 
         </tbody>
       </table>

@@ -355,6 +355,30 @@
                 return false;
             }
         }
+        public function getSKDaDangKyByDay($MSSV, $date)
+        {
+            $data = [];
+            $sttm = $this->conn->prepare("Select SuKien.* from SuKien join dksukien on SuKien.MaSK = dksukien.MaSk 
+            Where Date(ThoiGianBatDauSK) = ?  and MSSV = ? and TrangThai = 'Đăng ký'");
+            $sttm->bind_param('ss', $date, $MSSV);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
 
     }
 

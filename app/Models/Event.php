@@ -379,6 +379,38 @@
             }
             return NULL;
         }
+        public function loadSKCanNopMinhChung($MSSV)
+        {
+            $data = [];
+        $sql = "SELECT SuKien.* FROM SuKien 
+        JOIN dksukien ON SuKien.MaSK = dksukien.MaSK 
+        LEFT JOIN minhchungthamgiask ON dksukien.MaSK = minhchungthamgiask.MaSK 
+                                     AND dksukien.MSSV = minhchungthamgiask.MSSV 
+        WHERE 
+            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 2 DAY)
+            AND dksukien.MSSV = ? 
+            AND dksukien.TrangThai = 'Đăng ký' 
+            AND (minhchungthamgiask.TrangThai IS NULL OR minhchungthamgiask.TrangThai != 'Đã duyệt')";
+            $sttm = $this->conn->prepare($sql);
+            $sttm->bind_param('s', $MSSV);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
 
     }
 

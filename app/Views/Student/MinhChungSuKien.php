@@ -31,7 +31,22 @@
                     <div class="col-cell c-action">Chức năng</div>
                 </div>
                 
-                <div class="table-body">
+                <?php 
+                    foreach($listSKMinhChung as $skmc)
+                    {
+                        echo '<div class="table-body">
+                    <div class="table-row">
+                        <div class="col-cell c-code">'.$skmc['MaSK'].'</div>
+                        <div class="col-cell c-name">'.$skmc['TenSK'].'</div>
+                        <div class="col-cell c-time">'.$skmc['ThoiGianBatDauSK'].' - '.$skmc['ThoiGianKetThucSK'].'</div>
+                        <div class="col-cell c-action"><a href="Student/NopMinhChungThamGiaSK/NopMinhChung?EventID='.$skmc['MaSK'].'">Nộp minh chứng</a></div>
+                    </div>
+                        </div>';
+
+                    }
+
+                ?>
+                <!-- <div class="table-body">
                     <div class="table-row">
                         <div class="col-cell c-code">test</div>
                         <div class="col-cell c-name">test</div>
@@ -39,7 +54,7 @@
                         <div class="col-cell c-action">test</div>
                     </div>
                    
-                </div>
+                </div> -->
             </div>
         </div>
 

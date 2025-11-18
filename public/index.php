@@ -68,6 +68,12 @@
         case '/Student/NopMinhChungThamGiaSK':
             $studentController->showNopMinhChung();
             break;
+        case '/Student/NopMinhChungThamGiaSK/NopMinhChung':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['EventID'])) 
+            {
+                $studentController->showNopMinhChungThamGiaSK();
+                break;
+            }
         case '/Student/DangKySuKien':
             $studentController->showDKSK();
             break;

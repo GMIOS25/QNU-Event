@@ -91,8 +91,17 @@
         }
         public function showNopMinhChung()
         {
-            $title = "Nộp minh chứng";
+            $title = "Minh chứng tham gia sự kiện ";
+            $eventModel = new Event();
+            $listSKMinhChung = $eventModel->loadSKCanNopMinhChung($_SESSION['UID']);
+
             $render = __DIR__ . "/../Views/Student/MinhChungSuKien.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function showNopMinhChungThamGiaSK()
+        {
+            $title = "Nộp minh chứng";
+            $render = __DIR__ . "/../Views/Student/uploadMinhChung.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
         public function showTuDanhGiaRL()

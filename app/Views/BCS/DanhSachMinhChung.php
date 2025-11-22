@@ -43,13 +43,13 @@
                     <div class="col-cell c-stt">STT</div>
                     <div class="col-cell c-msv">MSV</div>
                     <div class="col-cell c-name">Họ & Tên</div>
+                    <div class="col-cell c-status">Lớp</div>
                     <div class="col-cell c-img">Ảnh minh chứng</div>
-                    <div class="col-cell c-status">Trạng thái</div>
                     <div class="col-cell c-action">Thao tác</div>
                 </div>
                 
                 <div class="table-body">
-                    <div class="table-row">
+                    <!-- <div class="table-row">
                         <div class="col-cell c-stt">01</div>
                         <div class="col-cell c-msv">465050122</div>
                         <div class="col-cell c-name">Võ Nguyễn An Nhiên</div>
@@ -63,54 +63,27 @@
                             <button class="btn-action btn-approve">Duyệt</button>
                             <button class="btn-action btn-reject">Từ chối</button>
                         </div>
-                    </div>
+                    </div> -->
+                    
+                    <?php 
+                        foreach($listMinhChung as  $mc)
+                        {
+                            echo '<div class="table-row">
+                            <div class="col-cell c-stt">'.($index + 1).'</div>
+                            <div class="col-cell c-msv">'.$mc['MSSV'].'</div>
+                            <div class="col-cell c-name">'.$mc['Ho'].' '.$mc['Ten'].'</div>
+                            <div class="col-cell c-status">'.$mc['Lop'].'</div>
+                            <div class="col-cell c-img">
+                                <a href="'.$mc['FileMinhChung'].'" target="_blank">Xem ảnh</a>
+                            </div>
+                            <div class="col-cell c-action">
+                                <button class="btn-action btn-approve">Duyệt</button>
+                                <button class="btn-action btn-reject">Từ chối</button>
+                            </div>
+                            </div>';
+                        }   
+                    ?>
 
-                    <div class="table-row">
-                        <div class="col-cell c-stt">02</div>
-                        <div class="col-cell c-msv">4651050125</div>
-                        <div class="col-cell c-name">Hứa Vĩnh Kiện</div>
-                        <div class="col-cell c-img">
-                            <button class="btn-upload">
-                                <i class="bi bi-camera me-1"></i> Upload
-                            </button>
-                        </div>
-                        <div class="col-cell c-status">Đã duyệt</div>
-                        <div class="col-cell c-action">
-                            <button class="btn-action btn-approve">Duyệt</button>
-                            <button class="btn-action btn-reject">Từ chối</button>
-                        </div>
-                    </div>
-
-                    <div class="table-row">
-                        <div class="col-cell c-stt">03</div>
-                        <div class="col-cell c-msv">4651050201</div>
-                        <div class="col-cell c-name">Lý Toàn Lâm</div>
-                        <div class="col-cell c-img">
-                            <button class="btn-upload">
-                                <i class="bi bi-camera me-1"></i> Upload
-                            </button>
-                        </div>
-                        <div class="col-cell c-status">Đã duyệt</div>
-                        <div class="col-cell c-action">
-                            <button class="btn-action btn-approve">Duyệt</button>
-                            <button class="btn-action btn-reject">Từ chối</button>
-                        </div>
-                    </div>
-                     <div class="table-row">
-                        <div class="col-cell c-stt">04</div>
-                        <div class="col-cell c-msv">4651050999</div>
-                        <div class="col-cell c-name">Nguyễn Văn A</div>
-                        <div class="col-cell c-img">
-                            <button class="btn-upload">
-                                <i class="bi bi-camera me-1"></i> Upload
-                            </button>
-                        </div>
-                        <div class="col-cell c-status">Bị từ chối</div>
-                        <div class="col-cell c-action">
-                            <button class="btn-action btn-approve">Duyệt</button>
-                            <button class="btn-action btn-reject">Từ chối</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

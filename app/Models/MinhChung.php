@@ -87,8 +87,8 @@
         }
         public function loadDanhSachMinhChungChoDuyet($EventID)
         {
-                        $data = [];
-            $sql = "Select * from minhchungthamgiask 
+            $data = [];
+            $sql = "Select  sinhvien.MSSV, sinhvien.Ho, sinhvien.Ten, FileMinhChung, sinhvien.MaLop, ThoiGianNop from minhchungthamgiask 
             join sinhvien on minhchungthamgiask.MSSV = sinhvien.MSSV
             where MaSK = ? and TrangThai = 'Chờ duyệt'";
             $sttm = $this->conn->prepare($sql);

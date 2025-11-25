@@ -88,8 +88,9 @@
         public function loadDanhSachMinhChungChoDuyet($EventID)
         {
             $data = [];
-            $sql = "Select  sinhvien.MSSV, sinhvien.Ho, sinhvien.Ten, FileMinhChung, sinhvien.MaLop, ThoiGianNop from minhchungthamgiask 
+            $sql = "Select  sinhvien.MSSV, sinhvien.Ho, sinhvien.Ten, FileMinhChung, lop.TenLop as Lop, ThoiGianNop from minhchungthamgiask 
             join sinhvien on minhchungthamgiask.MSSV = sinhvien.MSSV
+            join lop on sinhvien.MaLop = lop.MaLop
             where MaSK = ? and TrangThai = 'Chờ duyệt'";
             $sttm = $this->conn->prepare($sql);
             $sttm->bind_param("s", $EventID);
@@ -111,7 +112,20 @@
             }
             return NULL;
         }
-
+        public function approveMinhChung($MSSV, $MaSK)
+        {
+            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Đã duyệt' WHERE MSSV = ? AND MaSK = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ss", $MSSV, $MaSK);
+            return $stmt->execute();
+        }
+        public function rejectMinhChung($MSSV, $MaSK)
+        {
+            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Từ chối' WHERE MSSV = ? AND MaSK = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ss", $MSSV, $MaSK);
+            return $stmt->execute();
+        }
 
     }
 ?>

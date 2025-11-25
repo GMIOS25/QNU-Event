@@ -119,29 +119,56 @@
         public function submitNopMinhChungThamGiaSK()
         {
             $minhChungModel = new MinhChung();
-            // upload file
-            $target_dir = __DIR__ . "/../../public/userdata/imgMinhChung/";
-            $target_file = $target_dir  .time()."_". basename($_FILES["imgMinhChung"]["name"]);
             global $publicBase;
-            $messageUpload = 0;
-            if(isset($_FILES["imgMinhChung"])) {
-                $messageUpload = move_uploaded_file($_FILES["imgMinhChung"]["tmp_name"], $target_file);
+            
+            // Debug: Check if file was uploaded
+            if(!isset($_FILES["imgMinhChung"]) || $_FILES["imgMinhChung"]["error"] !== UPLOAD_ERR_OK) {
+                $_SESSION['message'] = "Lỗi upload file! Mã lỗi: " . (isset($_FILES["imgMinhChung"]) ? $_FILES["imgMinhChung"]["error"] : "File không tồn tại");
+                header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK/NopMinhChung?EventID=".$_GET['EventID']);
+                exit();
             }
-            if($messageUpload)
+            
+            // Check if EventID exists
+            if(!isset($_GET['EventID'])) {
+                $_SESSION['message'] = "Thiếu mã sự kiện!";
+                header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK");
+                exit();
+            }
+            
+            // Create directory if not exists
+            $target_dir = __DIR__ . "/../../public/userdata/imgMinhChung/";
+            if (!file_exists($target_dir)) {
+                mkdir($target_dir, 0777, true);
+            }
+            
+            // Upload file
+            $target_file = $target_dir . time() . "_" . basename($_FILES["imgMinhChung"]["name"]);
+            $messageUpload = move_uploaded_file($_FILES["imgMinhChung"]["tmp_name"], $target_file);
+            
+            if(!$messageUpload) {
+                $_SESSION['message'] = "Không thể lưu file! Kiểm tra quyền thư mục.";
+                header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK/NopMinhChung?EventID=".$_GET['EventID']);
+                exit();
+            }
+            
+            // Save to database
+            $relative_path = str_replace(__DIR__ . "/../../public/", "", $target_file);
+            if($minhChungModel->NopMinhChung($_SESSION['UID'], $_GET['EventID'], $relative_path))
             {
-                
-                if($minhChungModel->NopMinhChung($_SESSION['UID'], $_GET['EventID'],
-                 str_replace(__DIR__ . "/../../public/", "", $target_file)))
-                {
-                    $_SESSION['message'] = "Nộp minh chứng thành công!";
-                    header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK");
-                    exit();
-                }
+                $_SESSION['message'] = "Nộp minh chứng thành công!";
+                header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK");
+                exit();
             }
-            $_SESSION['message'] = "Nộp minh chứng thất bại!";
-            header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK/NopMinhChung?EventID=".$_GET['EventID']);
-            exit();
-
+            else
+            {
+                // Delete uploaded file if database insert fails
+                if(file_exists($target_file)) {
+                    unlink($target_file);
+                }
+                $_SESSION['message'] = "Lỗi lưu vào database!";
+                header("Location: ".$publicBase."/Student/NopMinhChungThamGiaSK/NopMinhChung?EventID=".$_GET['EventID']);
+                exit();
+            }
         }
         public function showTuDanhGiaRL()
         {

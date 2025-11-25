@@ -79,12 +79,37 @@
                 <?php 
                     foreach($listMinhChungNop as $mcnop)
                     {
+                        // Determine badge class and icon based on status
+                        $badgeClass = '';
+                        $icon = '';
+                        switch($mcnop['TrangThai']) {
+                            case 'Chờ duyệt':
+                                $badgeClass = 'bg-warning text-dark';
+                                $icon = '<i class="bi bi-clock-history me-1"></i>';
+                                break;
+                            case 'Đã duyệt':
+                                $badgeClass = 'bg-success';
+                                $icon = '<i class="bi bi-check-circle-fill me-1"></i>';
+                                break;
+                            case 'Từ chối':
+                                $badgeClass = 'bg-danger';
+                                $icon = '<i class="bi bi-x-circle-fill me-1"></i>';
+                                break;
+                            default:
+                                $badgeClass = 'bg-secondary';
+                                $icon = '<i class="bi bi-question-circle me-1"></i>';
+                        }
+                        
                         echo '<div class="table-body">
                     <div class="table-row">
                         <div class="col-cell c-code">'.$mcnop['IDMinhChung'].'</div>
                         <div class="col-cell c-name">'.$mcnop['TenSK'].'</div>
                         <div class="col-cell c-time">'.$mcnop['ThoiGianNop'].'</div>
-                        <div class="col-cell c-qty">'.$mcnop['TrangThai'].'</div>
+                        <div class="col-cell c-qty">
+                            <span class="badge '.$badgeClass.' px-3 py-2">
+                                '.$icon.$mcnop['TrangThai'].'
+                            </span>
+                        </div>
                     </div>
                         </div>';
 

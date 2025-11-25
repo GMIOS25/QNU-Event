@@ -203,26 +203,35 @@
                     </div>
                     
                     <div class="event-table-body">
-                        <div class="event-table-row">
-                            <div class="data-cell" style="flex-basis: 5%;">01</div>
-                            <div class="data-cell" style="flex-basis: 15%;">4651050044</div>
-                            <div class="data-cell" style="flex-basis: 25%;">Nguyễn Khánh Dương</div>
-                            <div class="data-cell" style="flex-basis: 25%;">Công nghệ thông tin</div>
-                            <div class="data-cell" style="flex-basis: 15%;">Đã đăng ký</div>
-                            <div class="data-cell" style="flex-basis: 15%;">
-                                <span class="action-links">[<a href="#">Xem chi tiết</a>, <a href="#">Xóa</a>]</span>
-                            </div>
-                        </div>
-                        <div class="event-table-row">
-                            <div class="data-cell" style="flex-basis: 5%;">02</div>
-                            <div class="data-cell" style="flex-basis: 15%;">4651050189</div>
-                            <div class="data-cell" style="flex-basis: 25%;">Nguyễn Yến Nhi</div>
-                            <div class="data-cell" style="flex-basis: 25%;">Công nghệ thông tin</div>
-                            <div class="data-cell" style="flex-basis: 15%;">Đã đăng ký</div>
-                            <div class="data-cell" style="flex-basis: 15%;">
-                                <span class="action-links">[<a href="#">Xem chi tiết</a>, <a href="#">Xóa</a>]</span>
-                            </div>
-                        </div>
+                        <?php 
+                            if(isset($listRegisteredStudents) && $listRegisteredStudents != NULL)
+                            {
+                                $index = 1;
+                                foreach($listRegisteredStudents as $student)
+                                {
+                                    echo '<div class="event-table-row">
+                                        <div class="data-cell" style="flex-basis: 5%;">'.$index.'</div>
+                                        <div class="data-cell" style="flex-basis: 15%;">'.$student['MSSV'].'</div>
+                                        <div class="data-cell" style="flex-basis: 25%;">'.$student['Ho'].' '.$student['Ten'].'</div>
+                                        <div class="data-cell" style="flex-basis: 25%;">'.$student['TenKhoa'].'</div>
+                                        <div class="data-cell" style="flex-basis: 15%;">'.$student['TrangThai'].'</div>
+                                        <div class="data-cell" style="flex-basis: 15%;">
+                                            <span class="action-links">[<a href="#">Xem chi tiết</a>, <a href="#">Xóa</a>]</span>
+                                        </div>
+                                    </div>';
+                                    $index++;
+                                }
+                            }
+                            else
+                            {
+                                echo '<div class="event-table-row">
+                                    <div class="data-cell" style="flex-basis: 100%; text-align: center; padding: 3rem; color: #666;">
+                                        <i class="bi bi-inbox" style="font-size: 3rem; display: block; margin-bottom: 1rem; color: #ccc;"></i>
+                                        <p style="margin: 0;">Chưa có sinh viên nào đăng ký sự kiện này</p>
+                                    </div>
+                                </div>';
+                            }
+                        ?>
                     </div>
                 </div>
 

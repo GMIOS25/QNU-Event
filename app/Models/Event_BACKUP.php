@@ -321,7 +321,6 @@
             }
             return 0;
         }
-        
         public function HuyDKSuKien($MSSV, $eventID)
         {
             $sttm = $this->conn->prepare("UPDATE dksukien SET TrangThai = 'Hủy đăng ký' where MSSV=? and MaSK=? and TrangThai = 'Đăng ký'");
@@ -332,42 +331,36 @@
             }
             return 0;
         }
-        
-        public function checkDKTrung($EventID, $MSSV)
+        public function checkDKTrung($eventID, $MSSV)
         {
-            // Check if student has already registered for an event that overlaps with this event's time
-            $data = [];
-            $sttm = $this->conn->prepare("SELECT sk1.* 
-                FROM dksukien dk
-                JOIN sukien sk1 ON dk.MaSK = sk1.MaSK
-                JOIN sukien sk2 ON sk2.MaSK = ?
-                WHERE dk.MSSV = ? 
-                AND dk.TrangThai = 'Đăng ký'
-                AND (
-                    (sk1.ThoiGianBatDauSK <= sk2.ThoiGianKetThucSK AND sk1.ThoiGianKetThucSK >= sk2.ThoiGianBatDauSK)
-                )");
-            $sttm->bind_param('ss', $EventID, $MSSV);
-            if($sttm->execute())
+            $eventData = $this->getEvent($eventID);
+            $start = $eventData['ThoiGianBatDauSK'];
+            $end   = $eventData['ThoiGianKetThucSK'];
+               $sql = "
+                    SELECT 1
+                    FROM dksukien JOIN sukien ON dksukien.MaSK = sukien.MaSK WHERE dksukien.MSSV = '".$MSSV."'
+                    AND dksukien.TrangThai = 'Đăng ký' AND NOT (
+                            sukien.ThoiGianKetThucSK <= '".$start."' 
+                        OR sukien.ThoiGianBatDauSK >= '".$end."' 
+                    )
+                    LIMIT 1
+                ";
+            $result = $this->conn->query($sql);
+            if($result->num_rows > 0)
             {
-                $result = $sttm->get_result();
-                if(mysqli_num_rows($result) > 0)
-                {
-                    return true; // Has overlapping event
-                }
+                return true;
             }
-            return false; // No overlap
+            else
+            {
+                return false;
+            }
         }
-        
         public function getSKDaDangKyByDay($MSSV, $date)
         {
             $data = [];
-            $sttm = $this->conn->prepare("SELECT SuKien.* 
-                FROM dksukien 
-                JOIN sukien ON sukien.MaSK = dksukien.MaSK
-                WHERE TrangThai = 'Đăng ký' 
-                AND MSSV = ? 
-                AND DATE(ThoiGianBatDauSK) = ?");
-            $sttm->bind_param('ss', $MSSV, $date);
+            $sttm = $this->conn->prepare("Select SuKien.* from SuKien join dksukien on SuKien.MaSK = dksukien.MaSk 
+            Where Date(ThoiGianBatDauSK) = ?  and MSSV = ? and TrangThai = 'Đăng ký'");
+            $sttm->bind_param('ss', $date, $MSSV);
             if($sttm->execute())
             {
                 $result = $sttm->get_result();
@@ -386,7 +379,6 @@
             }
             return NULL;
         }
-        
         public function getRegisteredStudents($EventID)
         {
             $data = [];

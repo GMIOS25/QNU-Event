@@ -7,9 +7,9 @@
             <p>Vui lòng tải lên ảnh minh chứng tham gia</p>
         </div>
 
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="Student/NopMinhChungThamGiaSK/NopMinhChung?EventID=<?php echo isset($_GET['EventID']) ? $_GET['EventID'] : ''; ?>" method="POST" enctype="multipart/form-data">
             
-            <input type="hidden" name="EventID" value="<?php echo isset($maSK) ? $maSK : ''; ?>">
+            <input type="hidden" name="EventID" value="<?php echo isset($_GET['EventID']) ? $_GET['EventID'] : ''; ?>">
 
             <label for="file-upload" class="upload-area">
                 <div class="upload-icon">📂</div>

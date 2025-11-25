@@ -50,6 +50,42 @@
             include __DIR__ . "/../Views/layout.php" ;
 
         }
+        public function approveMinhChung()
+        {
+            global $publicBase;
+            $minhChungModel = new MinhChung();
+            if(isset($_GET['MSSV']) && isset($_GET['EventID']))
+            {
+                if($minhChungModel->approveMinhChung($_GET['MSSV'], $_GET['EventID']))
+                {
+                    $_SESSION['message'] = "Duyệt minh chứng thành công!";
+                }
+                else
+                {
+                    $_SESSION['message'] = "Duyệt minh chứng thất bại!";
+                }
+            }
+            header("Location: ".$publicBase."/BCS/DuyetMinhChung/DanhSachMinhChung?EventID=".$_GET['EventID']);
+            exit();
+        }
+        public function rejectMinhChung()
+        {
+            global $publicBase;
+            $minhChungModel = new MinhChung();
+            if(isset($_GET['MSSV']) && isset($_GET['EventID']))
+            {
+                if($minhChungModel->rejectMinhChung($_GET['MSSV'], $_GET['EventID']))
+                {
+                    $_SESSION['message'] = "Từ chối minh chứng thành công!";
+                }
+                else
+                {
+                    $_SESSION['message'] = "Từ chối minh chứng thất bại!";
+                }
+            }
+            header("Location: ".$publicBase."/BCS/DuyetMinhChung/DanhSachMinhChung?EventID=".$_GET['EventID']);
+            exit();
+        }
     }
 
 ?>

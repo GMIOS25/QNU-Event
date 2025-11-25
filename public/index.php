@@ -74,7 +74,7 @@
                 $studentController->showNopMinhChungThamGiaSK();
                 break;
             }
-            else if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            else if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['EventID'])) // dành cho submit form
             {
                 $studentController->submitNopMinhChungThamGiaSK();
                 break;
@@ -106,6 +106,12 @@
                 $bcsController->showDanhSachMinhChung();
                 break;
             }
+        case '/BCS/DuyetMinhChung/Approve':
+            $bcsController->approveMinhChung();
+            break;
+        case '/BCS/DuyetMinhChung/Reject':
+            $bcsController->rejectMinhChung();
+            break;
         case '/BCS/DuyetPhieuRL':
             $bcsController->showDuyetPhieuRL();
             break;

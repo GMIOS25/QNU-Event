@@ -150,7 +150,37 @@
             {
                 $adminController->submitSuaSuKien();
                 break;
-            }            
+            } 
+        case '/Admin/CauHinh/HocKy':
+                $adminController->showQuanLyHocKy();
+                break;
+        case '/Admin/CauHinh/HocKy/ThemHocKy':
+            if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitThemHocKy();
+            }
+            else
+            {
+                $adminController->showThemHocKy();
+            }
+            break;
+        case '/Admin/CauHinh/HocKy/SuaHocKy':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['TermID'])) 
+            {
+                $adminController->showSuaHocKy();
+                break;
+            }
+            else if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitSuaHocKy();
+                break;
+            }
+        case '/Admin/CauHinh/HocKy/KetThucHocKy':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['TermID'])) 
+            {
+                $adminController->ketThucHocKy();
+                break;
+            }
         case '/Account':
         default:
             $baseController->ErrorNotFound();

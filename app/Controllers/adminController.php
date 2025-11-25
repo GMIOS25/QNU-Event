@@ -1,6 +1,7 @@
 <?php 
     require_once __DIR__ . "/../Models/Event.php";
     require_once __DIR__ . "/../Models/Khoa.php";
+    require_once __DIR__ . "/../Models/Term.php";
     class adminController
     {
         public function index()
@@ -121,6 +122,9 @@
         {
             // echo "test";
             // exit;
+            // validate dữ liệu
+            
+
             $eventModel = new Event();
             $message = $eventModel->addEvent(
                 $_POST['txtTenSuKien'],
@@ -161,7 +165,6 @@
             $tenKhoaToChuc = $eventModel->getTenKhoaToChuc($_GET['EventID']);
             $stateEvent = $eventModel->getStateEvent($_GET['EventID']);
             $listKhoaThamGia = $eventModel->getDSTenKhoaDuocPhepThamGia($_GET['EventID']);
-            $listRegisteredStudents = $eventModel->getRegisteredStudents($_GET['EventID']);
             $render = __DIR__ . "/../Views/Admin/QLChiTiet.php"; 
             include __DIR__ . "/../Views/layout.php" ;
         }
@@ -202,8 +205,148 @@
             {
                 $_SESSION['message'] = "Sửa sự kiện thất bại";
             }
-            global $publicBase;
+            global $publicBase; 
             header("Location: ".$publicBase."/Admin/QLSuKien/QLChiTiet?EventID=".$_POST['EventID']."");
+        }
+        public function showQuanLyHocKy()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Học kỳ";
+                        $termModel = new Term();
+            $semestersList = $termModel->getAllHK();
+            $render = __DIR__ . "/../Views/Admin/QLHocKy.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function showThemHocKy()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+
+            $title = "Thêm học kỳ";
+            $render = __DIR__ . "/../Views/Admin/ThemHocKy.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitThemHocKy()
+        {
+            // validate dữ liệu
+            $maHk = trim($_POST['MaHK']);
+            $tenHk = trim($_POST['TenHK']);
+            $thoigianbatdau = strtotime($_POST['ThoiGianBatDau']);
+            $thoigianketthuc = strtotime($_POST['ThoiGianKetThuc']);
+            if ($thoigianbatdau >= $thoigianketthuc) {
+                $_SESSION['message'] = "Thời gian kết thúc phải sau thời gian bắt đầu";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/HocKy/ThemHocKy");
+                return;
+            }
+            $termModel = new Term();
+            if($termModel->getHocKyById($maHk) != null) 
+            {
+                $_SESSION['message'] = "Mã học kỳ đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/HocKy/ThemHocKy");
+                return;
+            }
+            if($termModel->checkTrungHocKy($maHk, $_POST['ThoiGianBatDau'], $_POST['ThoiGianKetThuc'])) 
+            {
+                $_SESSION['message'] = "Học kỳ trùng với học kỳ đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/HocKy/ThemHocKy");
+                return;
+            }
+            $message = $termModel->addHocKy(
+                $maHk,
+                $tenHk,
+                $_POST['ThoiGianBatDau'],
+                $_POST['ThoiGianKetThuc']
+            );
+            if($message )
+            {
+
+                $_SESSION['message'] = "Thêm học kỳ thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Thêm học kỳ thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/HocKy");
+        }
+        public function showSuaHocKy()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $termModel = new Term();
+            $title = "Sửa học kỳ";
+            $dataHocKy = $termModel->getHocKyById($_GET['TermID']);
+            $render = __DIR__ . "/../Views/Admin/ThemHocKy.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitSuaHocKy()
+        {
+            
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            // validate dữ liệu
+            $maHk = trim($_POST['MaHK']);
+            $tenHk = trim($_POST['TenHK']);
+            $thoigianbatdau = strtotime($_POST['ThoiGianBatDau']);
+            $thoigianketthuc = strtotime($_POST['ThoiGianKetThuc']);
+            if ($thoigianbatdau >= $thoigianketthuc) {
+                $_SESSION['message'] = "Thời gian kết thúc phải sau thời gian bắt đầu";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/HocKy/SuaHocKy?TermID=".$maHk."");
+                return;
+            }
+            $termModel = new Term();
+            if($termModel->checkTrungHocKy($maHk, $_POST['ThoiGianBatDau'], $_POST['ThoiGianKetThuc'])) 
+            {
+                $_SESSION['message'] = "Học kỳ trùng với học kỳ đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/HocKy/SuaHocKy?TermID=".$maHk."");
+                return;
+            }
+            $message = $termModel->updateHocKy(
+                $maHk,
+                $tenHk,
+                $_POST['ThoiGianBatDau'],
+                $_POST['ThoiGianKetThuc']
+            );
+            if($message )
+            {
+
+                $_SESSION['message'] = "Sửa học kỳ thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Sửa học kỳ thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/HocKy");
+        }
+        public function KetThucHocKy()  {
+            $termModel = new Term();
+            $message = $termModel->endHocKy($_GET['TermID']);
+            if($message ) {
+                $_SESSION['message'] = "Kết thúc học kỳ thành công";
+            } else {
+                $_SESSION['message'] = "Kết thúc học kỳ thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/HocKy");
         }
     }
 

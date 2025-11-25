@@ -97,6 +97,20 @@
             $stmt->bind_param("ss", $currentDateTime, $maHK);
             return $stmt->execute();
         }
+        public function getCurrentHocKy()
+        {
+            $currentDate = date('Y-m-d H:i:s');
+            $sql = "SELECT * FROM hocky WHERE ThoiGianBatDau <= ? AND ThoiGianKetThuc >= ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("ss", $currentDate, $currentDate);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                return $result->fetch_assoc();
+            } else {
+                return null;
+            }
+        }
     }
 
 ?>

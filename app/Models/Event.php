@@ -31,9 +31,9 @@
         }
         public function addEvent($tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc, $DiemCong, $KhoaToChuc, $GhiChu, $listKhoaThamGia)
         {
-            $stmt = $this->conn->prepare("INSERT INTO `sukien`( `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`,`NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`) 
-            VALUES (?,?,?,?,?,?,?,?,?,?)");
-            $stmt->bind_param("sssssisiss", $tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc , $DiemCong, $KhoaToChuc, $GhiChu);
+            $stmt = $this->conn->prepare("INSERT INTO `sukien`( `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`,`NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`, MaHK) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->bind_param("sssssisisss", $tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc , $DiemCong, $KhoaToChuc, $GhiChu, $_SESSION['currentTerm']['MaHK']);
             if ($stmt->execute())
             {
                 // thêm vào bảng list khoa đc phép tham gia
@@ -211,10 +211,10 @@
         {
             $sttm =  $this->conn->prepare("UPDATE sukien 
             SET TenSK = ?, ThoiGianMoDK = ?, ThoiGianDongDK = ?, ThoiGianBatDauSK = ?, ThoiGianKetThucSK = ?, 
-                GioiHanThamGia = ?, NoiToChuc = ?, DiemCong = ?, MaKhoa = ?, GhiChu = ?
+                GioiHanThamGia = ?, NoiToChuc = ?, DiemCong = ?, MaKhoa = ?, GhiChu = ?, MaHK = ?
             WHERE MaSK = ?");
             $sttm->bind_param(
-                    "sssssisisss",
+                    "sssssisissss",
                     $tenSK,
                     $thoiGianMoDK,
                     $thoiGianDongDK,
@@ -225,6 +225,7 @@
                     $DiemCong,
                     $KhoaToChuc,
                     $GhiChu,
+                    $_SESSION['currentTerm']['MaHK'],
                     $eventID
                 );
             if($sttm->execute())
@@ -291,8 +292,8 @@
         {
             $data = [];
             $sttm = $this->conn->prepare("Select SuKien.* from dksukien join sukien on sukien.MaSk = dksukien.MaSK
-             Where TrangThai = 'Đăng ký' and MSSV = ?");
-            $sttm->bind_param('s', $MSSV);
+             Where TrangThai = 'Đăng ký' and MSSV = ? and SuKien.MaHK = ?");
+            $sttm->bind_param('ss', $MSSV, $_SESSION['currentTerm']['MaHK']);
             if($sttm->execute())
             {
                 $result = $sttm->get_result();

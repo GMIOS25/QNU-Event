@@ -42,8 +42,10 @@
 
     if (isset($_SESSION['UID'])) {
         $authController->loadUserData();
-    }
 
+    }
+    $termModel = new Term();
+    $_SESSION['currentTerm'] = $termModel->getCurrentHocKy();
 
     switch ($requestPath) {
         case '/':

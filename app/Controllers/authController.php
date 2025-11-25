@@ -10,6 +10,7 @@
         public function __construct()
         {
            require_once __DIR__ . "/../Models/User.php";
+            require_once __DIR__ . "/../Models/Term.php";
         }
         public function renderLogin($message)
         {
@@ -30,6 +31,8 @@
   
                 $_SESSION['UID'] = $loginUID;
                 $_SESSION['role'] = 0; // role sinh viên
+                $termModel = new Term();
+                
                 header('Location: ' . $publicBase . '/Student');
                 exit;
 

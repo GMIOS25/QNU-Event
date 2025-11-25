@@ -111,7 +111,13 @@
         }
         public function showThemSuKien()
         {
-
+            if($_SESSION['currentTerm'] === null)
+            {
+                $_SESSION['message'] = "Chưa có học kỳ hiện tại, vui lòng thêm học kỳ trước khi tạo sự kiện";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QLSuKien");
+                return;
+            }
             $khoaModel = new Khoa();
             $title = "Thêm sự kiện";
             $listKhoa = $khoaModel->getAll();
@@ -123,7 +129,7 @@
             // echo "test";
             // exit;
             // validate dữ liệu
-            
+
 
             $eventModel = new Event();
             $message = $eventModel->addEvent(

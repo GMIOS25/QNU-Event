@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 17, 2025 lúc 01:16 AM
+-- Thời gian đã tạo: Th10 27, 2025 lúc 08:57 AM
 -- Phiên bản máy phục vụ: 9.1.0
 -- Phiên bản PHP: 8.3.14
 
@@ -59,8 +59,10 @@ CREATE TABLE IF NOT EXISTS `biendongdrl` (
   `NoiDung` text COLLATE utf8mb4_vietnamese_ci,
   `ThoiGian` datetime DEFAULT NULL,
   `SoDiem` int DEFAULT NULL,
+  `MaHK` varchar(10) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   PRIMARY KEY (`MaGD`),
-  KEY `MSSV` (`MSSV`)
+  KEY `MSSV` (`MSSV`),
+  KEY `fk_biendongdrl_hocky` (`MaHK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 -- --------------------------------------------------------
@@ -82,63 +84,31 @@ CREATE TABLE IF NOT EXISTS `chophepsvkhoathamgia` (
 --
 
 INSERT INTO `chophepsvkhoathamgia` (`MaSK`, `MaKhoa`) VALUES
-(15, 'CK'),
-(17, 'CK'),
-(18, 'CK'),
-(14, 'CNTT'),
-(15, 'CNTT'),
-(16, 'CNTT'),
-(17, 'CNTT'),
-(15, 'CT'),
-(17, 'CT'),
-(15, 'DL'),
-(17, 'DL'),
-(14, 'DTVT'),
-(15, 'DTVT'),
-(17, 'DTVT'),
-(15, 'GD'),
-(17, 'GD'),
-(15, 'HH'),
-(17, 'HH'),
-(15, 'KT'),
-(17, 'KT'),
-(15, 'LS'),
-(17, 'LS'),
-(15, 'MT'),
-(17, 'MT'),
-(14, 'NN'),
-(15, 'NN'),
-(17, 'NN'),
-(14, 'NNAN'),
-(15, 'NNAN'),
-(17, 'NNAN'),
-(15, 'NNHQ'),
-(17, 'NNHQ'),
-(15, 'NNLT'),
-(17, 'NNLT'),
-(15, 'NNNB'),
-(17, 'NNNB'),
-(15, 'PL'),
-(17, 'PL'),
-(15, 'QTKD'),
-(17, 'QTKD'),
-(19, 'QTKD'),
-(15, 'SH'),
-(17, 'SH'),
-(15, 'SP'),
-(17, 'SP'),
-(15, 'TCNH'),
-(17, 'TCNH'),
-(15, 'VH'),
-(17, 'VH'),
-(15, 'VL'),
-(17, 'VL'),
-(15, 'XD'),
-(17, 'XD'),
-(15, 'XH'),
-(17, 'XH'),
-(15, 'YT'),
-(17, 'YT');
+(24, 'CK'),
+(24, 'CNTT'),
+(24, 'CT'),
+(24, 'DL'),
+(24, 'DTVT'),
+(24, 'GD'),
+(24, 'HH'),
+(24, 'KT'),
+(24, 'LS'),
+(24, 'MT'),
+(24, 'NN'),
+(24, 'NNAN'),
+(24, 'NNHQ'),
+(24, 'NNLT'),
+(24, 'NNNB'),
+(24, 'PL'),
+(24, 'QTKD'),
+(24, 'SH'),
+(24, 'SP'),
+(24, 'TCNH'),
+(24, 'VH'),
+(24, 'VL'),
+(24, 'XD'),
+(24, 'XH'),
+(24, 'YT');
 
 -- --------------------------------------------------------
 
@@ -171,7 +141,14 @@ CREATE TABLE IF NOT EXISTS `dksukien` (
   PRIMARY KEY (`MaLuotDK`),
   KEY `MSSV` (`MSSV`),
   KEY `MaSK` (`MaSK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `dksukien`
+--
+
+INSERT INTO `dksukien` (`MaLuotDK`, `MSSV`, `MaSK`, `ThoiGianDK`, `TrangThai`) VALUES
+(23, 'sv', 24, '2025-11-25 21:58:15', 'Hủy đăng ký');
 
 -- --------------------------------------------------------
 
@@ -203,6 +180,13 @@ CREATE TABLE IF NOT EXISTS `hocky` (
   `ThoiGianKetThuc` datetime DEFAULT NULL,
   PRIMARY KEY (`MaHK`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `hocky`
+--
+
+INSERT INTO `hocky` (`MaHK`, `TenHK`, `ThoiGianBatDau`, `ThoiGianKetThuc`) VALUES
+('HK1(25-26)', 'Học kỳ 1 (2025-2026)', '2025-09-01 00:00:00', '2026-01-06 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -299,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `minhchungthamgiask` (
   PRIMARY KEY (`IDMinhChung`),
   KEY `MSSV` (`MSSV`),
   KEY `MaSK` (`MaSK`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 -- --------------------------------------------------------
 
@@ -389,7 +373,7 @@ CREATE TABLE IF NOT EXISTS `sinhvien` (
 INSERT INTO `sinhvien` (`MSSV`, `Ho`, `Ten`, `Email`, `Password`, `MaLop`, `isBanCanSu`) VALUES
 ('4651050044', 'Nguyễn Khánh', 'Dương', 'khanhduong18072005@gmail.com', '18072005', 'CNTTK46D', NULL),
 ('4651050189', 'Nguyễn Yến', 'Nhi', NULL, 'haru', 'CNTTK46B', NULL),
-('bcs', 'Họ tên', NULL, NULL, 'bcs', NULL, 1),
+('bcs', 'Họ tên', NULL, NULL, 'bcs', 'CNTTK46D', 1),
 ('sv', 'Cậu bé tê liệt', NULL, NULL, 'sv', 'CNTTK46A', 0);
 
 -- --------------------------------------------------------
@@ -411,21 +395,18 @@ CREATE TABLE IF NOT EXISTS `sukien` (
   `DiemCong` int NOT NULL,
   `MaKhoa` varchar(10) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
   `GhiChu` text COLLATE utf8mb4_vietnamese_ci,
+  `MaHK` varchar(10) COLLATE utf8mb4_vietnamese_ci NOT NULL,
   PRIMARY KEY (`MaSK`),
-  KEY `MaKhoa` (`MaKhoa`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+  KEY `MaKhoa` (`MaKhoa`),
+  KEY `fk_sukien_hocky` (`MaHK`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `sukien`
 --
 
-INSERT INTO `sukien` (`MaSK`, `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`, `NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`) VALUES
-(14, 'Lọ giao hữu Khoa CNTT và Khoa Điện tử - Viễn thông', '2025-11-16 00:00:00', '2025-11-17 00:00:00', '2025-11-18 07:00:00', '2025-11-18 12:00:00', 200, 'Hội trường B', 2, 'CNTT', NULL),
-(15, 'Giải đua xe bát hương vàng mở rộng', '2025-11-15 15:00:00', '2025-11-16 17:00:00', '2025-11-20 16:30:00', '2025-11-20 17:30:00', 100, 'Bãi tha ma', 5, 'VL', NULL),
-(16, 'Chào tân sinh viên Khoa CNTT QNU K48', '2025-10-30 00:00:00', '2025-10-30 23:59:00', '2025-11-01 18:30:00', '2025-11-01 20:30:00', 1000, 'Hội trường B', 3, 'CNTT', NULL),
-(17, 'Giao hữu với đội tuyển Manchester United', '2025-11-15 00:00:00', '2025-11-15 23:59:00', '2025-11-16 00:00:00', '2025-11-20 00:00:00', 1000, 'Sân vận động Quy Nhơn', 100, 'XH', NULL),
-(18, 'Xem T1 đánh giải', '2025-11-11 11:11:00', '2025-11-11 11:11:00', '2025-11-11 11:11:00', '2025-11-11 11:11:00', 1, 'cdzdsads', 1, 'CK', NULL),
-(19, 'Thực tập nhận thức quản trị kinh doanh', '2025-11-01 00:00:00', '2025-11-19 23:59:00', '2025-11-20 06:00:00', '2025-11-25 06:00:00', 500, 'Quán phở Anh Hai, số 10 Đan Phượng, Hà Nội', 5, 'QTKD', NULL);
+INSERT INTO `sukien` (`MaSK`, `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`, `NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`, `MaHK`) VALUES
+(24, 'Tham dự trận giao hữu bóng đá nam giữa đội tuyển ITQNU với CLB Manchester United ', '2025-11-20 00:00:00', '2025-11-25 23:59:00', '2025-11-26 08:00:00', '2025-11-26 11:30:00', 1000, 'Sân vận động Quy Nhơn', 5, 'CNTT', '', 'HK1(25-26)');
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -435,7 +416,8 @@ INSERT INTO `sukien` (`MaSK`, `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGi
 -- Các ràng buộc cho bảng `biendongdrl`
 --
 ALTER TABLE `biendongdrl`
-  ADD CONSTRAINT `biendongdrl_ibfk_1` FOREIGN KEY (`MSSV`) REFERENCES `sinhvien` (`MSSV`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `biendongdrl_ibfk_1` FOREIGN KEY (`MSSV`) REFERENCES `sinhvien` (`MSSV`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_biendongdrl_hocky` FOREIGN KEY (`MaHK`) REFERENCES `hocky` (`MaHK`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `chophepsvkhoathamgia`
@@ -500,6 +482,7 @@ ALTER TABLE `sinhvien`
 -- Các ràng buộc cho bảng `sukien`
 --
 ALTER TABLE `sukien`
+  ADD CONSTRAINT `fk_sukien_hocky` FOREIGN KEY (`MaHK`) REFERENCES `hocky` (`MaHK`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `sukien_ibfk_1` FOREIGN KEY (`MaKhoa`) REFERENCES `khoa` (`MaKhoa`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

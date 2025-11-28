@@ -184,6 +184,34 @@
         case '/Admin/CauHinh/Nganh':
                 $adminController->showQuanLyNganh();
                 break;
+        case '/Admin/CauHinh/Nganh/ThemNganh':
+            if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitThemNganh();
+            }
+            else
+            {
+                $adminController->showThemNganh();
+            }
+            break;
+        case '/Admin/CauHinh/Nganh/SuaNganh':
+            if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['NganhID']))
+            {
+                $adminController->showSuaNganh();
+                
+            }
+            else if($_SERVER['REQUEST_METHOD'] == 'POST')
+            {
+                $adminController->submitSuaNganh();
+            }
+            break;
+        case '/Admin/CauHinh/Nganh/XoaNganh':
+            if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['NganhID']))
+            {
+                $adminController->deleteNganh();
+                break;
+                
+            }
         case '/Admin/CauHinh/HocKy/ThemHocKy':
             if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
             {

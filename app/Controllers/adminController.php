@@ -2,6 +2,9 @@
     require_once __DIR__ . "/../Models/Event.php";
     require_once __DIR__ . "/../Models/Khoa.php";
     require_once __DIR__ . "/../Models/Term.php";
+    require_once __DIR__ . "/../Models/Nganh.php";
+    require_once __DIR__ . "/../Models/Class.php";
+    require_once __DIR__ . "/../Models/User.php";
     class adminController
     {
         public function index()
@@ -395,7 +398,20 @@
                 unset($_SESSION['message']);
             }
             $title = "Ngành";
-            // thêm code hiển thị danh sách ngành ở đây
+            $nganhModel = new Nganh();
+            $listKhoa = (new Khoa())->getAll();
+            if(isset($_GET['search']))
+            {
+                $listNganh = $nganhModel->searchNganh(trim($_GET['search']));
+            }
+            else if(isset($_GET['KhoaID']) && $_GET['KhoaID'] != '0')
+            {
+                $listNganh = $nganhModel->filterByMaKhoa(trim($_GET['KhoaID']));
+            }
+            else
+                $listNganh = $nganhModel->getAllNganh();
+
+
             $render = __DIR__ . "/../Views/Admin/QLNganh.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
@@ -486,6 +502,108 @@
             global $publicBase;
             header("Location: ".$publicBase."/Admin/CauHinh/Khoa");
         }
+        public function showThemNganh()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Thêm Ngành";
+            $listKhoa = (new Khoa())->getAll();
+            $render = __DIR__ . "/../Views/Admin/ThemNganh.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+
+        public function submitThemNganh()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $nganhModel = new Nganh();
+            $MaNganh = trim($_POST['MaNganh']);
+            $TenNganh = trim($_POST['TenNganh']);
+            
+            if($nganhModel->getNganh($MaNganh) != null)
+            {
+                $_SESSION['message'] = "Mã ngành bị trùng";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/Nganh");
+            }
+            
+            $message = $nganhModel->insertNganh($MaNganh, $TenNganh, $_POST['MaKhoa']);
+
+            if($message )
+            {
+                $_SESSION['message'] = "Thêm ngành thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Thêm ngành thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Nganh");
+
+        }
+        public function showSuaNganh()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Sửa Ngành";
+            $nganhModel = new Nganh();
+            $dataNganh = $nganhModel->getNganh($_GET['NganhID']);
+
+            $listKhoa = (new Khoa())->getAll();
+            $render = __DIR__ . "/../Views/Admin/ThemNganh.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitSuaNganh()
+        {
+                        $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $nganhModel = new Nganh();
+            $MaNganh = trim($_POST['MaNganh']);
+            $TenNganh = trim($_POST['TenNganh']);
+            
+
+            
+            $message = $nganhModel->updateNganh($MaNganh, $TenNganh, $_POST['MaKhoa']);
+
+            if($message )
+            {
+                $_SESSION['message'] = "Sửa ngành thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Sửa ngành thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Nganh");
+        }
+        public function deleteNganh()
+        {
+            $nganhModel = new Nganh();
+            $message = $nganhModel->deleteNganh($_GET['NganhID']);
+            if($message )
+            {
+                $_SESSION['message'] = "Xóa ngành thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Xóa ngành thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Nganh");
+        }
+
     }
 
 ?>

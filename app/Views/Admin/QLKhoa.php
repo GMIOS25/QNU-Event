@@ -22,7 +22,7 @@
                 <div class="toolbar-right d-flex align-items-center gap-3">
                     <a <?php echo isset($_GET['search']) ? '' : 'style="display:none;"'; ?> href="Admin/CauHinh/Khoa">Hủy tìm kiếm</a>
                     <form action="" method="GET" class="search-wrapper position-relative">
-                        <input type="search" name="search" class="form-control search-input" placeholder="Tìm kiếm tên khoa...">
+                        <input value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>" type="search" name="search" class="form-control search-input" placeholder="Tìm kiếm tên khoa...">
                         <i class="bi bi-search search-icon"></i>
                     </form>
                     

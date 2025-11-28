@@ -1,0 +1,247 @@
+/* --- RESET & GLOBAL --- */
+
+.page-container {
+    max-width: 1100px; /* Nhỏ hơn chút vì bảng ít cột */
+    margin: 40px auto;
+    padding: 0 15px;
+}
+
+/* Tiêu đề trang */
+.main-page-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    color: #000;
+}
+.select-box-container
+{
+
+    display: flex;
+    margin-bottom: 15px ;
+}
+.select-box-container label
+{
+    margin-right:10px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+    display: block;
+}
+.select-box-container .form-select
+{
+    width: 250px;
+}
+/* --- CARD --- */
+.custom-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 25px;
+}
+
+/* --- TOOLBAR --- */
+.toolbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.toolbar-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-title i {
+    font-size: 1.3rem;
+    color: #555;
+}
+
+/* Search Box */
+.search-wrapper {
+    width: 280px;
+}
+
+.search-input {
+    border-radius: 50px;
+    padding-right: 40px;
+    border: 1px solid #ced4da;
+    font-size: 14px;
+}
+.search-input:focus {
+    box-shadow: none;
+    border-color: #009be5;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    cursor: pointer;
+}
+
+/* Nút Thêm Khoa */
+.btn-add {
+    background-color: #009be5;
+    border-color: #009be5;
+    border-radius: 20px; /* Bo tròn nút */
+    padding: 6px 20px;
+    font-weight: 500;
+    font-size: 14px;
+    white-space: nowrap;
+}
+.btn-add:hover {
+    background-color: #0086c9;
+    border-color: #0086c9;
+}
+
+/* --- TABLE STYLES --- */
+.custom-table {
+    width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Header */
+.table-header {
+    display: flex;
+    background-color: #009be5; /* Màu xanh chủ đạo */
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    padding-right: 6px; /* Bù trừ scrollbar */
+}
+.table-header .col-cell {
+    color: white;
+    text-align: center;
+}
+/* Body (Scrollable) */
+.table-body {
+    display: block;
+    max-height: 450px; /* Chiều cao tối đa */
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Custom Scrollbar */
+.table-body::-webkit-scrollbar { width: 6px; }
+.table-body::-webkit-scrollbar-track { background: #f1f1f1; }
+.table-body::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+.table-body::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+
+/* Rows */
+.table-row {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    background-color: #fff;
+    align-items: stretch; /* Để các ô bằng chiều cao nhau */
+    transition: background-color 0.2s;
+}
+.table-row:last-child { border-bottom: none; }
+.table-row:hover { background-color: #f8f9fa; }
+
+/* Cells */
+.col-cell {
+    padding: 15px 15px;
+    display: flex;
+    align-items: center; /* Căn giữa dọc */
+    font-size: 14px;
+    color: #333;
+    
+    /* Xử lý text dài */
+    white-space: normal;
+    word-break: break-word;
+}
+
+/* Định nghĩa độ rộng cột (Tổng 100%) */
+.c-code { 
+    flex: 0 0 20%; 
+    justify-content: center; /* Mã căn giữa */
+    font-weight: 600;
+    color: #555;
+    border-right: 1px solid #f0f0f0;
+}
+
+.c-name { 
+    flex: 0 0 30%; 
+    justify-content: flex-start; /* Tên căn trái */
+    border-right: 1px solid #f0f0f0;
+}
+.c-name-khoa { 
+    flex: 0 0 30%; 
+    justify-content: flex-start; /* Tên căn trái */
+    border-right: 1px solid #f0f0f0;
+}
+.c-action { 
+    flex: 0 0 20%; 
+    justify-content: center; /* Nút căn giữa */
+}
+
+/* Buttons trong bảng (Sửa/Xóa) */
+.btn-icon {
+    width: auto;
+    padding: 0px 5px;
+    text-decoration: none;
+    height: 32px;
+    border-radius: 4px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-edit {
+    background-color: #e6f2ff;
+    color: #009be5;
+}
+.btn-edit:hover {
+    background-color: #009be5;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #ffe6e6;
+    color: #dc3545;
+}
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Phân trang (Pagination) */
+.pagination {
+    margin-bottom: 0;
+}
+.page-link {
+    color: #009be5;
+    border-radius: 50% !important;
+    margin: 0 3px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-weight: 500;
+}
+.page-item.active .page-link {
+    background-color: #009be5;
+    color: white;
+}
+.page-link:hover {
+    background-color: #e9ecef;
+}

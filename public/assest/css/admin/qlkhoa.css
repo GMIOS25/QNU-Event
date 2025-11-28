@@ -104,7 +104,10 @@
     font-size: 15px;
     padding-right: 6px; /* Bù trừ scrollbar */
 }
-
+.table-header .col-cell {
+    color: white;
+    text-align: center;
+}
 /* Body (Scrollable) */
 .table-body {
     display: block;

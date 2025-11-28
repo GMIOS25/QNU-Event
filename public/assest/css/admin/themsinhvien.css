@@ -1,0 +1,191 @@
+
+.add-student-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f5f7fb;
+  padding: 24px 16px 60px;
+  min-height: 100vh;
+}
+
+.add-student-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: 1.2px;
+  color: #1e293b;
+}
+
+.add-student-card {
+  max-width: 960px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  padding: 32px 40px 40px;
+  border-radius: 16px;
+}
+
+/* Header mini */
+.student-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.student-card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #111827;
+}
+
+.icon-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #0d6efd;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #0d6efd;
+  background: #e8f1ff;
+  font-weight: bold;
+}
+
+.student-back-link {
+  font-size: 14px;
+  color: #0d6efd;
+  text-decoration: none;
+}
+
+.student-back-link:hover {
+  text-decoration: underline;
+}
+
+/* Form */
+.student-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.student-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.student-form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.student-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* Inputs */
+.student-form input[type="text"],
+.student-form input[type="email"],
+.student-form input[type="password"],
+.student-form select {
+  width: 100%;
+  border-radius: 10px;
+  border: 1.5px solid #d1d5db;
+  padding: 12px 14px;
+  font-size: 15px;
+  outline: none;
+  background: #f9fafb;
+  transition: all 0.2s ease;
+}
+
+.student-form input:focus,
+.student-form select:focus {
+  border-color: #0d6efd;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+/* Buttons */
+.student-form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn-student-primary,
+.btn-student-cancel {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-student-primary {
+  background: #0d6efd;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+.btn-student-primary:hover {
+  background: #0b5ed7;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4);
+}
+
+.btn-student-cancel {
+  background: #6c757d;
+  color: #ffffff;
+}
+
+.btn-student-cancel:hover {
+  background: #5a6268;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .add-student-card {
+    padding: 24px 20px;
+  }
+
+  .student-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .student-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-student-title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-form-actions {
+    flex-direction: column;
+  }
+
+  .btn-student-primary,
+  .btn-student-cancel {
+    width: 100%;
+    justify-content: center;
+  }
+}

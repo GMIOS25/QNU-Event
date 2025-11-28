@@ -355,6 +355,137 @@
             global $publicBase;
             header("Location: ".$publicBase."/Admin/CauHinh/HocKy");
         }
+        public function showQuanLyKhoa($search = null)
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Khoa";
+            $khoaModel = new Khoa();
+            if(!is_null($search))
+            {
+                $listKhoa = $khoaModel->searchKhoa($search);
+            }
+            else
+            {
+                $listKhoa = $khoaModel->getAll();
+            }
+            $render = __DIR__ . "/../Views/Admin/QLKhoa.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function showQuanLyLop()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Lớp";
+            // thêm code hiển thị danh sách lớp ở đây
+            $render = __DIR__ . "/../Views/Admin/QLLop.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function showQuanLyNganh()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Ngành";
+            // thêm code hiển thị danh sách ngành ở đây
+            $render = __DIR__ . "/../Views/Admin/QLNganh.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function showThemKhoa()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Thêm Khoa";
+            $render = __DIR__ . "/../Views/Admin/ThemKhoa.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitThemKhoa()
+        {
+            // validate dữ liệu
+            $maKhoa = trim($_POST['MaKhoa']);  
+            $tenKhoa = trim($_POST['TenKhoa']);
+            $khoaModel = new Khoa();
+            if($khoaModel->getKhoaByMaKhoa($maKhoa) != null) 
+            {
+                $_SESSION['message'] = "Mã khoa đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/Khoa/ThemKhoa");
+                return;
+            }
+            $message = $khoaModel->insertKhoa(
+                $maKhoa,
+                $tenKhoa
+            );
+            if($message )
+            {
+                $_SESSION['message'] = "Thêm khoa thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Thêm khoa thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Khoa");
+        }
+        public function showSuaKhoa()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $khoaModel = new Khoa();
+            $title = "Sửa Khoa";
+            $dataKhoa = $khoaModel->getKhoaByMaKhoa($_GET['KhoaID']);
+            $render = __DIR__ . "/../Views/Admin/ThemKhoa.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitSuaKhoa()
+        {
+            $maKhoa = trim($_POST['MaKhoa']);  
+            $tenKhoa = trim($_POST['TenKhoa']);
+            $khoaModel = new Khoa();
+            $message = $khoaModel->updateKhoa(
+                $maKhoa,
+                $tenKhoa
+            );
+            if($message )
+            {
+                $_SESSION['message'] = "Cập nhật khoa thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Cập nhật khoa thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Khoa");
+        }
+        public function deleteKhoa()
+        {
+            $khoaModel = new Khoa();
+            $message = $khoaModel->deleteKhoa($_GET['KhoaID']);
+            if($message )
+            {
+                $_SESSION['message'] = "Xóa khoa thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Xóa khoa thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Khoa");
+        }
     }
 
 ?>

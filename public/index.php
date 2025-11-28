@@ -156,6 +156,34 @@
         case '/Admin/CauHinh/HocKy':
                 $adminController->showQuanLyHocKy();
                 break;
+        case '/Admin/CauHinh/Khoa':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search']))
+                $adminController->showQuanLyKhoa($_GET['search']);
+            else
+                $adminController->showQuanLyKhoa();
+                break;
+        case '/Admin/CauHinh/Khoa/ThemKhoa':
+            if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitThemKhoa();
+            }
+            else
+            {
+                $adminController->showThemKhoa();
+            }
+            break;
+        case '/Admin/CauHinh/Khoa/XoaKhoa':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 
+            {
+                $adminController->deleteKhoa();
+                break;
+            }
+        case '/Admin/CauHinh/Lop':
+                $adminController->showQuanLyLop();
+                break;
+        case '/Admin/CauHinh/Nganh':
+                $adminController->showQuanLyNganh();
+                break;
         case '/Admin/CauHinh/HocKy/ThemHocKy':
             if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
             {
@@ -166,6 +194,17 @@
                 $adminController->showThemHocKy();
             }
             break;
+        case '/Admin/CauHinh/Khoa/SuaKhoa':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 
+            {
+                $adminController->showSuaKhoa();
+                break;
+            }
+            else if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitSuaKhoa();
+                break;
+            }
         case '/Admin/CauHinh/HocKy/SuaHocKy':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['TermID'])) 
             {

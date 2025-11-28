@@ -166,9 +166,9 @@
           </button>
           <div id="grpSystem" class="collapse submenu">
             <a class="list-group-item" href="Admin/CauHinh/HocKy">Học kỳ</a>
-            <a class="list-group-item" href="#">Khoa</a>
-            <a class="list-group-item" href="#">Lớp</a>
-            <a class="list-group-item" href="#">Phòng</a>
+            <a class="list-group-item" href="Admin/CauHinh/Khoa">Khoa</a>
+            <a class="list-group-item" href="Admin/CauHinh/Lop">Lớp</a>
+            <a class="list-group-item" href="Admin/CauHinh/Nganh">Ngành</a>
           </div>
         </div>
 

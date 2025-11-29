@@ -86,6 +86,81 @@
                 return $userData;
             }
         }
-    }
+
+
+        // STUDENT 
+        public function filterByKhoa($MaKhoa)
+        {
+            $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop 
+            JOIN nganh ON lop.MaNganh = nganh.MaNganh 
+            WHERE nganh.MaKhoa = ?";
+            $students = [];
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("s", $MaKhoa);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            if($result)
+            {
+                $students = [];
+                while($row = $result->fetch_assoc())
+                {
+                    $students[] = $row;
+                }
+                return $students;
+            }
+            return NULL;
+        }
+        public function filterByNganh($MaNganh)
+        {
+            $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop 
+            JOIN nganh ON lop.MaNganh = nganh.MaNganh 
+            WHERE nganh.MaNganh = ?";
+            $students = [];
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("s", $MaNganh);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            if($result)
+            {
+                $students = [];
+                while($row = $result->fetch_assoc())
+                {
+                    $students[] = $row;
+                }
+                return $students;
+            }
+            return NULL;
+        }
+        public function filterByLop($MaLop)
+        {
+            $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop 
+            WHERE lop.MaLop = ?";
+            $students = [];
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("s", $MaLop);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            if($result)
+            {
+                $students = [];
+                while($row = $result->fetch_assoc())
+                {
+                    $students[] = $row;
+                }
+                return $students;
+            }
+            return NULL;
+        }
+
+        // ADMIN
+    } 
+        
+    
 
 ?>

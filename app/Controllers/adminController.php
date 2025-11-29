@@ -5,6 +5,7 @@
     require_once __DIR__ . "/../Models/Nganh.php";
     require_once __DIR__ . "/../Models/Lop.php";
     require_once __DIR__ . "/../Models/User.php";
+
     class adminController
     {
         public function index()
@@ -731,6 +732,49 @@
             global $publicBase;
             header("Location: ".$publicBase."/Admin/CauHinh/Lop");
         }
+
+        public function showQuanLyTaiKhoanSV()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Tài khoản sinh viên";
+            $userModel = new User();
+            $khoaModel = new Khoa();
+            $listKhoa = $khoaModel->getAll();
+            if(isset($_GET['LopID']) && $_GET['LopID'] != 0)
+            {
+                $listSV = $userModel->filterByLop($_GET['LopID']);
+            }
+            else if(isset($_GET['NganhID']) && $_GET['NganhID'] != 0)
+            {
+                $listSV = $userModel->filterByNganh($_GET['NganhID']);
+            }
+            else if(isset($_GET['KhoaID']) && $_GET['KhoaID'] != 0)
+            {
+                $_SESSION['message'] = "Vui lòng chọn ngành để lọc sinh viên theo khoa";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
+                return;
+            }
+            else
+            {
+                //$dsSV = $userModel->
+            }
+            $render = __DIR__ . "/../Views/Admin/QLTaiKhoanSV.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+
+        public function apiGetDSLop()
+        {
+            $lopModel = new Lop();
+            $listLop = $lopModel->filterByMaNganh($_GET['NganhID']);
+            header('Content-Type: application/json');
+            echo json_encode($listLop);
+        }
+        
 
     }
 

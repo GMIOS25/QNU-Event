@@ -277,11 +277,20 @@
                 $adminController->ketThucHocKy();
                 break;
             }
+        case '/Admin/QuanLyTaiKhoanSV':
+            $adminController->showQuanLyTaiKhoanSV();
+            break;
         // Xử lú api
         case '/api/Admin/GetDSNganhTheoKhoa':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 
             {
                 $adminController->getDSNganhTheoKhoa();
+                break;
+            }
+        case '/api/Admin/GetDSLopTheoNganh':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['NganhID'])) 
+            {
+                $adminController->apiGetDSLop();
                 break;
             }
         case '/Account':

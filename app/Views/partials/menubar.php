@@ -140,8 +140,8 @@
             <i class="bi bi-chevron-down chevron"></i>
           </button>
           <div id="grpAccounts" class="collapse submenu">
-            <a class="list-group-item" href="#">Quản lý tài khoản sinh viên</a>
-            <a class="list-group-item" href="#">Quản lý tài khoản quản trị</a>
+            <a class="list-group-item" href="Admin/QuanLyTaiKhoanSV">Quản lý tài khoản sinh viên</a>
+            <a class="list-group-item" href="Admin/QuanLyTaiKhoanAdmin">Quản lý tài khoản quản trị</a>
           </div>
         </div>
 

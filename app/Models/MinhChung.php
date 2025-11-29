@@ -112,6 +112,66 @@
             }
             return NULL;
         }
+        
+        /**
+         * Lấy danh sách minh chứng chờ duyệt với phân trang
+         * 
+         * @param string $EventID Mã sự kiện
+         * @param int $limit Số lượng items mỗi trang
+         * @param int $offset Vị trí bắt đầu
+         * @return array|null
+         */
+        public function loadDanhSachMinhChungChoDuyetWithPagination($EventID, $limit, $offset)
+        {
+            $data = [];
+            $sql = "Select  sinhvien.MSSV, sinhvien.Ho, sinhvien.Ten, FileMinhChung, lop.TenLop as Lop, ThoiGianNop from minhchungthamgiask 
+            join sinhvien on minhchungthamgiask.MSSV = sinhvien.MSSV
+            join lop on sinhvien.MaLop = lop.MaLop
+            where MaSK = ? and TrangThai = 'Chờ duyệt'
+            ORDER BY ThoiGianNop DESC
+            LIMIT ? OFFSET ?";
+            $sttm = $this->conn->prepare($sql);
+            $sttm->bind_param("sii", $EventID, $limit, $offset);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
+
+        /**
+         * Đếm số lượng minh chứng chờ duyệt
+         * 
+         * @param string $EventID Mã sự kiện
+         * @return int
+         */
+        public function countDanhSachMinhChungChoDuyet($EventID)
+        {
+            $sql = "SELECT COUNT(*) as total from minhchungthamgiask 
+                    where MaSK = ? and TrangThai = 'Chờ duyệt'";
+            $sttm = $this->conn->prepare($sql);
+            $sttm->bind_param("s", $EventID);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                $row = $result->fetch_assoc();
+                return (int)$row['total'];
+            }
+            return 0;
+        }
+        
         public function approveMinhChung($MSSV, $MaSK)
         {
             $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Đã duyệt' WHERE MSSV = ? AND MaSK = ?";

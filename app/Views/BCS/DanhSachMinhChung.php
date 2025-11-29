@@ -97,6 +97,16 @@
                 </div>
             </div>
         </div>
+        </div> <!-- Kết thúc custom-table -->
+
+            <!-- Thêm pagination -->
+            <?php 
+            if(isset($pagination)) {
+                echo $pagination->render();
+            }
+            ?>
+
+        </div> <!-- Kết thúc custom-card -->
     </div>
 
     <!-- Modal for viewing image -->

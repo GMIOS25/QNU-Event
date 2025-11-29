@@ -428,6 +428,80 @@
             return NULL;
         }
 
+        /**
+         * Lấy danh sách sinh viên đăng ký sự kiện với phân trang
+         * 
+         * @param string $EventID Mã sự kiện
+         * @param int $limit Số lượng items mỗi trang
+         * @param int $offset Vị trí bắt đầu
+         * @return array|null
+         */
+        public function getRegisteredStudentsWithPagination($EventID, $limit, $offset)
+        {
+            $data = [];
+            $sql = "SELECT 
+                        sinhvien.MSSV, 
+                        sinhvien.Ho, 
+                        sinhvien.Ten, 
+                        khoa.TenKhoa,
+                        lop.TenLop,
+                        dksukien.TrangThai,
+                        dksukien.ThoiGianDK
+                    FROM dksukien
+                    JOIN sinhvien ON dksukien.MSSV = sinhvien.MSSV
+                    LEFT JOIN lop ON sinhvien.MaLop = lop.MaLop
+                    LEFT JOIN nganh ON lop.MaNganh = nganh.MaNganh
+                    LEFT JOIN khoa ON nganh.MaKhoa = khoa.MaKhoa
+                    WHERE dksukien.MaSK = ? AND dksukien.TrangThai = 'Đăng ký'
+                    ORDER BY dksukien.ThoiGianDK DESC
+                    LIMIT ? OFFSET ?";
+            
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("sii", $EventID, $limit, $offset);
+            
+            if($stmt->execute())
+            {
+                $result = $stmt->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
+
+        /**
+         * Đếm số lượng sinh viên đăng ký sự kiện
+         * 
+         * @param string $EventID Mã sự kiện
+         * @return int
+         */
+        public function getRegisteredStudentsCount($EventID)
+        {
+            $sql = "SELECT COUNT(*) as total
+                    FROM dksukien
+                    WHERE dksukien.MaSK = ? AND dksukien.TrangThai = 'Đăng ký'";
+            
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("s", $EventID);
+            
+            if($stmt->execute())
+            {
+                $result = $stmt->get_result();
+                $row = $result->fetch_assoc();
+                return (int)$row['total'];
+            }
+            return 0;
+        }
+
     
 
     }

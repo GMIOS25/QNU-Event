@@ -235,16 +235,11 @@
                     </div>
                 </div>
 
-                <div class="pagination-container d-flex justify-content-center mt-4">
-                    <div class="pagination">
-                        <div class="page-item disabled"><a class="page-link" href="#">&lt;</a></div>
-                        <div class="page-item active"><a class="page-link" href="#">1</a></div>
-                        <div class="page-item"><a class="page-link" href="#">2</a></div>
-                        <div class="page-item"><a class="page-link" href="#">3</a></div>
-                        <div class="page-item"><a class="page-link" href="#">4</a></div>
-                        <div class="page-item"><a class="page-link" href="#">&gt;</a></div>
-                    </div>
-                </div>
+                <?php 
+                    if(isset($pagination)) {
+                        echo $pagination->render();
+                    }
+                    ?>
             </div>
         </div>
     </div>

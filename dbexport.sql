@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 27, 2025 lúc 08:57 AM
+-- Thời gian đã tạo: Th10 29, 2025 lúc 08:31 AM
 -- Phiên bản máy phục vụ: 9.1.0
 -- Phiên bản PHP: 8.3.14
 
@@ -48,6 +48,20 @@ INSERT INTO `admin` (`AdminID`, `Ho`, `Ten`, `Email`, `Password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `bcsquanlylop`
+--
+
+DROP TABLE IF EXISTS `bcsquanlylop`;
+CREATE TABLE IF NOT EXISTS `bcsquanlylop` (
+  `MSSV` varchar(10) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  `MaLop` varchar(10) COLLATE utf8mb4_vietnamese_ci DEFAULT NULL,
+  KEY `MSSV` (`MSSV`),
+  KEY `MaLop` (`MaLop`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `biendongdrl`
 --
 
@@ -84,31 +98,10 @@ CREATE TABLE IF NOT EXISTS `chophepsvkhoathamgia` (
 --
 
 INSERT INTO `chophepsvkhoathamgia` (`MaSK`, `MaKhoa`) VALUES
-(24, 'CK'),
 (24, 'CNTT'),
-(24, 'CT'),
-(24, 'DL'),
-(24, 'DTVT'),
-(24, 'GD'),
-(24, 'HH'),
-(24, 'KT'),
-(24, 'LS'),
-(24, 'MT'),
-(24, 'NN'),
-(24, 'NNAN'),
-(24, 'NNHQ'),
-(24, 'NNLT'),
-(24, 'NNNB'),
-(24, 'PL'),
-(24, 'QTKD'),
-(24, 'SH'),
-(24, 'SP'),
-(24, 'TCNH'),
-(24, 'VH'),
-(24, 'VL'),
-(24, 'XD'),
-(24, 'XH'),
-(24, 'YT');
+(25, 'CNTT'),
+(26, 'CNTT'),
+(27, 'CNTT');
 
 -- --------------------------------------------------------
 
@@ -141,14 +134,15 @@ CREATE TABLE IF NOT EXISTS `dksukien` (
   PRIMARY KEY (`MaLuotDK`),
   KEY `MSSV` (`MSSV`),
   KEY `MaSK` (`MaSK`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `dksukien`
 --
 
 INSERT INTO `dksukien` (`MaLuotDK`, `MSSV`, `MaSK`, `ThoiGianDK`, `TrangThai`) VALUES
-(23, 'sv', 24, '2025-11-25 21:58:15', 'Hủy đăng ký');
+(23, 'sv', 24, '2025-11-25 21:58:15', 'Hủy đăng ký'),
+(24, 'sv', 25, '2025-11-27 16:03:09', 'Đăng ký');
 
 -- --------------------------------------------------------
 
@@ -206,31 +200,18 @@ CREATE TABLE IF NOT EXISTS `khoa` (
 --
 
 INSERT INTO `khoa` (`MaKhoa`, `TenKhoa`) VALUES
-('CK', 'Khoa Cơ khí'),
 ('CNTT', 'Khoa Công nghệ thông tin'),
-('CT', 'Khoa Chính trị học'),
-('DL', 'Khoa Du lịch'),
-('DTVT', 'Khoa Điện tử - Viễn thông'),
-('GD', 'Khoa Giáo dục'),
-('HH', 'Khoa Hóa học'),
-('KT', 'Khoa Kế toán'),
-('LS', 'Khoa Lịch sử'),
-('MT', 'Khoa Môi trường'),
-('NN', 'Khoa Ngoại ngữ'),
-('NNAN', 'Khoa Ngôn ngữ Anh'),
-('NNHQ', 'Khoa Ngôn ngữ Hàn Quốc'),
-('NNLT', 'Khoa Ngôn ngữ và Văn hóa Trung Quốc'),
-('NNNB', 'Khoa Ngôn ngữ Nhật Bản'),
-('PL', 'Khoa Luật'),
-('QTKD', 'Khoa Quản trị kinh doanh'),
-('SH', 'Khoa Sinh học'),
-('SP', 'Khoa Sư phạm'),
-('TCNH', 'Khoa Tài chính - Ngân hàng'),
-('VH', 'Khoa Văn học'),
-('VL', 'Khoa Vật lý'),
-('XD', 'Khoa Xây dựng'),
-('XH', 'Khoa Xã hội học'),
-('YT', 'Khoa Y tế');
+('K01', 'Khoa Lý luận chính trị - Luật & Quản lý nhà nước'),
+('K02', 'Khoa Khoa học tự nhiên'),
+('K03', 'Khoa Khoa học xã hội & nhân văn'),
+('K05', 'Khoa Giáo dục tiểu học & mầm non'),
+('K06', 'Khoa Giáo dục Thể chất - Quốc phòng'),
+('K07', 'Khoa Sư phạm'),
+('K08', 'Khoa Kỹ thuật & Công nghệ'),
+('K09', 'Khoa Toán & Thống kê'),
+('K10', 'Khoa Kinh tế & Kế toán'),
+('K11', 'Khoa Tài chính - Ngân hàng & Quản trị kinh doanh'),
+('NN', 'Khoa ngoại ngữ');
 
 -- --------------------------------------------------------
 
@@ -305,29 +286,11 @@ CREATE TABLE IF NOT EXISTS `nganh` (
 --
 
 INSERT INTO `nganh` (`MaNganh`, `TenNganh`, `MaKhoa`) VALUES
-('CK', 'Cơ khí', 'CK'),
-('CKDL', 'Cơ khí động lực', 'CK'),
-('CNKT', 'Công nghệ kỹ thuật điện tử', 'DTVT'),
+('ATTT', 'An toàn thông tin', 'CNTT'),
 ('CNTT', 'Công nghệ thông tin', 'CNTT'),
-('DTVT', 'Điện tử - Viễn thông', 'DTVT'),
-('GDMN', 'Giáo dục mầm non', 'GD'),
-('GDTH', 'Giáo dục tiểu học', 'GD'),
-('HDVDL', 'Hướng dẫn viên du lịch', 'DL'),
 ('HTTT', 'Hệ thống thông tin', 'CNTT'),
-('KT', 'Kế toán', 'KT'),
-('KTCT', 'Kỹ thuật công trình', 'XD'),
 ('KTPM', 'Kỹ thuật phần mềm', 'CNTT'),
-('LTH', 'Luật học', 'PL'),
-('MAR', 'Marketing', 'QTKD'),
-('MT', 'Khoa học môi trường', 'MT'),
-('NNAN', 'Ngôn ngữ Anh', 'NN'),
-('NNHQ', 'Ngôn ngữ Hàn Quốc', 'NN'),
-('NNNB', 'Ngôn ngữ Nhật Bản', 'NN'),
-('NNTR', 'Ngôn ngữ Trung Quốc', 'NN'),
-('QLDL', 'Quản lý du lịch', 'DL'),
-('QTKD', 'Quản trị kinh doanh', 'QTKD'),
-('TCNH', 'Tài chính - Ngân hàng', 'TCNH'),
-('XDDS', 'Xây dựng dân dụng và công nghiệp', 'XD');
+('NNA', 'Ngôn ngữ Anh', 'NN');
 
 -- --------------------------------------------------------
 
@@ -399,14 +362,17 @@ CREATE TABLE IF NOT EXISTS `sukien` (
   PRIMARY KEY (`MaSK`),
   KEY `MaKhoa` (`MaKhoa`),
   KEY `fk_sukien_hocky` (`MaHK`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `sukien`
 --
 
 INSERT INTO `sukien` (`MaSK`, `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`, `NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`, `MaHK`) VALUES
-(24, 'Tham dự trận giao hữu bóng đá nam giữa đội tuyển ITQNU với CLB Manchester United ', '2025-11-20 00:00:00', '2025-11-25 23:59:00', '2025-11-26 08:00:00', '2025-11-26 11:30:00', 1000, 'Sân vận động Quy Nhơn', 5, 'CNTT', '', 'HK1(25-26)');
+(24, 'Tham dự trận giao hữu bóng đá nam giữa đội tuyển ITQNU với CLB Manchester United ', '2025-11-20 00:00:00', '2025-11-25 23:59:00', '2025-11-26 08:00:00', '2025-11-26 11:30:00', 1000, 'Sân vận động Quy Nhơn', 5, 'CNTT', '', 'HK1(25-26)'),
+(25, 'Hiến máu tình nguyện tháng 11 năm 2025', '2025-11-24 00:00:00', '2025-11-29 23:59:00', '2025-11-30 07:00:00', '2025-11-30 11:30:00', 500, 'Nhà thi đấu đa năng', 5, 'CNTT', 'test', 'HK1(25-26)'),
+(26, 'Cường gay', '2025-01-01 00:00:00', '2025-01-01 00:00:00', '2025-01-01 00:00:00', '2025-01-01 00:01:00', 36, 'Quán phở Anh Hai, số 10 Đan Phượng, Hà Nội', 1000000, 'CNTT', '', 'HK1(25-26)'),
+(27, 'Cường gay', '2025-01-01 00:00:00', '2025-01-01 00:00:00', '2025-01-01 00:00:00', '2025-01-01 00:01:00', 36, 'Quán phở Anh Hai, số 10 Đan Phượng, Hà Nội', 1000000, 'CNTT', '', 'HK1(25-26)');
 
 --
 -- Các ràng buộc cho các bảng đã đổ

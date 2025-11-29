@@ -22,3 +22,18 @@ body
 .menubars{
     background: #fff;   
 }
+.warning-box
+{
+    background-color: wheat;
+    border: 1px solid #f0ad4e;
+    padding: 10px 15px;
+    margin: 10px 0px;
+}
+.info-box
+{
+    background-color: rgb(206, 223, 243);
+    border: 1px solid #0077ff;
+    padding: 10px 15px;
+    margin: 10px 0px;
+    color: #004085;
+}

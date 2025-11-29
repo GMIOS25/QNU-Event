@@ -181,6 +181,33 @@
         case '/Admin/CauHinh/Lop':
                 $adminController->showQuanLyLop();
                 break;
+        case '/Admin/CauHinh/Lop/ThemLop':
+            if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitThemLop();
+            }
+            else
+            {
+                $adminController->showThemLop();
+            }
+            break;
+        case '/Admin/CauHinh/Lop/SuaLop':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['LopID'])) 
+            {
+                $adminController->showSuaLop();
+                break;
+            }
+            else if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitSuaLop();
+                break;
+            }
+        case '/Admin/CauHinh/Lop/XoaLop':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['LopID'])) 
+            {
+                $adminController->deleteLop();
+                break;
+            }
         case '/Admin/CauHinh/Nganh':
                 $adminController->showQuanLyNganh();
                 break;
@@ -248,6 +275,13 @@
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['TermID'])) 
             {
                 $adminController->ketThucHocKy();
+                break;
+            }
+        // Xử lú api
+        case '/api/Admin/GetDSNganhTheoKhoa':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 
+            {
+                $adminController->getDSNganhTheoKhoa();
                 break;
             }
         case '/Account':

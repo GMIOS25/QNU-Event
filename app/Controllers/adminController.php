@@ -3,7 +3,7 @@
     require_once __DIR__ . "/../Models/Khoa.php";
     require_once __DIR__ . "/../Models/Term.php";
     require_once __DIR__ . "/../Models/Nganh.php";
-    require_once __DIR__ . "/../Models/Class.php";
+    require_once __DIR__ . "/../Models/Lop.php";
     require_once __DIR__ . "/../Models/User.php";
     class adminController
     {
@@ -378,6 +378,7 @@
             $render = __DIR__ . "/../Views/Admin/QLKhoa.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
+        
         public function showQuanLyLop()
         {
             $message = null;
@@ -385,8 +386,33 @@
                 $message = $_SESSION['message'];
                 unset($_SESSION['message']);
             }
-            $title = "Lớp";
-            // thêm code hiển thị danh sách lớp ở đây
+            $title = "Lop";
+            $lopModel = new Lop();
+            $nganhModel = new Nganh();
+            $khoaModel = new Khoa();
+            $listKhoa = $khoaModel->getAll();
+            //$listNganh = $nganhModel->getAllNganh();
+            $listLop = [];
+            if(isset($_GET['search']))
+            {
+                $listLop = $lopModel->searchLop(trim($_GET['search']));
+            }
+            else if(isset($_GET['KhoaID']) && $_GET['KhoaID'] != '0' && isset($_GET['NganhID']) && $_GET['NganhID'] != '0')
+            {
+                $listLop = $lopModel->filterByKhoaAndNganh(trim($_GET['KhoaID']), trim($_GET['NganhID']));
+            }
+            else if(isset($_GET['KhoaID']) && $_GET['KhoaID'] != '0')
+            {
+                $listLop = $lopModel->filterByMaKhoa(trim($_GET['KhoaID']));
+            }
+            else if(isset($_GET['NganhID']) && $_GET['NganhID'] != '0')
+            {
+                $listLop = $lopModel->filterByMaNganh(trim($_GET['NganhID']));
+            }
+            else
+                $listLop = NULL;
+
+            $listLop = $listLop ?? [];
             $render = __DIR__ . "/../Views/Admin/QLLop.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
@@ -604,6 +630,109 @@
             header("Location: ".$publicBase."/Admin/CauHinh/Nganh");
         }
 
+        public function getDSNganhTheoKhoa()
+        {
+            $khoaID = $_GET['KhoaID'];
+            $nganhModel = new Nganh();
+            $listNganh = $nganhModel->filterByMaKhoa($khoaID);
+            header('Content-Type: application/json');
+            echo json_encode($listNganh);
+        }
+        public function showThemLop()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Thêm Lớp";
+            $listKhoa = (new Khoa())->getAll();
+            $render = __DIR__ . "/../Views/Admin/ThemLop.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitThemLop()
+        {
+            // validate dữ liệu
+            $maLop = trim($_POST['MaLop']);  
+            $tenLop = trim($_POST['TenLop']);
+            $maNganh = trim($_POST['MaNganh']);
+            $lopModel = new Lop();
+            if($lopModel->getLop($maLop) != null) 
+            {
+                $_SESSION['message'] = "Mã lớp đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/CauHinh/Lop/ThemLop");
+                return;
+            }
+            $message = $lopModel->insertLop(
+                $maLop,
+                $tenLop,
+                $maNganh
+            );
+            if($message )
+            {
+                $_SESSION['message'] = "Thêm lớp thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Thêm lớp thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Lop");
+        }
+        public function showSuaLop()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $lopModel = new Lop();
+            $title = "Sửa Lớp";
+            $dataLop = $lopModel->getLop($_GET['LopID']);
+            $listKhoa = (new Khoa())->getAll();
+            $render = __DIR__ . "/../Views/Admin/ThemLop.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitSuaLop()
+        {
+            $maLop = trim($_POST['MaLop']);  
+            $tenLop = trim($_POST['TenLop']);
+            $maNganh = trim($_POST['MaNganh']);
+            $lopModel = new Lop();
+            $message = $lopModel->updateLop(
+                $maLop,
+                $tenLop,
+                $maNganh
+            );
+            if($message )
+            {
+                $_SESSION['message'] = "Cập nhật lớp thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Cập nhật lớp thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Lop");
+        }
+        public function deleteLop()
+        {
+            $lopModel = new Lop();
+            $message = $lopModel->deleteLop($_GET['LopID']);
+            if($message )
+            {
+                $_SESSION['message'] = "Xóa lớp thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Xóa lớp thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/CauHinh/Lop");
+        }
+
     }
 
 ?>
+

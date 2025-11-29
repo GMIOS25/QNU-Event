@@ -746,18 +746,40 @@
             $listKhoa = $khoaModel->getAll();
             if(isset($_GET['LopID']) && $_GET['LopID'] != 0)
             {
-                $listSV = $userModel->filterByLop($_GET['LopID']);
+                if(isset($_GET['RoleID']) && $_GET['RoleID'] != 0)
+                {
+                    $listSV = $userModel->filterByLopAndRole($_GET['RoleID']-1, $_GET['LopID']);
+                }
+                else
+                {
+                    $listSV = $userModel->filterByLop($_GET['LopID']);
+                }
             }
             else if(isset($_GET['NganhID']) && $_GET['NganhID'] != 0)
             {
-                $listSV = $userModel->filterByNganh($_GET['NganhID']);
+                if(isset($_GET['RoleID']) && $_GET['RoleID'] != 0)
+                {
+                    $listSV = $userModel->filterByNganhAndRole($_GET['RoleID']-1, $_GET['NganhID']);
+                }
+                else
+                {
+                    $listSV = $userModel->filterByNganh($_GET['NganhID']);
+                }
             }
             else if(isset($_GET['KhoaID']) && $_GET['KhoaID'] != 0)
             {
-                $_SESSION['message'] = "Vui lòng chọn ngành để lọc sinh viên theo khoa";
-                global $publicBase;
-                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
-                return;
+                if(isset($_GET['RoleID']) && $_GET['RoleID'] != 0)
+                {
+                    $listSV = $userModel->filterByKhoaAndRole($_GET['RoleID']-1, $_GET['KhoaID']);
+                }
+                else
+                {
+                    $_SESSION['message'] = "Vui lòng chọn chi tiết hơn để lọc sinh viên";
+                    global $publicBase;
+                    header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
+                    return;
+                }
+
             }
             else
             {

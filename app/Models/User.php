@@ -157,6 +157,73 @@
             }
             return NULL;
         }
+        public function filterbyKhoaAndRole($isBanCanSu, $MaKhoa)
+        {
+           $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop 
+            JOIN nganh ON lop.MaNganh = nganh.MaNganh 
+            WHERE sinhvien.isBanCanSu = ? and nganh .MaKhoa = ?";
+            $students = [];
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("ss", $isBanCanSu, $MaKhoa);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            if($result)
+            {
+                $students = [];
+                while($row = $result->fetch_assoc())
+                {
+                    $students[] = $row;
+                }
+                return $students;
+            }
+            return NULL;
+        }
+        public function filterbyNganhAndRole($isBanCanSu, $MaNganh)
+        {
+            $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop 
+            WHERE sinhvien.isBanCanSu = ? and lop.MaNganh = ?";
+            $students = [];
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("ss", $isBanCanSu, $MaNganh);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            if($result)
+            {
+                $students = [];
+                while($row = $result->fetch_assoc())
+                {
+                    $students[] = $row;
+                }
+                return $students;
+            }
+            return NULL;
+        }
+        public function filterbyLopAndRole($isBanCanSu, $MaLop)
+        {
+            $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop 
+            WHERE sinhvien.isBanCanSu = ? and lop.MaLop = ?";
+            $students = [];
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("ss", $isBanCanSu, $MaLop);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            if($result)
+            {
+                $students = [];
+                while($row = $result->fetch_assoc())
+                {
+                    $students[] = $row;
+                }
+                return $students;
+            }
+            return NULL;
+        }
 
         // ADMIN
     } 

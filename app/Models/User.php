@@ -320,6 +320,28 @@
             }
             return $lopQuanLy;
         }
+        public function searchStudent($keyword)
+        {
+            $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop 
+            WHERE MSSV = ? or Ten LIKE ?";
+
+            $stm = $this->conn->prepare($sql);
+            $likeStm = '%'.$keyword.'%';
+            $stm->bind_param('ss',$keyword, $keyword );
+            $data = [];
+            $stm->execute();
+            $result = $stm->get_result();
+            if($result->num_rows > 0)
+            {
+                while($row = $result->fetch_assoc())
+                {
+                    $data[] = $row;
+                }
+                return $data;
+            }
+            return NULL;
+        }
         // ADMIN
     } 
         

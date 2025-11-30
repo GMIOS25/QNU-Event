@@ -799,10 +799,11 @@
                 }
 
             }
-            else
+            else if(isset($_GET['search']))
             {
-                //$dsSV = $userModel->
+                $listSV =  $userModel->searchStudent(trim($_GET['search']));
             }
+
             $render = __DIR__ . "/../Views/Admin/QLTaiKhoanSV.php";
             include __DIR__ . "/../Views/layout.php" ;
         }

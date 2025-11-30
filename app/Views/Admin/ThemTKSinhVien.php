@@ -193,83 +193,83 @@
         });
 
 
-        document.querySelector('#SelectKhoa').addEventListener('change', function() {
-            const khoaID = this.value;
-            fetch(`api/Admin/GetDSNganhTheoKhoa?KhoaID=${khoaID}`)
-                .then(response => response.json())
-                .then(data => {
-                    const nganhSelect = document.querySelector('#SelectNganh');
-                    nganhSelect.innerHTML = '<option selected disabled value="0">=CHỌN NGÀNH=</option>';
-                    const lopSelect = document.querySelector('#SelectLop');
-                    lopSelect.innerHTML = '<option selected disabled value="0">=CHỌN LỚP=</option>';
-                    data.forEach(nganh => {
-                        const option = document.createElement('option');
-                        option.value = nganh.MaNganh;
-                        option.textContent = nganh.TenNganh;
-                        nganhSelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Lỗi khi lấy danh sách ngành:', error));
+        // document.querySelector('#SelectKhoa').addEventListener('change', function() {
+        //     const khoaID = this.value;
+        //     fetch(`api/Admin/GetDSNganhTheoKhoa?KhoaID=${khoaID}`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             const nganhSelect = document.querySelector('#SelectNganh');
+        //             nganhSelect.innerHTML = '<option selected disabled value="0">=CHỌN NGÀNH=</option>';
+        //             const lopSelect = document.querySelector('#SelectLop');
+        //             lopSelect.innerHTML = '<option selected disabled value="0">=CHỌN LỚP=</option>';
+        //             data.forEach(nganh => {
+        //                 const option = document.createElement('option');
+        //                 option.value = nganh.MaNganh;
+        //                 option.textContent = nganh.TenNganh;
+        //                 nganhSelect.appendChild(option);
+        //             });
+        //         })
+        //         .catch(error => console.error('Lỗi khi lấy danh sách ngành:', error));
 
-        });
+        // });
 
 
-        document.querySelector('#SelectNganh').addEventListener('change', function() {
-            const nganhID = this.value;
-            fetch(`api/Admin/GetDSLopTheoNganh?NganhID=${nganhID}`)
-                .then(response => response.json())
-                .then(data => {
-                    const lopSelect = document.querySelector('#SelectLop');
-                    const savedLop = lopSelect.dataset.selected;
-                    lopSelect.innerHTML = '<option selected value="0">=CHỌN LỚP=</option>';
-                    data.forEach(lop => {
-                        const option = document.createElement('option');
-                        option.value = lop.MaLop;
+        // document.querySelector('#SelectNganh').addEventListener('change', function() {
+        //     const nganhID = this.value;
+        //     fetch(`api/Admin/GetDSLopTheoNganh?NganhID=${nganhID}`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             const lopSelect = document.querySelector('#SelectLop');
+        //             const savedLop = lopSelect.dataset.selected;
+        //             lopSelect.innerHTML = '<option selected value="0">=CHỌN LỚP=</option>';
+        //             data.forEach(lop => {
+        //                 const option = document.createElement('option');
+        //                 option.value = lop.MaLop;
 
-                        lopSelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error('Lỗi khi lấy danh sách lớp:', error));
-        });
-        document.querySelector('#SelectNganh').addEventListener('change', function() {
+        //                 lopSelect.appendChild(option);
+        //             });
+        //         })
+        //         .catch(error => console.error('Lỗi khi lấy danh sách lớp:', error));
+        // });
+        // document.querySelector('#SelectNganh').addEventListener('change', function() {
 
-            const nganhID = this.value;
-            const wrapper = document.querySelector('.dept-item-wrapper');
+        //     const nganhID = this.value;
+        //     const wrapper = document.querySelector('.dept-item-wrapper');
 
-            // Clear trước
-            wrapper.innerHTML = "";
+        //     // Clear trước
+        //     wrapper.innerHTML = "";
 
-            if (nganhID === "0") return;
+        //     if (nganhID === "0") return;
 
-            fetch(`api/Admin/GetDSLopTheoNganh?NganhID=${nganhID}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (!data || data.length === 0) {
-                        wrapper.innerHTML = `<p>Không có lớp nào.</p>`;
-                        return;
-                    }
+        //     fetch(`api/Admin/GetDSLopTheoNganh?NganhID=${nganhID}`)
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             if (!data || data.length === 0) {
+        //                 wrapper.innerHTML = `<p>Không có lớp nào.</p>`;
+        //                 return;
+        //             }
 
-                    data.forEach(lop => {
-                        // Tạo label .dept-item
-                        const item = document.createElement("label");
-                        item.className = "dept-item";
+        //             data.forEach(lop => {
+        //                 // Tạo label .dept-item
+        //                 const item = document.createElement("label");
+        //                 item.className = "dept-item";
 
-                        item.innerHTML = `
-                    <input type="checkbox" name="listLopQuanLy[]" value="${lop.MaLop}">
-                    <span>${lop.TenLop}</span>
-                `;
+        //                 item.innerHTML = `
+        //             <input type="checkbox" name="listLopQuanLy[]" value="${lop.MaLop}">
+        //             <span>${lop.TenLop}</span>
+        //         `;
 
-                        wrapper.appendChild(item);
-                    });
-                })
-                .catch(err => {
-                    console.error("Lỗi:", err);
-                    wrapper.innerHTML = `<p style="color:red;">Tải dữ liệu lỗi.</p>`;
-                });
-            document.querySelectorAll("#SelectLop option").forEach(op => {
+        //                 wrapper.appendChild(item);
+        //             });
+        //         })
+        //         .catch(err => {
+        //             console.error("Lỗi:", err);
+        //             wrapper.innerHTML = `<p style="color:red;">Tải dữ liệu lỗi.</p>`;
+        //         });
+        //     document.querySelectorAll("#SelectLop option").forEach(op => {
 
-            })
-        });
+        //     })
+        // });
 
         // auto selected
         selectKhoa = document.getElementById("SelectKhoa");

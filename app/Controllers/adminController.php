@@ -191,6 +191,18 @@
             global $publicBase; 
             header("Location: ".$publicBase."/Admin/QLSuKien/QLChiTiet?EventID=".$_POST['EventID']."");
         }
+        public function showSuaSuKien()
+        {
+            $khoaModel = new Khoa();
+            $eventModel = new Event();
+            $title = "Sửa sự kiện";
+            $dataEvent = $eventModel->getEvent($_GET['EventID']);
+
+            $dsKhoaThamGia = $eventModel->getDSTenKhoaDuocPhepThamGia($_GET['EventID']);
+            $listKhoa = $khoaModel->getAll();
+            $render = __DIR__ . "/../Views/Admin/ThemSuKien.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
         public function showQuanLyHocKy()
         {
             $message = null;

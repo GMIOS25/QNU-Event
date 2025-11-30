@@ -280,6 +280,16 @@
         case '/Admin/QuanLyTaiKhoanSV':
             $adminController->showQuanLyTaiKhoanSV();
             break;
+        case '/Admin/QuanLyTaiKhoanSV/ThemSinhVien':
+            if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitThemSinhVien();
+            }
+            else
+            {
+                $adminController->showThemSinhVien();
+            }
+            break;
         // Xử lú api
         case '/api/Admin/GetDSNganhTheoKhoa':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 

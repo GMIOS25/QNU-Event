@@ -1,191 +1,215 @@
-
-.add-student-container {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f5f7fb;
-  padding: 24px 16px 60px;
-  min-height: 100vh;
+/* --- RESET & GLOBAL STYLES --- */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f3f5f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-.add-student-title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 32px;
-  letter-spacing: 1.2px;
-  color: #1e293b;
+.page-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 15px;
 }
 
-.add-student-card {
-  max-width: 960px;
-  margin: 0 auto;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
-  padding: 32px 40px 40px;
-  border-radius: 16px;
+/* Tiêu đề trang */
+.main-page-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    color: #000;
 }
 
-/* Header mini */
-.student-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 12px;
+/* --- CARD STYLES --- */
+.custom-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 30px;
 }
 
-.student-card-header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  font-size: 16px;
-  color: #111827;
+/* Toolbar */
+.card-toolbar {
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
 }
 
-.icon-circle {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 2px solid #0d6efd;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #0d6efd;
-  background: #e8f1ff;
-  font-weight: bold;
+.toolbar-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #333;
+    display: flex;
+    align-items: center;
 }
 
-.student-back-link {
-  font-size: 14px;
-  color: #0d6efd;
-  text-decoration: none;
+.toolbar-title i {
+    font-size: 1.3rem;
+    color: #009be5;
 }
 
-.student-back-link:hover {
-  text-decoration: underline;
+/* --- FORM STYLES --- */
+
+/* Label */
+label.block {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 14px;
 }
+.text-danger { color: #dc3545; }
 
-/* Form */
-.student-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.student-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.student-form-group label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #111827;
-}
-
-.student-form-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-}
-
-/* Inputs */
-.student-form input[type="text"],
-.student-form input[type="email"],
-.student-form input[type="password"],
-.student-form select {
-  width: 100%;
-  border-radius: 10px;
-  border: 1.5px solid #d1d5db;
-  padding: 12px 14px;
-  font-size: 15px;
-  outline: none;
-  background: #f9fafb;
-  transition: all 0.2s ease;
-}
-
-.student-form input:focus,
-.student-form select:focus {
-  border-color: #0d6efd;
-  background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
-}
-
-/* Buttons */
-.student-form-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-}
-
-.btn-student-primary,
-.btn-student-cancel {
-  border: none;
-  border-radius: 999px;
-  padding: 12px 32px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-student-primary {
-  background: #0d6efd;
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
-}
-
-.btn-student-primary:hover {
-  background: #0b5ed7;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(13, 110, 253, 0.4);
-}
-
-.btn-student-cancel {
-  background: #6c757d;
-  color: #ffffff;
-}
-
-.btn-student-cancel:hover {
-  background: #5a6268;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .add-student-card {
-    padding: 24px 20px;
-  }
-
-  .student-form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .student-card-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .add-student-title {
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .student-form-actions {
-    flex-direction: column;
-  }
-
-  .btn-student-primary,
-  .btn-student-cancel {
+/* Input & Select chung */
+.form-account-input input[type="text"],
+.form-account-input input[type="password"],
+.form-account-input input[type="email"],
+.form-account-input select {
     width: 100%;
-    justify-content: center;
-  }
+    padding: 10px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: all 0.2s;
+    height: 45px; /* Chiều cao cố định */
+}
+
+.form-account-input input:focus,
+.form-account-input select:focus {
+    border-color: #009be5;
+    background-color: #fff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 155, 229, 0.1);
+}
+
+/* Wrapper cho input đơn lẻ */
+.form-account-input {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Group wrapper (Chia cột: Họ-Tên, Khoa-Ngành-Lớp) */
+.form-group-row {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    margin-bottom: 0; 
+}
+
+.form-group-row .form-account-input {
+    flex: 1; /* Chia đều không gian */
+}
+
+/* Responsive: Rớt dòng trên mobile */
+@media (max-width: 768px) {
+    .form-group-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+/* --- CHECKBOX & BCS SECTION --- */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #009be5;
+    cursor: pointer;
+}
+
+.cursor-pointer { cursor: pointer; }
+
+/* Khu vực Lớp quản lý */
+.form-group-bcs {
+    display: none;
+    flex-direction: column;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+.dept-item-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.dept-item{
+  display: flex;
+  gap: 5px;
+}
+.dept-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+    min-width: 180px;
+}
+
+.dept-item:hover {
+    border-color: #009be5;
+}
+
+.dept-item span {
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+/* --- BUTTON ACTIONS --- */
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Căn giữa nút */
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px dashed #e9ecef;
+}
+
+/* Nút Submit */
+.btn-submit {
+    background-color: #009be5;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 30px; /* Bo tròn kiểu viên thuốc */
+    font-weight: 600;
+    font-size: 15px;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.btn-submit:hover {
+    background-color: #0086c9;
+    color: white;
+}
+
+/* Nút Hủy */
+.btn-cancel {
+    background-color: #f1f3f5;
+    color: #495057;
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: #e9ecef;
+    color: #212529;
+}
+
+.bcs-show{
+  display: flex;;
 }

@@ -802,6 +802,100 @@
             header('Content-Type: application/json');
             echo json_encode($listLop);
         }
+
+        public function showThemSinhVien()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Thêm Sinh Viên";
+            $dataKhoa = (new Khoa())->getAll();
+            $render = __DIR__ . "/../Views/Admin/ThemTKSinhVien.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitThemSinhVien()
+        {
+            $userModel = new User();
+            if($userModel->getStudentInfo(trim($_POST['MSSV'])) != null)
+            {
+                $_SESSION['message'] = "Mã số sinh viên đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                return;
+            }
+            if($userModel->getStudentByEmail(trim($_POST['Email'])) != null)
+            {
+                $_SESSION['message'] = "Email đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                return;
+            }
+            if(trim($_POST['MatKhau']) != trim($_POST['XacNhanMatKhau']))
+            {
+                $_SESSION['message'] = "Mật khẩu và xác nhận mật khẩu không khớp";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                return;
+            }
+            if(($_POST['isBanCanSu'] == 1 || $_POST['isBanCanSu'] == true) && count($_POST['listLopQuanLy']) == 0)
+            {
+                $_SESSION['message'] = "Ban cán sự phải có ít nhất 1 lớp quản lý";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                return;
+            }
+            if(trim($_POST['MatKhau']) === "")
+            {
+                // set pass mặc định
+                $_POST['MatKhau'] = $_POST['MSSV'];
+                
+            }
+            $isBanCanSu = 0;
+            if(isset($_POST['isBanCanSu']) && !is_null($_POST['isBanCanSu']))
+            {
+                if($_POST['isBanCanSu'] == 1)
+                {
+                    $isBanCanSu = 1;
+                }
+            }
+            $message = $userModel->insertStudent(
+                trim($_POST['MSSV']),
+                trim($_POST['Ho']),
+                trim($_POST['Ten']),
+                trim($_POST['Email']),
+                trim($_POST['MatKhau']),
+                $isBanCanSu,
+                trim($_POST['MaLop'])
+            );
+
+            if($message )
+            {
+                if($_POST['isBanCanSu'] == 1 || $_POST['isBanCanSu'] == true)
+                {
+                    $listLopQuanLy = $_POST['listLopQuanLy'];
+                    foreach ($listLopQuanLy as $lop)
+                    {
+                        $mess = $userModel->addLopQuanLy(trim($_POST['MSSV']), $lop);
+                        if(!$mess)
+                        {
+                             $_SESSION['message'] = "Thêm sinh viên thất bại";
+                                global $publicBase;
+                                 header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
+                                 return;
+                        }
+                    }
+                }
+                $_SESSION['message'] = "Thêm sinh viên thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Thêm sinh viên thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
+        }
         
 
     }

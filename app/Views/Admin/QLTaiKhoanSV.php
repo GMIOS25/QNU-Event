@@ -22,13 +22,13 @@
                 </div>
 
                 <div class="toolbar-right d-flex align-items-center gap-3">
-                    <a <?php echo isset($_GET['search']) ? '' : 'style="display:none;"'; ?> href="Admin/CauHinh/Nganh">Hủy tìm kiếm</a>
+                    <a <?php echo isset($_GET['search']) ? '' : 'style="display:none;"'; ?> href="Admin/QuanLyTaiKhoanSV">Hủy tìm kiếm</a>
                     <form action="" method="GET" class="search-wrapper position-relative">
                         <input type="search" name="search" class="form-control search-input" value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>" placeholder="Tìm kiếm sinh viên...">
                         <i class="bi bi-search search-icon"></i>
                     </form>
 
-                    <a href="Admin/CauHinh/QuanLyTaiKhoanSV/ThemSinhVien" class="btn btn-primary btn-add">
+                    <a href="Admin/QuanLyTaiKhoanSV/ThemSinhVien" class="btn btn-primary btn-add">
                         <i class="bi bi-plus-circle me-2"></i>
                         Thêm sinh viên
                     </a>

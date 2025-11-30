@@ -72,6 +72,25 @@
                 $userData = $result->fetch_assoc();
                 return $userData;
             }
+            else {
+                return NULL;
+            }
+
+        }
+        public function getStudentByEmail($email)
+        {
+            $stm = $this->conn->prepare("Select * from sinhvien where Email = ?");
+            $stm->bind_param("s", $email);
+            $stm->execute();
+            $result = $stm->get_result();
+            if ($result->num_rows > 0 )
+            {
+                $userData = $result->fetch_assoc();
+                return $userData;
+            }
+            else {
+                return NULL;
+            }
 
         }
         public function getAdminInfo($AdminID)
@@ -224,7 +243,62 @@
             }
             return NULL;
         }
+        public function getAllStudents()
+        {
+            $sql = "SELECT sinhvien.*, lop.TenLop FROM sinhvien 
+            JOIN lop ON sinhvien.MaLop = lop.MaLop ";
+            $students = [];
+            $result = $this->conn->query($sql);
+            if($result)
+            {
+                $students = [];
+                while($row = $result->fetch_assoc())
+                {
+                    $students[] = $row;
+                }
+                return $students;
+            }
+            return NULL;
+        }
+        public function insertStudent($MSSV, $Ho, $Ten, $Email,$MatKhau, $isBanCanSu, $MaLop)
+        {
+            $stm = $this->conn->prepare("INSERT INTO sinhvien (MSSV, Ho, Ten, Email, Password, isBanCanSu, MaLop) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stm->bind_param("sssssss", $MSSV, $Ho, $Ten, $Email, password_hash($MatKhau, PASSWORD_DEFAULT), $isBanCanSu, $MaLop);
+            $result = $stm->execute();
+            $stm->close();
+            return $result;
+        }
+        public function updateStudent($MSSV, $Ho, $Ten, $Email,$MatKhau, $isBanCanSu, $MaLop)
+        {
+            $stm = $this->conn->prepare("UPDATE sinhvien SET Ho = ?, Ten = ?, Email = ?, Password = ?, isBanCanSu = ?, MaLop = ? WHERE MSSV = ?");
+            $stm->bind_param("sssssss", $Ho, $Ten, $Email, password_hash($MatKhau, PASSWORD_DEFAULT), $isBanCanSu, $MaLop, $MSSV);
+            $result = $stm->execute();
+            $stm->close();
+            return $result;
+        }
+        public function deleteStudent($MSSV)
+        {
+            $stm = $this->conn->prepare("DELETE FROM sinhvien WHERE MSSV = ?");
+            $stm->bind_param("s", $MSSV);
+            $result = $stm->execute();
+            $stm->close();
+            return $result;
+        }
+        public function changePassword($MSSV, $newPassword)
+        {
+            $stm = $this->conn->prepare("UPDATE sinhvien SET Password = ? WHERE MSSV = ?");
+            $stm->bind_param("ss", password_hash($newPassword, PASSWORD_DEFAULT), $MSSV);
+            $result = $stm->execute();
+            $stm->close();
+            return $result;
+        }
 
+        public function addLopQuanLy($MSSV, $MaLop)
+        {
+            $stm = $this->conn->prepare("INSERT INTO bcsquanlylop VALUES(?, ?)");
+            $stm->bind_param('ss', $MSSV, $MaLop );
+            return $stm->execute();
+        }
         // ADMIN
     } 
         

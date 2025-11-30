@@ -30,7 +30,7 @@
         public function loadSKCanNopMinhChung($MSSV)
         {
             $data = [];
-        $sql = "SELECT SuKien.* FROM SuKien 
+        $sql = "SELECT DISTINCT SuKien.* FROM SuKien 
         JOIN dksukien ON SuKien.MaSK = dksukien.MaSK 
         LEFT JOIN minhchungthamgiask ON dksukien.MaSK = minhchungthamgiask.MaSK 
                                      AND dksukien.MSSV = minhchungthamgiask.MSSV 
@@ -124,7 +124,7 @@
         public function loadDanhSachMinhChungChoDuyetWithPagination($EventID, $limit, $offset)
         {
             $data = [];
-            $sql = "Select  sinhvien.MSSV, sinhvien.Ho, sinhvien.Ten, FileMinhChung, lop.TenLop as Lop, ThoiGianNop from minhchungthamgiask 
+            $sql = "Select IDMinhChung ,sinhvien.MSSV, sinhvien.Ho, sinhvien.Ten, FileMinhChung, lop.TenLop as Lop, ThoiGianNop from minhchungthamgiask 
             join sinhvien on minhchungthamgiask.MSSV = sinhvien.MSSV
             join lop on sinhvien.MaLop = lop.MaLop
             where MaSK = ? and TrangThai = 'Chờ duyệt'
@@ -171,19 +171,20 @@
             }
             return 0;
         }
-        
-        public function approveMinhChung($MSSV, $MaSK)
+        // fix vì mỗi minh chứng nên rõ ràng 1 trạng thái, nếu where theo mssv và MaSK thì có thể update hết tất cả các minh chứng đã nộp của sk đấy
+        // tức là minh chứng đã từ chối -> sv nộp lại -> duyệt cái sv nộp thì minh chứng đã từ chối trc đó sẽ chuyển sang đã duyệt
+        public function approveMinhChung($IDMinhChung)
         {
-            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Đã duyệt' WHERE MSSV = ? AND MaSK = ?";
+            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Đã duyệt' WHERE IDMinhChung = ?";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ss", $MSSV, $MaSK);
+            $stmt->bind_param("s", $IDMinhChung);
             return $stmt->execute();
         }
-        public function rejectMinhChung($MSSV, $MaSK)
+        public function rejectMinhChung($IDMinhChung)
         {
-            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Từ chối' WHERE MSSV = ? AND MaSK = ?";
+            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Từ chối' WHERE IDMinhChung = ?";
             $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("ss", $MSSV, $MaSK);
+            $stmt->bind_param("s", $IDMinhChung);
             return $stmt->execute();
         }
 

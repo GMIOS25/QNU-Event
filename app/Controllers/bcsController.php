@@ -71,9 +71,9 @@
         {
             global $publicBase;
             $minhChungModel = new MinhChung();
-            if(isset($_GET['MSSV']) && isset($_GET['EventID']))
+            if(isset($_GET['IDMinhChung']))
             {
-                if($minhChungModel->approveMinhChung($_GET['MSSV'], $_GET['EventID']))
+                if($minhChungModel->approveMinhChung($_GET['IDMinhChung']))
                 {
                     $_SESSION['message'] = "Duyệt minh chứng thành công!";
                 }
@@ -89,9 +89,9 @@
         {
             global $publicBase;
             $minhChungModel = new MinhChung();
-            if(isset($_GET['MSSV']) && isset($_GET['EventID']))
+            if(isset($_GET['IDMinhChung']))
             {
-                if($minhChungModel->rejectMinhChung($_GET['MSSV'], $_GET['EventID']))
+                if($minhChungModel->rejectMinhChung($_GET['IDMinhChung']))
                 {
                     $_SESSION['message'] = "Từ chối minh chứng thành công!";
                 }

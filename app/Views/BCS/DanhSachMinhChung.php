@@ -73,10 +73,10 @@
                                     </button>
                                 </div>
                                 <div class="col-cell c-action">
-                                    <button class="btn-action btn-approve" data-mssv="'.$mc['MSSV'].'" data-eventid="'.$_GET['EventID'].'">
+                                    <button class="btn-action btn-approve" data-idminhchung='.$mc['IDMinhChung'].'  data-eventid="'.$_GET['EventID'].'">
                                         <i class="bi bi-check-circle me-1"></i>Duyệt
                                     </button>
-                                    <button class="btn-action btn-reject" data-mssv="'.$mc['MSSV'].'" data-eventid="'.$_GET['EventID'].'">
+                                    <button class="btn-action btn-reject" data-idminhchung='.$mc['IDMinhChung'].'  data-eventid="'.$_GET['EventID'].'">
                                         <i class="bi bi-x-circle me-1"></i>Từ chối
                                     </button>
                                 </div>
@@ -138,11 +138,10 @@
         // Approve button
         document.querySelectorAll('.btn-approve').forEach(btn => {
             btn.addEventListener('click', function() {
-                const mssv = this.getAttribute('data-mssv');
+                const IDMinhChung = this.getAttribute('data-idminhchung');
                 const eventId = this.getAttribute('data-eventid');
-                
                 if(confirm('Bạn có chắc chắn muốn duyệt minh chứng này?')) {
-                    window.location.href = 'BCS/DuyetMinhChung/Approve?MSSV=' + mssv + '&EventID=' + eventId;
+                    window.location.href = 'BCS/DuyetMinhChung/Approve?IDMinhChung='+ IDMinhChung  + '&EventID=' + eventId;
                 }
             });
         });
@@ -150,11 +149,10 @@
         // Reject button
         document.querySelectorAll('.btn-reject').forEach(btn => {
             btn.addEventListener('click', function() {
-                const mssv = this.getAttribute('data-mssv');
+                const IDMinhChung = this.getAttribute('data-idminhchung');
                 const eventId = this.getAttribute('data-eventid');
-                
                 if(confirm('Bạn có chắc chắn muốn từ chối minh chứng này?')) {
-                    window.location.href = 'BCS/DuyetMinhChung/Reject?MSSV=' + mssv + '&EventID=' + eventId;
+                    window.location.href = 'BCS/DuyetMinhChung/Reject?IDMinhChung='+ IDMinhChung  + '&EventID=' + eventId;
                 }
             });
         });

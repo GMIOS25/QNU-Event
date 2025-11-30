@@ -263,7 +263,7 @@
         public function insertStudent($MSSV, $Ho, $Ten, $Email,$MatKhau, $isBanCanSu, $MaLop)
         {
             $stm = $this->conn->prepare("INSERT INTO sinhvien (MSSV, Ho, Ten, Email, Password, isBanCanSu, MaLop) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stm->bind_param("sssssss", $MSSV, $Ho, $Ten, $Email, password_hash($MatKhau, PASSWORD_DEFAULT), $isBanCanSu, $MaLop);
+            $stm->bind_param("sssssss", $MSSV, $Ho, $Ten, $Email, $MatKhau, $isBanCanSu, $MaLop);
             $result = $stm->execute();
             $stm->close();
             return $result;
@@ -287,7 +287,7 @@
         public function changePassword($MSSV, $newPassword)
         {
             $stm = $this->conn->prepare("UPDATE sinhvien SET Password = ? WHERE MSSV = ?");
-            $stm->bind_param("ss", password_hash($newPassword, PASSWORD_DEFAULT), $MSSV);
+            $stm->bind_param("ss", $newPassword, $MSSV);
             $result = $stm->execute();
             $stm->close();
             return $result;

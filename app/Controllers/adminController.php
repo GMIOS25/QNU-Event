@@ -149,7 +149,7 @@
                 $_POST['txtGhiChu'],
                 $_POST['listkhoathamgia']
             );
-
+            $khoaModel = new Khoa();
             if($message )
             {
 

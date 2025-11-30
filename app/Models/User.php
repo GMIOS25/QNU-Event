@@ -63,7 +63,7 @@
         // lấy thông tin user từ db
         public function getStudentInfo($MSSV)
         {
-            $stm = $this->conn->prepare("Select * from sinhvien where MSSV = ?");
+            $stm = $this->conn->prepare("Select SinhVien.*, Lop.*, Nganh.* from sinhvien join lop on sinhvien.malop = lop.malop join nganh on nganh.manganh = lop.manganh where MSSV = ?");
             $stm->bind_param("s", $MSSV);
             $stm->execute();
             $result = $stm->get_result();
@@ -268,10 +268,10 @@
             $stm->close();
             return $result;
         }
-        public function updateStudent($MSSV, $Ho, $Ten, $Email,$MatKhau, $isBanCanSu, $MaLop)
+        public function updateStudent($MSSV, $Ho, $Ten, $Email, $isBanCanSu, $MaLop)
         {
-            $stm = $this->conn->prepare("UPDATE sinhvien SET Ho = ?, Ten = ?, Email = ?, Password = ?, isBanCanSu = ?, MaLop = ? WHERE MSSV = ?");
-            $stm->bind_param("sssssss", $Ho, $Ten, $Email, password_hash($MatKhau, PASSWORD_DEFAULT), $isBanCanSu, $MaLop, $MSSV);
+            $stm = $this->conn->prepare("UPDATE sinhvien SET Ho = ?, Ten = ?, Email = ?, isBanCanSu = ?, MaLop = ? WHERE MSSV = ?");
+            $stm->bind_param("ssssss", $Ho, $Ten, $Email, $isBanCanSu, $MaLop, $MSSV);
             $result = $stm->execute();
             $stm->close();
             return $result;
@@ -298,6 +298,27 @@
             $stm = $this->conn->prepare("INSERT INTO bcsquanlylop VALUES(?, ?)");
             $stm->bind_param('ss', $MSSV, $MaLop );
             return $stm->execute();
+        }
+        public function resetLopQuanLy($MSSV)
+        {
+            $stm = $this->conn->prepare("DELETE FROM bcsquanlylop where MSSV = ?");
+            $stm->bind_param('s', $MSSV );
+            return $stm->execute();
+        }
+        public function getLopQuanLy($MSSV)
+        {
+            $stm = $this->conn->prepare("SELECT MaLop FROM bcsquanlylop WHERE MSSV = ?");
+            $stm->bind_param('s', $MSSV);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            $lopQuanLy = [];
+            if ($result) {
+                while ($row = $result->fetch_assoc()) {
+                    $lopQuanLy[] = $row['MaLop'];
+                }
+            }
+            return $lopQuanLy;
         }
         // ADMIN
     } 

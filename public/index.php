@@ -290,6 +290,22 @@
                 $adminController->showThemSinhVien();
             }
             break;
+        case '/Admin/QuanLyTaiKhoanSV/SuaSinhVien':
+            if($_SERVER['REQUEST_METHOD'] === 'POST') // dành cho submit form
+            {
+                $adminController->submitModifyStudent();
+            }
+            else if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['StudentID']))
+            {
+                $adminController->showModifyStudent();
+            }
+            break;
+        case '/Admin/QuanLyTaiKhoanSV/ResetMatKhau':
+            if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['StudentID']))
+            {
+                $adminController->resetStudentPassword();
+                break;
+            }
         // Xử lú api
         case '/api/Admin/GetDSNganhTheoKhoa':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 

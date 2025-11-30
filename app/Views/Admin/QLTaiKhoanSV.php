@@ -95,8 +95,8 @@
                             <div class="col-cell c-lop"><?php echo htmlspecialchars($sv['TenLop']); ?></div>
                             <div class="col-cell c-role"><?php echo ($sv['isBanCanSu'] == '1') ? 'Ban cán sự' : 'Sinh viên'; ?></div>
                             <div class="col-cell c-action">
-                                <a href="" class="btn-icon btn-edit" title="Sửa"><i class="bi bi-pencil-square"></i>Sửa </a>
-                                <a onclick="return confirm('Bạn chắc chắn muốn xóa sinh viên này, mọi dữ liệu liên quan cũng sẽ bị xóa?')" href="" class="btn-icon btn-delete" title="Xóa"><i class="bi bi-trash"></i>Xóa</a>
+                                <a href="Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID= <?php echo htmlspecialchars($sv['MSSV']) ?>" class="btn-icon btn-edit" title="Sửa"><i class="bi bi-pencil-square"></i>Sửa </a>
+                                <a onclick="return confirm('Bạn chắc chắn muốn xóa sinh viên này, mọi dữ liệu liên quan cũng sẽ bị xóa?')" href="Admin/QuanLyTaiKhoanSV/XoaSinhVien?StudentID= <?php echo htmlspecialchars($sv['MSSV']) ?>" class="btn-icon btn-delete" title="Xóa"><i class="bi bi-trash"></i>Xóa</a>
                             </div>
 
                         </div>

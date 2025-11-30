@@ -908,6 +908,102 @@
             global $publicBase;
             header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
         }
+        public function showModifyStudent()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Sửa sinh viên";
+            $dataKhoa = (new Khoa())->getAll();
+            $userModel = new User();
+            $studentData = $userModel->getStudentInfo(trim($_GET['StudentID']));
+            $listLopQuanLy = [];
+            if ($studentData && $studentData['isBanCanSu'] == '1') {
+                $listLopQuanLy = $userModel->getLopQuanLy($studentData['MSSV']);
+            }
+            $render = __DIR__ . "/../Views/Admin/ThemTKSinhVien.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
+        public function submitModifyStudent()
+        {
+            $userModel = new User();
+
+            if($userModel->getStudentByEmail(trim($_POST['Email'])) != null)
+            {
+                $_SESSION['message'] = "Email đã tồn tại";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                return;
+            }
+
+            if(($_POST['isBanCanSu'] == 1 || $_POST['isBanCanSu'] == true) && count($_POST['listLopQuanLy']) == 0)
+            {
+                $_SESSION['message'] = "Ban cán sự phải có ít nhất 1 lớp quản lý";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                return;
+            }
+            $isBanCanSu = 0;
+            if(isset($_POST['isBanCanSu']) && !is_null($_POST['isBanCanSu']))
+            {
+                if($_POST['isBanCanSu'] == 1)
+                {
+                    $isBanCanSu = 1;
+                }
+            }
+            $message = $userModel->updateStudent(
+                trim($_POST['MSSV']),
+                trim($_POST['Ho']),
+                trim($_POST['Ten']),
+                trim($_POST['Email']),
+                $isBanCanSu,
+                trim($_POST['MaLop'])
+            );
+
+            if($message )
+            {
+                if($_POST['isBanCanSu'] == 1 || $_POST['isBanCanSu'] == true)
+                {
+                    $listLopQuanLy = $_POST['listLopQuanLy'];
+                    $userModel->resetLopQuanLy(trim($_POST['MSSV']));
+                    foreach ($listLopQuanLy as $lop)
+                    {
+                        $mess = $userModel->addLopQuanLy(trim($_POST['MSSV']), $lop);
+                        if(!$mess)
+                        {
+                             $_SESSION['message'] = "Sửa sinh viên thất bại";
+                                global $publicBase;
+                                 header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
+                                 return;
+                        }
+                    }
+                }
+                $_SESSION['message'] = "Sửa sinh viên thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Sửa sinh viên thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
+        }
+        public function resetStudentPassword()
+        {
+            $userModel = new User();
+            $mess = $userModel->changePassword(trim($_GET['StudentID']), trim($_GET['StudentID']));
+            if($mess)
+            {
+                $_SESSION['message'] = "Reset pass sinh viên thành công";
+            }
+            else
+            {
+                 $_SESSION['message'] = "Reset pass sinh viên thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID=".trim($_GET['StudentID']));
+        }
         
 
     }

@@ -205,6 +205,12 @@
             $render = __DIR__ . "/../Views/Student/LichSuKien.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
+        public function showThongTinCaNhan()
+        {
+            $title = "Thông tin cá nhân";
+            $render = __DIR__ . "/../Views/Student/ThongTinCaNhan.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
     }
 
 ?>

@@ -28,7 +28,7 @@
     
 
     <ul class="dropdown-menu dropdown-menu-end">
-      <li><a class="dropdown-item" href="#">Thông tin cá nhân</a></li>
+      <li><a class="dropdown-item" href="Student/ThongTinCaNhan">Thông tin cá nhân</a></li>
       <li><a class="dropdown-item" href="Auth/Logout">Đăng xuất</a></li>
     </ul>
   </div>

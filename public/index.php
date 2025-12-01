@@ -99,6 +99,9 @@
         case '/Student/TuDanhGiaRL':
             $studentController->showTuDanhGiaRL();
             break;
+        case '/Student/ThongTinCaNhan':
+            $studentController->showThongTinCaNhan();
+            break;
         case '/BCS/DuyetMinhChung':
             $bcsController->showDuyetMinhChung();
             break;
@@ -319,6 +322,9 @@
                 $adminController->apiGetDSLop();
                 break;
             }
+        case '/Student/ThongTinCaNhan':
+            $studentController->showThongTinCaNhan();
+            break;
         case '/Account':
         default:
             $baseController->ErrorNotFound();

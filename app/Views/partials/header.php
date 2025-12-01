@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="qnu-header-right dropdown">
-    <div class="qnu-header-toggle dropdown-toggle" data-bs-toggle="dropdown">
+    <div class="qnu-header-toggle dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" role="button" style="cursor: pointer;">
       <i class="fa fa-user-circle"></i>
       <div class="user-info">
         <span class="username"><?php echo $_SESSION['FullName']?></span>
@@ -28,7 +28,7 @@
     
 
     <ul class="dropdown-menu dropdown-menu-end">
-      <li><a class="dropdown-item" href="Student/ThongTinCaNhan">Thông tin cá nhân</a></li>
+      <li><a class="dropdown-item" href="javascript:void(0)" onclick="openThongTinModal()">Thông tin cá nhân</a></li>
       <li><a class="dropdown-item" href="Auth/Logout">Đăng xuất</a></li>
     </ul>
   </div>

@@ -1,0 +1,236 @@
+/* Reset đơn giản - chỉ áp dụng cho phần tử trong trang này */
+.information-student * {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* ----- CARD THÔNG TIN SINH VIÊN ----- */
+
+.container {
+  width: 100%;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100%;
+}
+
+.information-student {
+  width: 40%;
+  margin: 0 20px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px 26px 22px;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.25);
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #0f172a;
+  text-align: center;
+}
+
+/* wrap-text chung cho từng dòng */
+.wrap-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+/* Checkbox bcs cho nằm ngang */
+.wrap-checkbox {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrap-text label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.wrap-text input[type="text"],
+.wrap-text input[type="password"] {
+  width: 100%;
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  font-size: 14px;
+  transition: all 0.15s ease-in-out;
+  background-color: #f8fafc;
+}
+
+.wrap-text input[type="text"]:focus,
+.wrap-text input[type="password"]:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.28);
+  background-color: #ffffff;
+}
+
+/* checkbox */
+.wrap-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6;
+}
+
+/* Nút đổi mật khẩu */
+.wrap-button {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+}
+
+.btn-secondary {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-secondary:hover {
+  background: #cbd5e1;
+}
+
+/* ----- MODAL ĐỔI MẬT KHẨU ----- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none; /* Ẩn mặc định */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex; /* Khi thêm class show thì hiện */
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+}
+
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px 22px 18px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.4);
+  z-index: 1001;
+  animation: modalSlideUp 0.18s ease-out;
+}
+
+.modal-dialog h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0f172a;
+  text-align: center;
+}
+
+.modal-body {
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.modal-body .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.modal-body label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.modal-body input {
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.modal-body input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.28);
+  background-color: #ffffff;
+}
+
+/* Footer của modal (nút) */
+.modal-footer {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Animation nhỏ cho popup */
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive nhẹ cho màn nhỏ */
+@media (max-width: 480px) {
+  .information-student {
+    padding: 18px 16px;
+    margin: 0 8px;
+  }
+
+  .modal-dialog {
+    margin: 0 10px;
+    padding: 18px 16px;
+  }
+}

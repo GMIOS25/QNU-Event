@@ -85,6 +85,33 @@
             }
             return NULL;
         }
+        public function searchSKCanDuyetMinhChung($MaKhoa, $keywork)
+        {
+            $data = [];
+        $sql = "SELECT SuKien.* FROM SuKien 
+        WHERE 
+            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY) AND MaKhoa = ? AND (MaSK = ? OR TenSK LIKE ?)";
+            $sttm = $this->conn->prepare($sql);
+            $likeTenSK = '%'. $keywork . '%';
+            $sttm->bind_param("sss", $MaKhoa, $keywork, $likeTenSK);
+            if($sttm->execute())
+            {
+                $result = $sttm->get_result();
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = $result->fetch_assoc())
+                    {
+                        $data[] = $row;
+                    }
+                    return $data;
+                }
+                else
+                {
+                    return NULL;
+                }
+            }
+            return NULL;
+        }
         public function loadDanhSachMinhChungChoDuyet($EventID)
         {
             $data = [];

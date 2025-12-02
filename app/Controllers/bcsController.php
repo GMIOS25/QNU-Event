@@ -15,7 +15,14 @@
             $eventModel = new Event();
             $userModel = new User();
             $khoaSV = $userModel->getKhoaSV($_SESSION['UID']);
-            $listSKMinhChung = $minhChungModel->loadSKCanDuyetMinhChung($khoaSV['MaKhoa']);
+            if(isset($_GET['search']))
+            {
+                $listSKMinhChung = $minhChungModel->searchSKCanDuyetMinhChung($khoaSV['MaKhoa'], $_GET['search']);
+            }
+            else{
+                $listSKMinhChung = $minhChungModel->loadSKCanDuyetMinhChung($khoaSV['MaKhoa']);
+            }
+           
             $title = "Tự đánh giá rèn luyện";
             $render = __DIR__ . "/../Views/BCS/ListSuKienCanDuyet.php";
             include __DIR__ . "/../Views/layout.php" ;

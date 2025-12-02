@@ -1005,7 +1005,12 @@
             global $publicBase;
             header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID=".trim($_GET['StudentID']));
         }
-        
+        public function showAccountAdmin()
+        {
+            $title = "QL Tai khoan admin";
+            $render = __DIR__ . "/../Views/Admin/QLTaiKhoanAdmin.php";
+            require __DIR__ . "/../Views/layout.php";
+        }
 
     }
 

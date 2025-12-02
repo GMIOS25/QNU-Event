@@ -838,7 +838,7 @@
                 header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
                 return;
             }
-            if($userModel->getStudentByEmail(trim($_POST['Email'])) != null)
+            if($userModel->getStudentByEmail(trim($_POST['MSSV']),trim($_POST['Email'])) != null)
             {
                 $_SESSION['message'] = "Email đã tồn tại";
                 global $publicBase;
@@ -931,7 +931,7 @@
         {
             $userModel = new User();
 
-            if($userModel->getStudentByEmail(trim($_POST['Email'])) != null)
+            if($userModel->getStudentByEmail($_POST['MSSV'] , trim($_POST['Email'])) != null)
             {
                 $_SESSION['message'] = "Email đã tồn tại";
                 global $publicBase;

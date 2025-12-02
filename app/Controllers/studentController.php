@@ -57,6 +57,15 @@
             global $publicBase;
             $userModel = new User();
             $eventModel = new Event();
+            $soLuongDK = $eventModel->getRegisteredStudentsCount($_GET['EventID']);
+            $limitDK = $eventModel->getEvent($_GET['EventID'])['GioiHanThamGia'];
+            if($soLuongDK == $limitDK)
+            {
+                $_SESSION['message'] = "Vượt quá số lượng sinh viên cho phép tham gia!";
+                
+                header("Location: ".$publicBase."/Student/DangKySuKien");
+                return;
+            }
             if(!$eventModel->checkDKTrung($_GET['EventID'], $_SESSION['UID']) )
             {
                 if($eventModel->DangKySuKien($_SESSION['UID'], $_GET['EventID']))

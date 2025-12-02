@@ -74,31 +74,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const btnOpen = document.getElementById('btn-change-password');
-        const modal = document.getElementById('changePasswordModal');
-        const btnCancel = document.getElementById('btn-cancel');
-        const btnConfirm = document.getElementById('btn-confirm');
-        const overlay = document.querySelector('#changePasswordModal .modal-overlay');
-
-        function openModal() {
-            modal.classList.add('show');
-        }
-
-        function closeModal() {
-            modal.classList.remove('show');
-        }
-
-        btnOpen.addEventListener('click', openModal);
-        btnCancel.addEventListener('click', closeModal);
-        overlay.addEventListener('click', closeModal);
-
-        // Sau này bạn xử lý validate / gọi API đổi mật khẩu trong btnConfirm
-        btnConfirm.addEventListener('click', function () {
-            // TODO: xử lý đổi mật khẩu
-            alert('Xử lý đổi mật khẩu ở đây');
-            closeModal();
-        });
-    </script>
 </body>

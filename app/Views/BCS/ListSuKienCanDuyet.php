@@ -13,11 +13,10 @@
                     <i class="bi bi-grid-3x3-gap-fill me-2"></i>
                     <span>Danh sách sự kiện cần duyệt minh chứng</span>
                 </div>
-
-                <div class="search-wrapper position-relative">
-                    <input type="text" class="form-control search-input" placeholder="Tìm kiếm ....">
-                    <i class="bi bi-search search-icon"></i>
-                </div>
+                    <form method="GET" action="" class="search-wrapper position-relative">
+                        <input type="search" class="form-control search-input" name="search" id="searchInput" placeholder="Tìm kiếm ....">
+                        <i class="bi bi-search search-icon"></i>
+                    </form>
             </div>
             <div class="warning-box">
                 <i class="bi bi-exclamation-triangle-fill warning-icon"></i>

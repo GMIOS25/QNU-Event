@@ -309,6 +309,9 @@
                 $adminController->resetStudentPassword();
                 break;
             }
+        case '/Admin/QuanLyTaiKhoanAdmin':
+            $adminController->showAccountAdmin();
+            break;
         // Xử lú api
         case '/api/Admin/GetDSNganhTheoKhoa':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 

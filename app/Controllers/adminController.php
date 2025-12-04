@@ -115,6 +115,11 @@
         }
         public function showThemSuKien()
         {
+                        $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
             if($_SESSION['currentTerm'] === null)
             {
                 $_SESSION['message'] = "Chưa có học kỳ hiện tại, vui lòng thêm học kỳ trước khi tạo sự kiện";
@@ -133,21 +138,56 @@
             // echo "test";
             // exit;
             // validate dữ liệu
+            $tenSuKien = trim($_POST['txtTenSuKien']);
+            $thoiGianMoDK = trim($_POST['txtThoiGianMoDK']);
+            $thoiGianDongDK = trim($_POST['txtThoiGianDongDK']);
+            $thoiGianBatDauSK = trim($_POST['txtThoiGianBatDauSK']);
+            $thoiGianKetThucSK = trim($_POST['txtThoiGianKetThucSK']);
+            $gioiHanSLSV = trim($_POST['txtGioiHanSLSV']);
+            $noiToChuc = trim($_POST['txtNoiToChuc']);
+            $diemCong  = trim($_POST['txtDiemCong']);
+            $khoaToChuc = trim($_POST['txtKhoaToChuc']);
+            $ghiChu= trim($_POST['txtGhiChu']);
+            $listKhoaThamGia  = $_POST['listkhoathamgia'];
+            global $publicBase; 
+            if(strtotime($thoiGianMoDK) >= strtotime($thoiGianDongDK))
+            {
+                $_SESSION['message'] = "Thời gian mở đăng ký không được nằm sau thời gian mở đăng ký nhé má";
+                header("Location: ".$publicBase."/Admin/QLSuKien/ThemSuKien");
+                return;
+            }
 
+            if(strtotime($thoiGianBatDauSK ) >= strtotime($thoiGianKetThucSK))
+            {
+                $_SESSION['message'] = "Thời gian kết thúc sự kiện không nằm trước thời gian bắt đầu sự kiện";
+                header("Location: ".$publicBase."/Admin/QLSuKien/ThemSuKien");
+                return;
+            }
+
+            if(
+                strtotime($thoiGianMoDK) >= strtotime($thoiGianDongDK) || 
+                strtotime($thoiGianDongDK) >= strtotime($thoiGianBatDauSK) ||
+                strtotime($thoiGianBatDauSK) >= strtotime($thoiGianKetThucSK)
+            )
+            {
+                $_SESSION['message'] = "Thời gian diễn ra phải nằm sau thời gian đăng ký và không được chồng lấn với thời gian ";
+                header("Location: ".$publicBase."/Admin/QLSuKien/ThemSuKien");
+                return;
+            }
 
             $eventModel = new Event();
             $message = $eventModel->addEvent(
-                $_POST['txtTenSuKien'],
-                $_POST['txtThoiGianMoDK'],
-                $_POST['txtThoiGianDongDK'],
-                $_POST['txtThoiGianBatDauSK'],
-                $_POST['txtThoiGianKetThucSK'],
-                $_POST['txtGioiHanSLSV'],
-                $_POST['txtNoiToChuc'],
-                $_POST['txtDiemCong'],
-                $_POST['txtKhoaToChuc'],
-                $_POST['txtGhiChu'],
-                $_POST['listkhoathamgia']
+                $tenSuKien,
+                $thoiGianMoDK,
+                $thoiGianDongDK,
+                $thoiGianBatDauSK,
+                $thoiGianKetThucSK,
+                $gioiHanSLSV,
+                $noiToChuc,
+                $diemCong,
+                $khoaToChuc,
+                $ghiChu,
+                $listKhoaThamGia
             );
             $khoaModel = new Khoa();
             if($message )
@@ -156,12 +196,11 @@
                 $_SESSION['message'] = "Thêm sự kiện thành công";
             }
             else
-            $dataEvent = $eventModel->getEvent($_GET['EventID']);
-
-            $dsKhoaThamGia = $eventModel->getDSTenKhoaDuocPhepThamGia($_GET['EventID']);
-            $listKhoa = $khoaModel->getAll();
-            $render = __DIR__ . "/../Views/Admin/ThemSuKien.php";
-            include __DIR__ . "/../Views/layout.php" ;
+            {
+                $_SESSION['message'] = "Thêm sự kiện thất bại";
+            }
+            
+            header("Location: ".$publicBase."/Admin/QLSuKien");;
         }
         public function submitSuaSuKien()
         {
@@ -838,7 +877,7 @@
                 header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
                 return;
             }
-            if($userModel->getStudentByEmail(trim($_POST['Email'])) != null)
+            if($userModel->getStudentByEmail(trim($_POST['MSSV']),trim($_POST['Email'])) != null)
             {
                 $_SESSION['message'] = "Email đã tồn tại";
                 global $publicBase;
@@ -931,7 +970,7 @@
         {
             $userModel = new User();
 
-            if($userModel->getStudentByEmail(trim($_POST['Email'])) != null)
+            if($userModel->getStudentByEmail($_POST['MSSV'] , trim($_POST['Email'])) != null)
             {
                 $_SESSION['message'] = "Email đã tồn tại";
                 global $publicBase;
@@ -1005,7 +1044,12 @@
             global $publicBase;
             header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID=".trim($_GET['StudentID']));
         }
-        
+        public function showAccountAdmin()
+        {
+            $title = "QL Tai khoan admin";
+            $render = __DIR__ . "/../Views/Admin/QLTaiKhoanAdmin.php";
+            require __DIR__ . "/../Views/layout.php";
+        }
 
     }
 

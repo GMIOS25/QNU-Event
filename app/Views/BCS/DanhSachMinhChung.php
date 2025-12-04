@@ -34,10 +34,10 @@
                 </div>
 
                 <div class="toolbar-right d-flex align-items-center gap-3">
-                    <div class="search-wrapper position-relative">
-                        <input type="text" class="form-control search-input" id="searchInput" placeholder="Tìm kiếm ....">
+                    <form method="GET" action="" class="search-wrapper position-relative">
+                        <input type="search" class="form-control search-input" name="search" id="searchInput" placeholder="Tìm kiếm ....">
                         <i class="bi bi-search search-icon"></i>
-                    </div>
+                    </form>
                     <button class="btn btn-primary btn-export">
                         <i class="bi bi-download me-2"></i>
                         Xuất file

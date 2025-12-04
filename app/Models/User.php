@@ -77,10 +77,10 @@
             }
 
         }
-        public function getStudentByEmail($email)
+        public function getStudentByEmail($mssv, $email)
         {
-            $stm = $this->conn->prepare("Select * from sinhvien where Email = ?");
-            $stm->bind_param("s", $email);
+            $stm = $this->conn->prepare("Select * from sinhvien where Email = ? and MSSV != ?");
+            $stm->bind_param("ss", $email, $mssv);
             $stm->execute();
             $result = $stm->get_result();
             if ($result->num_rows > 0 )

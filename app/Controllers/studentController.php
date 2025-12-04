@@ -208,6 +208,8 @@
         public function showThongTinCaNhan()
         {
             $title = "Thông tin cá nhân";
+            $userModel = new User();
+            $student = $userModel->getStudentInfo($_SESSION['UID']);
             $render = __DIR__ . "/../Views/Student/ThongTinCaNhan.php";
             include __DIR__ . "/../Views/layout.php" ;
         }

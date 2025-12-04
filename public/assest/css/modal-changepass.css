@@ -1,0 +1,88 @@
+/* ----- MODAL ĐỔI MẬT KHẨU ----- */
+.modal {
+  position: flex;
+  inset: 0;
+  display: none; /* Ẩn mặc định */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal.show {
+  display: flex; /* Khi thêm class show thì hiện */
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: -9999;
+}
+
+.modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px 22px 18px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.4);
+  z-index: 1001;
+  animation: modalSlideUp 0.18s ease-out;
+}
+
+.modal-dialog h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #0f172a;
+  text-align: center;
+}
+
+.modal-body {
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.modal-body .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.modal-body label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.modal-body input {
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.modal-body input:disabled {
+  cursor: not-allowed;
+}
+
+.modal-body input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.28);
+  background-color: #ffffff;
+}
+
+/* Footer của modal (nút) */
+.modal-footer {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}

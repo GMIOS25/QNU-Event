@@ -322,6 +322,24 @@
                 $adminController->showAddAdmin();
             }
             break;
+        case "/Admin/QuanLyTaiKhoanAdmin/SuaAdmin":
+            if($_SERVER['REQUEST_METHOD'] === 'POST')
+            {
+                $adminController->submitModifyAdmin();
+            }
+            else if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['AdminID']))
+            {
+                $adminController->showModifyAdmin();
+            }
+            break;
+        case "/Admin/QuanLyTaiKhoanAdmin/XoaAdmin":
+        {
+            if($_SERVER['REQUEST_METHOD'] == "GET" &&  isset($_GET['AdminID']))
+            {
+                $adminController->deleteAccountAdmin();
+                break;
+            }
+        }
         // Xử lú api
         case '/api/Admin/GetDSNganhTheoKhoa':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 

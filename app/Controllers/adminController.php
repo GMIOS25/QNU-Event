@@ -1052,8 +1052,13 @@
                 unset($_SESSION['message']);
             }
             $userModel = new User();
-            $listAdmin = $userModel->getListAccountAdmin();
-
+            if(isset($_GET['search']))
+            {
+               $listAdmin =   $userModel->searchAdmin($_GET['search']);
+                
+            }
+            else
+                $listAdmin = $userModel->getListAccountAdmin();
             $title = "Quản lý tài khoản admin";
             $render = __DIR__ . "/../Views/Admin/QLTaiKhoanAdmin.php";
             require __DIR__ . "/../Views/layout.php";
@@ -1117,6 +1122,70 @@
             else
             {
                  $_SESSION['message'] = "Thêm admin thất bại";
+            }
+            global $publicBase;
+           header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin");
+        }
+        public function showModifyAdmin()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $userModel = new User();
+            $adminData = $userModel->getAdminByAdminID($_GET['AdminID']);
+            $title = "Sửa tài khoản admin";
+            $render = __DIR__ . "/../Views/Admin/ThemTKAdmin.php";
+            require __DIR__ . "/../Views/layout.php";
+        }
+        public function submitModifyAdmin()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+                        // validate data
+            $adminID = trim($_POST['AdminID']);
+            $ho = trim($_POST['Ho']);
+            $ten = trim($_POST['Ten']);
+            // $pass = trim($_POST['MatKhau']);
+            // $rePass = trim($_POST['XacNhanMatKhau']);
+            $email = trim($_POST['Email']);
+            $userModel = new User();
+
+            if($userModel->isContainEmailWhenEdit($adminID, $email))
+            {
+                $_SESSION['message'] = "Trùng email với một admin khác trong hệ thống";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin/SuaAdmin?AdminID=".$adminID."");
+                return;
+            }
+            $mess = $userModel->modifyAdmin($adminID, $ho, $ten, $email);
+            if($mess)
+            {
+                $_SESSION['message'] = "Sửa admin thành công!";
+            }
+            else
+            {
+                 $_SESSION['message'] = "Sửa admin thất bại";
+            }
+            global $publicBase;
+           header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin");
+
+        }
+        public function deleteAccountAdmin()
+        {
+            $userModel = new User();
+            $mess = $userModel->deleteAdmin($_GET['AdminID']);
+            if($mess)
+            {
+                $_SESSION['message'] = "Xóa admin thành công!";
+            }
+            else
+            {
+                 $_SESSION['message'] = "Xóa admin thất bại";
             }
             global $publicBase;
            header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin");

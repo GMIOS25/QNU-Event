@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="toolbar-right d-flex align-items-center gap-3">
-                    <a <?php echo isset($_GET['search']) ? '' : 'style="display:none;"'; ?> href="Admin/QuanLyTaiKhoanSV">Hủy tìm kiếm</a>
+                    <a <?php echo isset($_GET['search']) ? '' : 'style="display:none;"'; ?> href="Admin/QuanLyTaiKhoanAdmin">Hủy tìm kiếm</a>
                     <form action="" method="GET" class="search-wrapper position-relative">
                         <input type="search" name="search" class="form-control search-input" value="<?php echo isset($_GET['search']) ? $_GET['search'] : '' ?>" placeholder="Tìm kiếm admin...">
                         <i class="bi bi-search search-icon"></i>
@@ -53,8 +53,10 @@
                             <div class="col-cell c-lop"><?php echo htmlspecialchars($admin['Email']); ?></div>
     
                             <div class="col-cell c-action">
-                                <a href="Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID= <?php echo htmlspecialchars($admin['AdminID']) ?>" class="btn-icon btn-edit" title="Sửa"><i class="bi bi-pencil-square"></i>Sửa </a>
-                                <a onclick="return confirm('Bạn chắc chắn muốn xóa ADMIN này, mọi dữ liệu liên quan cũng sẽ bị xóa?')" href="Admin/QuanLyTaiKhoanSV/XoaSinhVien?StudentID= <?php echo htmlspecialchars($admin['AdminID']) ?>" class="btn-icon btn-delete" title="Xóa"><i class="bi bi-trash"></i>Xóa</a>
+                                <a href="Admin/QuanLyTaiKhoanAdmin/SuaAdmin?AdminID=<?php echo $admin['AdminID'] ?>" class="btn-icon btn-edit" title="Sửa"><i class="bi bi-pencil-square"></i>Sửa </a>
+                                <?php if($admin['AdminID'] != $_SESSION['UID']):  ?>
+                                <a onclick="return confirm('Bạn chắc chắn muốn xóa ADMIN này, mọi dữ liệu liên quan cũng sẽ bị xóa?')" href="Admin/QuanLyTaiKhoanAdmin/XoaAdmin?AdminID=<?php echo $admin['AdminID'] ?>" class="btn-icon btn-delete" title="Xóa"><i class="bi bi-trash"></i>Xóa</a>
+                                <?php endif ?>
                             </div>
 
                         </div>

@@ -382,6 +382,65 @@
             }
             return 0;
         }
+        public function isContainEmailWhenEdit($adminID, $email)
+        {
+            $sql = "SELECT 1 FROM admin WHERE AdminID != ? AND Email = ?";
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param('ss', $adminID, $email);
+            $stm->execute();
+            if($stm->get_result()->num_rows > 0)
+            {
+                return 1;
+            }
+            return 0;
+        }
+        public function getAdminByAdminID($adminID)
+        {
+            $sql = "SELECT * FROM admin where AdminID = ? LIMIT 1";
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("s", $adminID);
+            $stm->execute();
+            $res = $stm->get_result();
+
+            if($res->num_rows > 0)
+                return $res->fetch_assoc();
+            else
+                return NULL;
+        }
+        public function modifyAdmin($adminID, $ho, $ten, $email)
+        {
+            $sql = "UPDATE admin SET Ho = ? , Ten = ?, Email = ? WHERE adminID = ?";
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("ssss",  $ho, $ten, $email, $adminID);
+            return $stm->execute();
+        }
+        public function deleteAdmin($adminID)
+        {
+            $stm = $this->conn->prepare("DELETE FROM admin WHERE AdminID = ?");
+            $stm->bind_param('s', $adminID);
+            return $stm->execute();
+        }
+        public function searchAdmin($keyword)
+        {
+            $sql = "SELECT * FROM admin WHERE AdminID  = ?  OR Ten LIKE ? OR Email = ?";
+            $likeTen = '%'.$keyword.'%';
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param('sss', $keyword, $likeTen, $keyword);
+            $stm->execute();
+            $result = $stm->get_result();
+            $data = [];
+            if($result->num_rows > 0)
+            {
+                while($row = $result->fetch_assoc())
+                {
+                    $data[] = $row;
+                }
+                return $data;
+            }
+            return NULL;
+
+        }
+
     } 
         
     

@@ -343,6 +343,45 @@
             return NULL;
         }
         // ADMIN
+        public function getListAccountAdmin()
+        {
+            $data = [];
+            $sql = "SELECT * FROM admin";
+            $stm = $this->conn->prepare($sql);
+            $stm->execute();
+
+            $result = $stm->get_result();
+            if($result->num_rows > 0)
+            {
+                while($rows = $result->fetch_assoc())
+                {
+                    $data[] = $rows;
+                }
+                return $data;
+            }
+            return NULL;
+
+        }
+        public function addAdmin($adminID, $ho, $ten, $password, $email)
+        {
+            $sql = "INSERT INTO admin (AdminID, Ho, Ten, Password, Email) VALUES (?,?,?,?,?)";
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param("sssss", $adminID, $ho, $ten, $password, $email);
+            return $stm->execute();
+        }
+
+        public function isContainAdmin($adminID, $email)
+        {
+            $sql = "SELECT 1 FROM admin WHERE AdminID = ? OR Email = ?";
+            $stm = $this->conn->prepare($sql);
+            $stm->bind_param('ss', $adminID, $email);
+            $stm->execute();
+            if($stm->get_result()->num_rows > 0)
+            {
+                return 1;
+            }
+            return 0;
+        }
     } 
         
     

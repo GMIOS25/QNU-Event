@@ -1046,9 +1046,80 @@
         }
         public function showAccountAdmin()
         {
-            $title = "QL Tai khoan admin";
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $userModel = new User();
+            $listAdmin = $userModel->getListAccountAdmin();
+
+            $title = "Quản lý tài khoản admin";
             $render = __DIR__ . "/../Views/Admin/QLTaiKhoanAdmin.php";
             require __DIR__ . "/../Views/layout.php";
+        }
+        public function showAddAdmin()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $title = "Thêm tài khoản admin";
+            $render = __DIR__ . "/../Views/Admin/ThemTKAdmin.php";
+            require __DIR__ . "/../Views/layout.php";
+        }
+        public function submitAddAdmin()
+        {
+            $message = null;
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            $userModel = new User();
+
+            // validate data
+            $adminID = trim($_POST['AdminID']);
+            $ho = trim($_POST['Ho']);
+            $ten = trim($_POST['Ten']);
+            $pass = trim($_POST['MatKhau']);
+            $rePass = trim($_POST['XacNhanMatKhau']);
+            $email = trim($_POST['Email']);
+
+            if($userModel->isContainAdmin($adminID, ""))
+            {
+                $_SESSION['message'] = "Trùng mã admin với một admin khác trong hệ thống";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin/ThemAdmin");
+                return;
+            }
+
+            if($userModel->isContainAdmin("", $email))
+            {
+                $_SESSION['message'] = "Trùng email với một admin khác trong hệ thống";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin/ThemAdmin");
+                return;
+            }
+
+            if($pass != $rePass)
+            {
+                $_SESSION['message'] = "Mật khẩu và nhập lại mật khẩu không trùng nhau";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin/ThemAdmin");
+                return;
+            }
+            $mess = $userModel->addAdmin($adminID, $ho, $ten, $pass, $email);
+            if($mess)
+            {
+                $_SESSION['message'] = "Thêm admin thành công!";
+            }
+            else
+            {
+                 $_SESSION['message'] = "Thêm admin thất bại";
+            }
+            global $publicBase;
+           header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin");
         }
 
     }

@@ -312,6 +312,16 @@
         case '/Admin/QuanLyTaiKhoanAdmin':
             $adminController->showAccountAdmin();
             break;
+        case "/Admin/QuanLyTaiKhoanAdmin/ThemAdmin":
+            if($_SERVER['REQUEST_METHOD'] === 'POST')
+            {
+                $adminController->submitAddAdmin();
+            }
+            else
+            {
+                $adminController->showAddAdmin();
+            }
+            break;
         // Xử lú api
         case '/api/Admin/GetDSNganhTheoKhoa':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 

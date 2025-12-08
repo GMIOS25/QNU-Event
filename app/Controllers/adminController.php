@@ -898,6 +898,13 @@
                 header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
                 return;
             }
+            if(!isset($_POST['MaLop']) || $_POST['MaLop'] == null)
+            {
+                $_SESSION['message'] = "Dữ liệu mã lớp không hợp lệ";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                return;
+            }
             if(trim($_POST['MatKhau']) === "")
             {
                 // set pass mặc định
@@ -912,6 +919,7 @@
                     $isBanCanSu = 1;
                 }
             }
+
             $message = $userModel->insertStudent(
                 trim($_POST['MSSV']),
                 trim($_POST['Ho']),
@@ -969,12 +977,12 @@
         public function submitModifyStudent()
         {
             $userModel = new User();
-
+            $studentID = trim($_GET['StudentID']);
             if($userModel->getStudentByEmail($_POST['MSSV'] , trim($_POST['Email'])) != null)
             {
                 $_SESSION['message'] = "Email đã tồn tại";
                 global $publicBase;
-                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID=". $studentID ."");
                 return;
             }
 
@@ -982,7 +990,14 @@
             {
                 $_SESSION['message'] = "Ban cán sự phải có ít nhất 1 lớp quản lý";
                 global $publicBase;
-                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/ThemSinhVien");
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID=". $studentID ."");
+                return;
+            }
+            if(!isset($_POST['MaLop']) || $_POST['MaLop'] == null)
+            {
+                $_SESSION['message'] = "Dữ liệu mã lớp không hợp lệ";
+                global $publicBase;
+                header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV/SuaSinhVien?StudentID=". $studentID ."");
                 return;
             }
             $isBanCanSu = 0;

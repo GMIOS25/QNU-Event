@@ -129,12 +129,11 @@
 /* ----- MODAL ĐỔI MẬT KHẨU ----- */
 
 .modal {
-  position: flex;
+  position: fixed;
   inset: 0;
   display: none; /* Ẩn mặc định */
   align-items: center;
   justify-content: center;
-  z-index: 1000;
 }
 
 .modal.show {
@@ -145,8 +144,7 @@
   position: absolute;
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(3px);
-  z-index: -9999;
+  opacity: 1;
 }
 
 .modal-dialog {
@@ -195,7 +193,6 @@
   font-size: 14px;
   outline: none;
   transition: all 0.15s ease-in-out;
-  cursor: pointer;
 }
 
 .modal-body input:disabled {

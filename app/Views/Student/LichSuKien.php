@@ -10,11 +10,36 @@
       <i class="bi bi-calendar-event"></i>
       <span>Lịch sự kiện tuần</span>
     </div>
+    <div class="time-select-box">
+      <?php
+        $today = date("d-m-Y");
+        $currentDate = $today;
+        if(isset($_GET['StartDate']))
+        {
+            $currentDate = trim($_GET['StartDate']);
+        }
+        $startOfCurrentWeek = date('d-m-Y', strtotime('monday this week'));
+        $endOfCurrentWeek = date('d-m-Y', strtotime('sunday this week')); 
 
-    <!-- Thời gian hiện tại -->
-    <div class="event-current-time">
-      Thời gian hiện tại : 30/10/2025 7:00
+        $startOfWeek = date('d-m-Y', strtotime('monday this week', strtotime($currentDate)));
+        $endOfWeek   = date('d-m-Y', strtotime('sunday this week', strtotime($currentDate)));
+
+        $preWeek = strtotime('-1 week', strtotime($currentDate));
+        $startOfPreWeek = date('d-m-Y', strtotime('monday this week', $preWeek));
+        $endOfPreWeek   = date('d-m-Y', strtotime('sunday this week', $preWeek));
+        
+        $nextWeek = strtotime('+1 week', strtotime($currentDate));
+        $startOfNextWeek = date('d-m-Y', strtotime('monday this week', $nextWeek));
+        $endOfNextWeek   = date('d-m-Y', strtotime('sunday this week', $nextWeek));
+
+      ?>
+      <a class="btn btn-primary" href="Student/LichSuKien<?php echo "?StartDate=".$startOfPreWeek."&EndDate=$endOfPreWeek"; ?>">Tuần trước</a>
+      <input type="text" class="form-control" readonly value="<?php echo $startOfWeek . " đến " . $endOfWeek ?>" >
+      <a class="btn btn-primary" href="Student/LichSuKien<?php echo "?StartDate=".$startOfNextWeek."&EndDate=$endOfNextWeek"; ?>">Tuần sau</a>
+      <a class="btn btn-outline-primary" href="Student/LichSuKien<?php echo "?StartDate=".$startOfCurrentWeek."&EndDate=$endOfCurrentWeek"; ?>">Xem tuần hiện tại</a>
+      <a class="btn btn-outline-primary" href="Student/LichSuKien<?php echo "?StartDate=".$today."&EndDate=$today"; ?>">Xem ngày hiện tại</a>
     </div>
+
 
     <!-- Bảng sự kiện -->
     <div class="event-table-wrapper">

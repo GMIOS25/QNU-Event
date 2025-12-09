@@ -196,18 +196,25 @@
             $title = "Lịch sự kiện";
             global $publicBase;
             $eventModel = new Event();
-
-            $startWeekDate = date('Y-m-d', strtotime('monday this week'));
-            $endWeekDate = date('Y-m-d', strtotime('sunday this week'));
+            if(!isset($_GET['StartDate']) || !isset($_GET['EndDate']))
+            {
+                $startWeekDate = date('d-m-Y', strtotime('monday this week'));
+                $endWeekDate = date('d-m-Y', strtotime('sunday this week'));
+            }
+            else 
+            {
+                $startWeekDate = trim($_GET['StartDate']);
+                $endWeekDate = trim($_GET['EndDate']);
+            }
 
             $currentDate = $startWeekDate;
             while(strtotime($currentDate) <= strtotime($endWeekDate)) {
-                $dailyEvents = $eventModel->getSKDaDangKyByDay($_SESSION['UID'], $currentDate);
+                $dailyEvents = $eventModel->getSKDaDangKyByDay($_SESSION['UID'], date('Y-m-d', strtotime($currentDate)));
                 $listEventWeek[] = [
                     'date' => $currentDate,
                     'eventsList' => $dailyEvents
                 ];
-                $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+                $currentDate = date('d-m-Y', strtotime($currentDate . ' +1 day'));
 
             }
             //$rawDataEvent = $eventModel->getSKDaDangKyByDayRange($_SESSION['UID'], $startWeekDate, $endWeekDate);

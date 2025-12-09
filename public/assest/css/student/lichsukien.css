@@ -109,3 +109,14 @@
     justify-content: center;
     margin: 0 auto; 
 }
+.time-select-box{
+  display:  flex;
+  align-items: center;
+  justify-content: flex-start ;
+  gap: 10px;
+  margin: 20px 0px;
+}
+.time-select-box .form-control{
+  max-width: 300px;
+  text-align: center  ;
+}

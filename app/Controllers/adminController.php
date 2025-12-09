@@ -8,6 +8,16 @@
 
     class adminController
     {
+        public static function validateAdmin()
+        {
+            if($_SESSION['role'] != 2)
+            {
+                global $publicBase;
+                header("Location: ".$publicBase."/Error/AccessDenied");
+
+
+            }
+        }
         public function index()
         {
             $title = "Trang chủ";
@@ -16,6 +26,7 @@
         }
         public function showQLSuKien($state = null, $search = null, $page = null, $limitElement = null)
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -115,7 +126,8 @@
         }
         public function showThemSuKien()
         {
-                        $message = null;
+            $this->validateAdmin();
+            $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
                 unset($_SESSION['message']);
@@ -138,6 +150,7 @@
             // echo "test";
             // exit;
             // validate dữ liệu
+            $this->validateAdmin();
             $tenSuKien = trim($_POST['txtTenSuKien']);
             $thoiGianMoDK = trim($_POST['txtThoiGianMoDK']);
             $thoiGianDongDK = trim($_POST['txtThoiGianDongDK']);
@@ -204,6 +217,7 @@
         }
         public function submitSuaSuKien()
         {
+            $this->validateAdmin();
             $eventModel = new Event();
             $message = $eventModel->modifyEvent( 
                 $_POST['EventID'],               
@@ -232,6 +246,7 @@
         }
         public function showSuaSuKien()
         {
+            $this->validateAdmin();
             $khoaModel = new Khoa();
             $eventModel = new Event();
             $title = "Sửa sự kiện";
@@ -244,6 +259,7 @@
         }
         public function showQuanLyHocKy()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -291,6 +307,7 @@
 }
         public function showThemHocKy()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -303,6 +320,7 @@
         }
         public function submitThemHocKy()
         {
+            $this->validateAdmin();
             // validate dữ liệu
             $maHk = trim($_POST['MaHK']);
             $tenHk = trim($_POST['TenHK']);
@@ -349,6 +367,7 @@
         }
         public function showSuaHocKy()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -362,6 +381,7 @@
         }
         public function submitSuaHocKy()
         {
+            $this->validateAdmin();
             
             $message = null;
             if (isset($_SESSION['message'])) {
@@ -406,6 +426,7 @@
             header("Location: ".$publicBase."/Admin/CauHinh/HocKy");
         }
         public function KetThucHocKy()  {
+            $this->validateAdmin();
             $termModel = new Term();
             $message = $termModel->endHocKy($_GET['TermID']);
             if($message ) {
@@ -418,6 +439,7 @@
         }
         public function showQuanLyKhoa($search = null)
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -439,6 +461,7 @@
         
         public function showQuanLyLop()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -476,6 +499,7 @@
         }
         public function showQuanLyNganh()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -501,6 +525,7 @@
         }
         public function showThemKhoa()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -512,6 +537,7 @@
         }
         public function submitThemKhoa()
         {
+            $this->validateAdmin();
             // validate dữ liệu
             $maKhoa = trim($_POST['MaKhoa']);  
             $tenKhoa = trim($_POST['TenKhoa']);
@@ -540,6 +566,7 @@
         }
         public function showSuaKhoa()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -553,6 +580,7 @@
         }
         public function submitSuaKhoa()
         {
+            $this->validateAdmin();
             $maKhoa = trim($_POST['MaKhoa']);  
             $tenKhoa = trim($_POST['TenKhoa']);
             $khoaModel = new Khoa();
@@ -573,6 +601,7 @@
         }
         public function deleteKhoa()
         {
+            $this->validateAdmin();
             $khoaModel = new Khoa();
             $message = $khoaModel->deleteKhoa($_GET['KhoaID']);
             if($message )
@@ -588,6 +617,7 @@
         }
         public function showThemNganh()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -601,6 +631,7 @@
 
         public function submitThemNganh()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -633,6 +664,7 @@
         }
         public function showSuaNganh()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -648,6 +680,7 @@
         }
         public function submitSuaNganh()
         {
+            $this->validateAdmin();
                         $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -674,6 +707,7 @@
         }
         public function deleteNganh()
         {
+            $this->validateAdmin();
             $nganhModel = new Nganh();
             $message = $nganhModel->deleteNganh($_GET['NganhID']);
             if($message )
@@ -690,6 +724,7 @@
 
         public function getDSNganhTheoKhoa()
         {
+            $this->validateAdmin();
             $khoaID = $_GET['KhoaID'];
             $nganhModel = new Nganh();
             $listNganh = $nganhModel->filterByMaKhoa($khoaID);
@@ -698,6 +733,7 @@
         }
         public function showThemLop()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -710,6 +746,7 @@
         }
         public function submitThemLop()
         {
+            $this->validateAdmin();
             // validate dữ liệu
             $maLop = trim($_POST['MaLop']);  
             $tenLop = trim($_POST['TenLop']);
@@ -740,6 +777,7 @@
         }
         public function showSuaLop()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -754,6 +792,7 @@
         }
         public function submitSuaLop()
         {
+            $this->validateAdmin();
             $maLop = trim($_POST['MaLop']);  
             $tenLop = trim($_POST['TenLop']);
             $maNganh = trim($_POST['MaNganh']);
@@ -776,6 +815,7 @@
         }
         public function deleteLop()
         {
+            $this->validateAdmin();
             $lopModel = new Lop();
             $message = $lopModel->deleteLop($_GET['LopID']);
             if($message )
@@ -792,6 +832,8 @@
 
         public function showQuanLyTaiKhoanSV()
         {
+            
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -849,6 +891,7 @@
 
         public function apiGetDSLop()
         {
+            $this->validateAdmin();
             $lopModel = new Lop();
             $listLop = $lopModel->filterByMaNganh($_GET['NganhID']);
             header('Content-Type: application/json');
@@ -857,6 +900,7 @@
 
         public function showThemSinhVien()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -869,6 +913,7 @@
         }
         public function submitThemSinhVien()
         {
+            $this->validateAdmin();
             $userModel = new User();
             if($userModel->getStudentInfo(trim($_POST['MSSV'])) != null)
             {
@@ -958,6 +1003,7 @@
         }
         public function showModifyStudent()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -976,6 +1022,7 @@
         }
         public function submitModifyStudent()
         {
+            $this->validateAdmin();
             $userModel = new User();
             $studentID = trim($_GET['StudentID']);
             if($userModel->getStudentByEmail($_POST['MSSV'] , trim($_POST['Email'])) != null)
@@ -1046,6 +1093,7 @@
         }
         public function resetStudentPassword()
         {
+            $this->validateAdmin();
             $userModel = new User();
             $mess = $userModel->changePassword(trim($_GET['StudentID']), trim($_GET['StudentID']));
             if($mess)
@@ -1061,6 +1109,7 @@
         }
         public function showAccountAdmin()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -1080,6 +1129,7 @@
         }
         public function showAddAdmin()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -1091,6 +1141,7 @@
         }
         public function submitAddAdmin()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -1143,6 +1194,7 @@
         }
         public function showModifyAdmin()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -1156,6 +1208,7 @@
         }
         public function submitModifyAdmin()
         {
+            $this->validateAdmin();
             $message = null;
             if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
@@ -1192,6 +1245,7 @@
         }
         public function deleteAccountAdmin()
         {
+            $this->validateAdmin();
             $userModel = new User();
             $mess = $userModel->deleteAdmin($_GET['AdminID']);
             if($mess)
@@ -1205,7 +1259,12 @@
             global $publicBase;
            header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanAdmin");
         }
+        public function deleteAccountStudent()
+        {
+            $this->validateAdmin();
+            $userModel = new User();
 
+        }
     }
 
 ?>

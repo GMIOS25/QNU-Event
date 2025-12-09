@@ -51,6 +51,11 @@
         case '/':
             $baseController->redirect();
             break;
+        case "/Error/AccessDenied":
+        {
+            $baseController->accessdenine();
+            break;
+        }
         case '/Auth/Login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $authController->login();

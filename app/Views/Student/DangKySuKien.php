@@ -80,21 +80,25 @@
                 </div>
                 
                 <div class="table-body">
-                    <?php 
-                      foreach($eventDaDKList  as $event)
-                      {
-                          echo '
-                              <div class="table-row">
-                                <div class="col-cell c-code">'.$event['MaSK'].'</div>
-                                <div class="col-cell c-name">'.$event['TenSK'].'</div>
-                                <div class="col-cell c-time">'.$event['ThoiGianBatDauSK'].'-'.$event['ThoiGianKetThucSK'].'</div>
-                                <div class="col-cell c-time">'.$event['NoiToChuc'].'</div>
-                                <div class="col-cell c-qty">'.$event['GhiChu'].'</div>
-                                <div class="col-cell c-action text-action-register"><a  onclick="return confirm(`Bạn chắc hủy đăng ký sự kiện '.$event['TenSK'].'`);"  href="Student/DangKySuKien/HuyDangKy?EventID='.$event['MaSK'].'">[Hủy đăng ký]</a></div>
-                            </div>
-                          ';
-                      }
-                    ?>
+                    
+                <?php foreach ($eventDaDKList as $event): ?>
+                    <div class="table-row">
+                        <div class="col-cell c-code"><?= $event['MaSK'] ?></div>
+                        <div class="col-cell c-name"><?= $event['TenSK'] ?></div>
+                        <div class="col-cell c-time"><?= $event['ThoiGianBatDauSK'] ?> - <?= $event['ThoiGianKetThucSK'] ?></div>
+                        <div class="col-cell c-time"><?= $event['NoiToChuc'] ?></div>
+                        <div class="col-cell c-qty"><?= $event['GhiChu'] ?></div>
+                        <div class="col-cell c-action text-action-register">
+                            <?php if(strtotime($event['ThoiGianDongDK']) < strtotime(date("Y-m-d"))):  ?>
+                            <a onclick="return confirm('Bạn chắc hủy đăng ký sự kiện <?= $event['TenSK'] ?>?');"
+                            href="Student/DangKySuKien/HuyDangKy?EventID=<?= $event['MaSK'] ?>">
+                            [Hủy đăng ký]
+                            </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
                 </div>
             </div>
         </div>

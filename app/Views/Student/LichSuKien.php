@@ -120,33 +120,8 @@
 
               }
           }
-
           
           ?>
-          <!-- Ngày 30
-          <tr>
-            <td  rowspan="3">
-              <span class="event-date-circle">30</span>
-            </td>
-            <td>7:00 - 11:00</td>
-            <td>Lễ khai giảng năm học 2025 - 2026</td>
-            <td>Hội trường B</td>
-            <td>Đang diễn ra</td>
-          </tr>
-
-          <tr>
-            <td class="col-2">7:00 - 11:00</td>
-            <td class="col-3">Lễ khai giảng năm học 2025 - 2026</td>
-            <td class="col-4">Hội trường B</td>
-            <td  class="col-5 event-status">Đang diễn ra</td>
-          </tr>
-
-          <tr>
-            <td class="col-2">7:00 - 11:00</td>
-            <td class="col-3">Lễ khai giảng năm học 2025 - 2026</td>
-            <td class="col-4">Hội trường B</td>
-            <td  class="col-5 event-status">Đang diễn ra</td>
-          </tr>
 
 
         </tbody>

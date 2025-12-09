@@ -35,6 +35,8 @@
     $bcsController = new bcsController();
 
     $unauthPaths = ['/Auth/Login', '/Auth/Logout'];
+
+    
     if (!isset($_SESSION['UID']) && !in_array($requestPath, $unauthPaths)) {
         header('Location: ' . $publicBase . '/Auth/Login');
         exit;
@@ -308,6 +310,15 @@
                 $adminController->showModifyStudent();
             }
             break;
+        case "/Admin/QuanLyTaiKhoanSV/XoaSinhVien":
+        {
+            if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['StudentID']))
+            {
+                $adminController->deleteAccountStudent();
+                
+            }
+            break;
+        }
         case '/Admin/QuanLyTaiKhoanSV/ResetMatKhau':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['StudentID']))
             {

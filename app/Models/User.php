@@ -104,6 +104,7 @@
                 $userData = $result->fetch_assoc();
                 return $userData;
             }
+            return NULL;
         }
 
 
@@ -280,9 +281,7 @@
         {
             $stm = $this->conn->prepare("DELETE FROM sinhvien WHERE MSSV = ?");
             $stm->bind_param("s", $MSSV);
-            $result = $stm->execute();
-            $stm->close();
-            return $result;
+            return $stm->execute();
         }
         public function changePassword($MSSV, $newPassword)
         {

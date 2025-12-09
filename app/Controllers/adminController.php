@@ -1263,7 +1263,17 @@
         {
             $this->validateAdmin();
             $userModel = new User();
-
+            $mess = $userModel->deleteStudent(trim($_GET['StudentID']));
+            if($mess)
+            {
+                $_SESSION['message'] = "Xóa sinh viên thành công!";
+            }
+            else
+            {
+                 $_SESSION['message'] = "Xóa sinh viên thất bại";
+            }
+            global $publicBase;
+           header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
         }
     }
 

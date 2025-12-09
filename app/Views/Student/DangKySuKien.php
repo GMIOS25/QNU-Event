@@ -89,7 +89,7 @@
                         <div class="col-cell c-time"><?= $event['NoiToChuc'] ?></div>
                         <div class="col-cell c-qty"><?= $event['GhiChu'] ?></div>
                         <div class="col-cell c-action text-action-register">
-                            <?php if(strtotime($event['ThoiGianDongDK']) < strtotime(date("Y-m-d"))):  ?>
+                            <?php if(strtotime($event['ThoiGianDongDK']) > time()):  ?>
                             <a onclick="return confirm('Bạn chắc hủy đăng ký sự kiện <?= $event['TenSK'] ?>?');"
                             href="Student/DangKySuKien/HuyDangKy?EventID=<?= $event['MaSK'] ?>">
                             [Hủy đăng ký]

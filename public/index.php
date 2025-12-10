@@ -35,6 +35,8 @@
     $bcsController = new bcsController();
 
     $unauthPaths = ['/Auth/Login', '/Auth/Logout'];
+
+    
     if (!isset($_SESSION['UID']) && !in_array($requestPath, $unauthPaths)) {
         header('Location: ' . $publicBase . '/Auth/Login');
         exit;
@@ -51,6 +53,11 @@
         case '/':
             $baseController->redirect();
             break;
+        case "/Error/AccessDenied":
+        {
+            $baseController->accessdenine();
+            break;
+        }
         case '/Auth/Login':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $authController->login();
@@ -303,6 +310,15 @@
                 $adminController->showModifyStudent();
             }
             break;
+        case "/Admin/QuanLyTaiKhoanSV/XoaSinhVien":
+        {
+            if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['StudentID']))
+            {
+                $adminController->deleteAccountStudent();
+                
+            }
+            break;
+        }
         case '/Admin/QuanLyTaiKhoanSV/ResetMatKhau':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['StudentID']))
             {
@@ -312,6 +328,34 @@
         case '/Admin/QuanLyTaiKhoanAdmin':
             $adminController->showAccountAdmin();
             break;
+        case "/Admin/QuanLyTaiKhoanAdmin/ThemAdmin":
+            if($_SERVER['REQUEST_METHOD'] === 'POST')
+            {
+                $adminController->submitAddAdmin();
+            }
+            else
+            {
+                $adminController->showAddAdmin();
+            }
+            break;
+        case "/Admin/QuanLyTaiKhoanAdmin/SuaAdmin":
+            if($_SERVER['REQUEST_METHOD'] === 'POST')
+            {
+                $adminController->submitModifyAdmin();
+            }
+            else if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['AdminID']))
+            {
+                $adminController->showModifyAdmin();
+            }
+            break;
+        case "/Admin/QuanLyTaiKhoanAdmin/XoaAdmin":
+        {
+            if($_SERVER['REQUEST_METHOD'] == "GET" &&  isset($_GET['AdminID']))
+            {
+                $adminController->deleteAccountAdmin();
+                break;
+            }
+        }
         // Xử lú api
         case '/api/Admin/GetDSNganhTheoKhoa':
             if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['KhoaID'])) 

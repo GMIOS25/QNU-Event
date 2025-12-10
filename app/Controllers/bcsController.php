@@ -3,8 +3,17 @@
     require_once __DIR__ . "/../Models/User.php";
     require_once __DIR__ . "/../Models/MinhChung.php";
     class bcsController{
+        public function validateBCS()
+        {
+            if($_SESSION['role'] != 1)
+            {
+                global $publicBase;
+                header("Location: ".$publicBase."/Error/AccessDenied");
+            }
+        }
         public function showDuyetMinhChung()
         {
+            $this->validateBCS();
             $minhChungModel = new MinhChung();
             $message = null;
             if (isset($_SESSION['message'])) {
@@ -30,7 +39,7 @@
         }
         public function showDuyetPhieuRL()
         {
-            
+            $this->validateBCS();
             $title = "Tự đánh giá rèn luyện";
             $render = __DIR__ . "/../Views/BCS/DuyetPhieuRL.php";
             include __DIR__ . "/../Views/layout.php" ;
@@ -38,6 +47,8 @@
         }
         public function showDanhSachMinhChung()
         {
+
+            $this->validateBCS();
             require_once __DIR__ . "/../Helpers/PaginationHelper.php";
             
             $minhChungModel = new MinhChung();
@@ -76,6 +87,7 @@
         }
         public function approveMinhChung()
         {
+            $this->validateBCS();
             global $publicBase;
             $minhChungModel = new MinhChung();
             if(isset($_GET['IDMinhChung']))
@@ -94,6 +106,7 @@
         }
         public function rejectMinhChung()
         {
+            $this->validateBCS();
             global $publicBase;
             $minhChungModel = new MinhChung();
             if(isset($_GET['IDMinhChung']))

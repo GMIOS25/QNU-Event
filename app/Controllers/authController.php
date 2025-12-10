@@ -63,7 +63,7 @@
             $userData = NULL;
             if($_SESSION['role'] == 2)
             {
-                 $userData = $userModal->getAdminInfo($_SESSION['UID']);
+                $userData = $userModal->getAdminInfo($_SESSION['UID']);
             }
             else
             {
@@ -74,6 +74,11 @@
                 }
             }
             $_SESSION['FullName'] = $userData['Ho'] . " ". $userData['Ten'];
+            // tra nếu user đó đang dùng bị xóa , tránh lỗi session
+            if(is_null($userData))
+            {
+                session_destroy();
+            }
 
         }
 

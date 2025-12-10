@@ -14,22 +14,26 @@
 </head>
 
 <body>
+    
     <header>
         <?php include __DIR__ . "/partials/header.php" ?>
+        
     </header>
     <div class="main">
         <div class="menubars">
             <?php include __DIR__ . "/partials/menubar.php" ?>
+            
         </div>
         <div class="app">
             <?php include $render ?>
+           
         </div>
     </div>
     <footer>
         <?php include __DIR__ . "/partials/footer.php" ?>
     </footer>
-</body>
-<?php 
+    <?php 
+
     if(isset($message))
     {
         echo '<script>
@@ -38,4 +42,6 @@
     }
 
 ?>
+</body>
+
 </html>

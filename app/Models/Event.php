@@ -291,7 +291,7 @@
         public function getListSKDaDangKy($MSSV)
         {
             $data = [];
-            $sttm = $this->conn->prepare("Select SuKien.* from dksukien join sukien on sukien.MaSk = dksukien.MaSK
+            $sttm = $this->conn->prepare("Select SuKien.* from dksukien join sukien on sukien.MaSk = dksukien.MaSK 
              Where TrangThai = 'Đăng ký' and MSSV = ? and SuKien.MaHK = ?");
             $sttm->bind_param('ss', $MSSV, $_SESSION['currentTerm']['MaHK']);
             if($sttm->execute())

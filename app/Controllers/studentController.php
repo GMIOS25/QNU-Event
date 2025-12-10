@@ -193,26 +193,74 @@
         }
         public  function showLichSK()
         {
+
+            $message = null;
+
+            if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                unset($_SESSION['message']);
+                
+            }
+
+            
             $title = "Lịch sự kiện";
             global $publicBase;
             $eventModel = new Event();
+            if(!isset($_GET['StartDate']) || !isset($_GET['EndDate']))
+            {
+                $startWeekDate = date('d-m-Y', strtotime('monday this week'));
+                $endWeekDate = date('d-m-Y', strtotime('sunday this week'));
+            }
+            else 
+            {
+                $startWeekDate = trim($_GET['StartDate']);
+                $endWeekDate = trim($_GET['EndDate']);
+                // validate
+            
+                $start = strtotime($startWeekDate);
+                $end   = strtotime($endWeekDate);
+                
+                global $publicBase;
+                if (!$start || !$end) {
+                    $_SESSION['message'] = "Ngày sai định dạng!";        
+                    header("Location: ".$publicBase."/Student/LichSuKien");
+                    return;
+                }
 
-            $startWeekDate = date('Y-m-d', strtotime('monday this week'));
-            $endWeekDate = date('Y-m-d', strtotime('sunday this week'));
+                $diffDays = ($end - $start) / (60 * 60 * 24);
+                
+                if ($diffDays > 8) {
+                    $_SESSION['message'] = "Tính làm quá tải database tao à???";
+                    header("Location: ".$publicBase."/Student/LichSuKien");
+                    return;
+                }
 
+                if ($end < $start) {
+                    $_SESSION['message'] = "Ngày sai định dạng!";
+                    header("Location: ".$publicBase."/Student/LichSuKien");
+                    return;
+                }
+            }
+
+
+
+            
             $currentDate = $startWeekDate;
             while(strtotime($currentDate) <= strtotime($endWeekDate)) {
-                $dailyEvents = $eventModel->getSKDaDangKyByDay($_SESSION['UID'], $currentDate);
+                $dailyEvents = $eventModel->getSKDaDangKyByDay($_SESSION['UID'], date('Y-m-d', strtotime($currentDate)));
                 $listEventWeek[] = [
                     'date' => $currentDate,
                     'eventsList' => $dailyEvents
                 ];
-                $currentDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+                $currentDate = date('d-m-Y', strtotime($currentDate . ' +1 day'));
 
             }
+            
             //$rawDataEvent = $eventModel->getSKDaDangKyByDayRange($_SESSION['UID'], $startWeekDate, $endWeekDate);
             $render = __DIR__ . "/../Views/Student/LichSuKien.php";
+            
             include __DIR__ . "/../Views/layout.php" ;
+            
         }
         public function showThongTinCaNhan()
         {

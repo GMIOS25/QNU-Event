@@ -1,4 +1,8 @@
 app/Configs/database.php
+<<<<<<< change-password
+/public/userdata/imgMinhChung
+=======
 /public/userdata/imgMinhChung
 app/Configs/database.php
 app/Configs/database.php
+>>>>>>> main

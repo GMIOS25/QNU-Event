@@ -40,38 +40,47 @@
             </div>
         </div>
     </div>
-    <!-- POPUP ĐỔI MẬT KHẨU -->
-    <div class="modal" id="changePasswordModal">
-        <div class="modal-overlay"></div>
-        <div class="modal-dialog">
-            <h2>Thay đổi mật khẩu</h2>
 
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="oldPassword">Mật khẩu cũ</label>
-                    <input type="password" id="oldPassword" placeholder="Nhập mật khẩu cũ">
+    <!-- Modal Đổi Mật Khẩu -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="changePasswordModalLabel">Thay đổi mật khẩu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-
-                <div class="form-group">
-                    <label for="newPassword">Mật khẩu mới</label>
-                    <input type="password" id="newPassword" placeholder="Nhập mật khẩu mới">
+                <div class="modal-body">
+                    <form id="changePasswordForm">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label">Mật khẩu cũ <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                            <div class="invalid-feedback" id="currentPasswordError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Mật khẩu mới <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required minlength="6">
+                            <small class="form-text text-muted">Mật khẩu phải có ít nhất 6 ký tự</small>
+                            <div class="invalid-feedback" id="newPasswordError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới <span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            <div class="invalid-feedback" id="confirmPasswordError"></div>
+                        </div>
+                        <div class="alert alert-danger d-none" id="errorMessage" role="alert"></div>
+                        <div class="alert alert-success d-none" id="successMessage" role="alert"></div>
+                    </form>
                 </div>
-
-                <div class="form-group">
-                    <label for="confirmPassword">Nhập lại mật khẩu mới</label>
-                    <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu mới">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary" id="submitChangePassword">
+                        <span class="spinner-border spinner-border-sm d-none" id="submitSpinner" role="status" aria-hidden="true"></span>
+                        Đổi mật khẩu
+                    </button>
                 </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="btn-cancel">
-                    Huỷ
-                </button>
-                <button type="button" class="btn btn-primary" id="btn-confirm">
-                    Xác nhận
-                </button>
             </div>
         </div>
     </div>
-    <script src="javascript/ThongTinCaNhan.js"></script>
+
+    <script src="javascript/student/DoiMatKhau.js"></script>
 </body>

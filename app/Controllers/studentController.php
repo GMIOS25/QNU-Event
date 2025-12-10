@@ -270,6 +270,96 @@
             $render = __DIR__ . "/../Views/Student/ThongTinCaNhan.php";
             include __DIR__ . "/../Views/layout.php" ;
         }
+
+        public function submitChangePassword()
+        {
+            // Đảm bảo response là JSON
+            header('Content-Type: application/json');
+            
+            // Kiểm tra phương thức request
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Phương thức request không hợp lệ'
+                ]);
+                return;
+            }
+
+            // Kiểm tra người dùng đã đăng nhập
+            if (!isset($_SESSION['UID'])) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Bạn cần đăng nhập để thực hiện chức năng này'
+                ]);
+                return;
+            }
+
+            // Lấy dữ liệu từ POST
+            $currentPassword = isset($_POST['currentPassword']) ? trim($_POST['currentPassword']) : '';
+            $newPassword = isset($_POST['newPassword']) ? trim($_POST['newPassword']) : '';
+            $confirmPassword = isset($_POST['confirmPassword']) ? trim($_POST['confirmPassword']) : '';
+
+            // Validate dữ liệu đầu vào
+            $errors = [];
+
+            if (empty($currentPassword)) {
+                $errors['currentPassword'] = 'Vui lòng nhập mật khẩu cũ';
+            }
+
+            if (empty($newPassword)) {
+                $errors['newPassword'] = 'Vui lòng nhập mật khẩu mới';
+            } elseif (strlen($newPassword) < 6) {
+                $errors['newPassword'] = 'Mật khẩu mới phải có ít nhất 6 ký tự';
+            }
+
+            if (empty($confirmPassword)) {
+                $errors['confirmPassword'] = 'Vui lòng xác nhận mật khẩu mới';
+            } elseif ($newPassword !== $confirmPassword) {
+                $errors['confirmPassword'] = 'Mật khẩu xác nhận không khớp';
+            }
+
+            if ($currentPassword === $newPassword && !empty($currentPassword)) {
+                $errors['newPassword'] = 'Mật khẩu mới phải khác mật khẩu cũ';
+            }
+
+            // Nếu có lỗi validation, trả về lỗi
+            if (!empty($errors)) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Vui lòng kiểm tra lại thông tin',
+                    'errors' => $errors
+                ]);
+                return;
+            }
+
+            // Xác thực mật khẩu cũ
+            $userModel = new User();
+            $MSSV = $_SESSION['UID'];
+
+            if (!$userModel->verifyCurrentPassword($MSSV, $currentPassword)) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Mật khẩu cũ không chính xác',
+                    'errors' => [
+                        'currentPassword' => 'Mật khẩu cũ không chính xác'
+                    ]
+                ]);
+                return;
+            }
+
+            // Cập nhật mật khẩu
+            if ($userModel->changePassword($MSSV, $newPassword)) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Đổi mật khẩu thành công!'
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Có lỗi xảy ra khi cập nhật mật khẩu. Vui lòng thử lại!'
+                ]);
+            }
+        }
     }
 
 ?>

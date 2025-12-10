@@ -109,6 +109,11 @@
         case '/Student/ThongTinCaNhan':
             $studentController->showThongTinCaNhan();
             break;
+        case '/Student/ThongTinCaNhan/DoiMatKhau':
+            if($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $studentController->submitChangePassword();
+            }
+            break;
         case '/BCS/DuyetMinhChung':
             $bcsController->showDuyetMinhChung();
             break;

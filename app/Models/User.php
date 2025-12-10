@@ -292,6 +292,32 @@
             return $result;
         }
 
+        public function verifyCurrentPassword($MSSV, $currentPassword)
+        {
+            $stm = $this->conn->prepare("SELECT Password FROM sinhvien WHERE MSSV = ?");
+            $stm->bind_param("s", $MSSV);
+            $stm->execute();
+            $result = $stm->get_result();
+            $stm->close();
+            
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $storedPassword = $row['Password'];
+                
+                // Kiểm tra xem mật khẩu có được hash không
+                // Nếu password bắt đầu bằng $2y$ thì đó là bcrypt hash
+                if (substr($storedPassword, 0, 4) === '$2y$') {
+                    // Sử dụng password_verify cho mật khẩu đã hash
+                    return password_verify($currentPassword, $storedPassword);
+                } else {
+                    // So sánh trực tiếp cho mật khẩu plain text (tương thích với hệ thống cũ)
+                    return $currentPassword === $storedPassword;
+                }
+            }
+            
+            return false;
+        }
+
         public function addLopQuanLy($MSSV, $MaLop)
         {
             $stm = $this->conn->prepare("INSERT INTO bcsquanlylop VALUES(?, ?)");

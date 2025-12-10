@@ -126,94 +126,6 @@
   background: #cbd5e1;
 }
 
-/* ----- MODAL ĐỔI MẬT KHẨU ----- */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  display: none; /* Ẩn mặc định */
-  align-items: center;
-  justify-content: center;
-}
-
-.modal.show {
-  display: flex; /* Khi thêm class show thì hiện */
-}
-
-.modal-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  opacity: 1;
-  pointer-events: none; /* Cho phép click xuyên qua overlay */
-}
-
-.modal-dialog {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 20px 22px 18px;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.4);
-  z-index: 1001;
-  animation: modalSlideUp 0.18s ease-out;
-}
-
-.modal-dialog h2 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #0f172a;
-  text-align: center;
-}
-
-.modal-body {
-  margin-top: 6px;
-  margin-bottom: 12px;
-}
-
-.modal-body .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.modal-body label {
-  font-size: 13px;
-  font-weight: 500;
-  color: #111827;
-}
-
-.modal-body input {
-  padding: 9px 11px;
-  border-radius: 10px;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-  font-size: 14px;
-  outline: none;
-  transition: all 0.15s ease-in-out;
-}
-
-.modal-body input:disabled {
-  cursor: not-allowed;
-}
-
-.modal-body input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.28);
-  background-color: #ffffff;
-}
-
-/* Footer của modal (nút) */
-.modal-footer {
-  margin-top: 4px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-}
-
 /* Animation nhỏ cho popup */
 @keyframes modalSlideUp {
   from {
@@ -226,6 +138,146 @@
   }
 }
 
+/* ----- MODAL ĐỔI MẬT KHẨU ----- */
+
+/* Modal backdrop */
+.modal.fade .modal-dialog {
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+/* Modal content styling */
+.modal-content {
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.3);
+  overflow: hidden;
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border-bottom: none;
+  padding: 20px 24px;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.btn-close {
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+.modal-body {
+  padding: 24px;
+  background: #ffffff;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+/* Form elements trong modal */
+.modal-body .form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.modal-body .form-control {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 14px;
+  transition: all 0.15s ease-in-out;
+  background-color: #f8fafc;
+}
+
+.modal-body .form-control:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: #ffffff;
+  outline: none;
+}
+
+.modal-body .form-control.is-invalid {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.modal-body .form-control.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.modal-body .invalid-feedback {
+  display: block;
+  font-size: 13px;
+  color: #ef4444;
+  margin-top: 4px;
+}
+
+.modal-body .form-text {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.modal-body .mb-3 {
+  margin-bottom: 18px;
+}
+
+/* Alert messages trong modal */
+.modal-body .alert {
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  margin-top: 16px;
+  margin-bottom: 0;
+  border: none;
+}
+
+.modal-body .alert-danger {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  color: #991b1b;
+}
+
+.modal-body .alert-success {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  color: #065f46;
+}
+
+/* Spinner trong button */
+.spinner-border-sm {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+/* Buttons trong modal */
+.modal-footer .btn {
+  min-width: 100px;
+}
+
+.modal-footer .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.modal-footer .btn:disabled:hover {
+  transform: none;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+}
+
 /* Responsive nhẹ cho màn nhỏ */
 @media (max-width: 480px) {
   .information-student {
@@ -234,7 +286,18 @@
   }
 
   .modal-dialog {
-    margin: 0 10px;
-    padding: 18px 16px;
+    margin: 10px;
+  }
+
+  .modal-body {
+    padding: 20px 16px;
+  }
+
+  .modal-header {
+    padding: 16px 20px;
+  }
+
+  .modal-footer {
+    padding: 12px 16px;
   }
 }

@@ -32,5 +32,4 @@
       <li><a class="dropdown-item" href="Auth/Logout">Đăng xuất</a></li>
     </ul>
   </div>
-   <script src="./assest/js/modal-popup.js"></script>
 </header>

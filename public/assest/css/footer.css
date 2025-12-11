@@ -1,15 +1,166 @@
-.footer-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
-    height: 50px;
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    border: 2px #E5E7EB solid;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.footer-container label{
-    font-size: 1rem;
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+footer {
+  background: rgb(0, 52, 89);
+  color: white;
+  padding: 60px 40px 20px;
+}
+
+.footer-content {
+  background-color: rgb(0, 52, 89);
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 40px;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.logo-image {
+  width: 150px;
+  height: 150px;
+  background: rgb(0, 52, 89);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.footer-contact h3 {
+  font-size: 22px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.contact-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.contact-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.contact-text {
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+.contact-text a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.contact-text a:hover {
+  text-decoration: underline;
+}
+
+.footer-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.gmios-logo {
+  width: 120px;
+  height: auto;
+}
+
+.gmios-logo img {
+  width: 100%;
+  height: auto;
+}
+
+.login-section h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.login-button {
+  background: #00bcd4;
+  color: white;
+  padding: 12px 40px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.login-button:hover {
+  background: #00acc1;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 968px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  footer {
+    padding: 40px 20px 20px;
+  }
 }

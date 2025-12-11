@@ -377,7 +377,9 @@
         case '/Student/ThongTinCaNhan':
             $studentController->showThongTinCaNhan();
             break;
-        case '/Account':
+        case '/Student/StudentHome':
+            $baseController->redirect();
+            break;
         default:
             $baseController->ErrorNotFound();
             break;

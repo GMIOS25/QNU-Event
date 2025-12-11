@@ -28,6 +28,11 @@
                 header('Location: ' . $publicBase . '/Student');
             }
         }
+        public function redirectHome()
+        {   
+            $render = __DIR__ . "/../Views/home.php";
+            include __DIR__ . "/../Views/layout.php" ;
+        }
     }
 
 ?>

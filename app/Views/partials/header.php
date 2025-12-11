@@ -1,6 +1,6 @@
 <header class="qnu-header">
   <div class="qnu-header-left">
-    <img src="./assest/img/logo.webp" alt="Logo QNU" class="qnu-logo" />
+    <img src="./assest/img/logo.webp" alt="Logo QNU" class="qnu-logo" onclick="window.location.href = 'Student/StudentHome'"/>
     <div class="qnu-text">
       <p class="vn">TRƯỜNG ĐẠI HỌC QUY NHƠN</p>
       <p class="en">QUY NHON UNIVERSITY</p>

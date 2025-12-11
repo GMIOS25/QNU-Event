@@ -4,8 +4,7 @@
   align-items: center;
   background: white;
   padding: 8px 20px;
-  border-bottom: 2px #E5E7EB solid;
-
+  border-bottom: 2px #e5e7eb solid;
 }
 
 .qnu-header-left {
@@ -17,6 +16,7 @@
 .qnu-logo {
   height: 60px;
   width: auto;
+  cursor: pointer;
 }
 
 .qnu-text .vn {
@@ -42,27 +42,25 @@
   color: #000;
   font-size: 14px;
 }
-.qnu-header-toggle{
+.qnu-header-toggle {
   display: flex;
   gap: 10px;
 }
-.qnu-header-right .user-info{
+.qnu-header-right .user-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  
 }
-.qnu-header-right:hover{
+.qnu-header-right:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .qnu-header-right i {
   font-size: 50px;
 }
-.qnu-header-right .username
-{
+.qnu-header-right .username {
   font-weight: bold;
 }
 
-.qnu-header-right .rolename{
+.qnu-header-right .rolename {
   font-style: italic;
 }

@@ -508,7 +508,13 @@
             }
             return 0;
         }
-
+        public function deleteEvent($EventID)
+        {
+            $sql = "DELETE FROM SuKien where MaSK = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bind_param("s", $EventID);
+            return $stmt->execute();
+        }
     
 
     }

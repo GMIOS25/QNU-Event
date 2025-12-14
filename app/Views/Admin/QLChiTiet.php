@@ -114,7 +114,7 @@
                 </a>
                 <?php endif ?>
                  <?php if($stateEvent < 4 ): ?>
-                <a class="btn btn-action-delete">
+                    <a onclick="return confirm('Bạn có chắc muốn xóa sự kiện này không?');" class="btn btn-action-delete"  href="Admin/QLSuKien/XoaSuKien?EventID=<?php echo $dataEvent['MaSK'] ?>">
                     <i class="bi bi-trash"></i>
                     <span>Xóa sự kiện</span>
                  </a>

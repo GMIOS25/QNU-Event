@@ -445,13 +445,20 @@
                         sinhvien.Ten, 
                         khoa.TenKhoa,
                         lop.TenLop,
-                        dksukien.TrangThai,
+                        CASE
+                         WHEN minhchungthamgiask.TrangThai IS NULL THEN 'Đăng ký'
+                        WHEN minhchungthamgiask.TrangThai = 'Đã duyệt' THEN 'Đã duyệt' 
+                        WHEN minhchungthamgiask.TrangThai = 'Chờ duyệt' THEN 'Chờ duyệt' 
+                        WHEN minhchungthamgiask.TrangThai   = 'Từ chối'  THEN 'Từ chối'
+                            ELSE 'Không hợp lệ'
+                            END AS TrangThai,
                         dksukien.ThoiGianDK
                     FROM dksukien
                     JOIN sinhvien ON dksukien.MSSV = sinhvien.MSSV
                     LEFT JOIN lop ON sinhvien.MaLop = lop.MaLop
                     LEFT JOIN nganh ON lop.MaNganh = nganh.MaNganh
                     LEFT JOIN khoa ON nganh.MaKhoa = khoa.MaKhoa
+                    LEFT JOIN minhchungthamgiask on dksukien.mask = minhchungthamgiask.mask and sinhvien.MSSV = minhchungthamgiask.MSSV
                     WHERE dksukien.MaSK = ? AND dksukien.TrangThai = 'Đăng ký'
                     ORDER BY dksukien.ThoiGianDK DESC
                     LIMIT ? OFFSET ?";

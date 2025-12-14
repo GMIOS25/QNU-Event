@@ -136,29 +136,7 @@
                 <?php endif ?>
             </div>
 
-            <div class="card-body-main">
-                <div class="chart-section row align-items-center mb-4">
-                    <div class="col-md-5 d-flex justify-content-center">
-                        <div class="chart-container">
-                            </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="legend-container">
-                            <div class="legend-item">
-                                <span class="legend-color-box" style="background-color: #e5e7eb;"></span>
-                                <span>Chưa đăng ký</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-color-box" style="background-color: #34d399;"></span>
-                                <span>Đăng ký tham gia</span>
-                            </div>
-                            <div class="legend-item">
-                                <span class="legend-color-box" style="background-color: #0091ff;"></span>
-                                <span>Đã tham gia</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div class="filter-bar d-flex flex-wrap align-items-center mb-3">
                     <div class="filter-item me-3">
@@ -196,10 +174,10 @@
                     <div class="event-table-header">
                         <div class="header-cell" style="flex-basis: 5%;">STT</div>
                         <div class="header-cell" style="flex-basis: 15%;">MSV</div>
-                        <div class="header-cell" style="flex-basis: 25%;">Họ tên</div>
-                        <div class="header-cell" style="flex-basis: 25%;">Khoa</div>
-                        <div class="header-cell" style="flex-basis: 15%;">Trạng thái</div>
-                        <div class="header-cell" style="flex-basis: 15%;">Chức năng</div>
+                        <div class="header-cell" style="flex-basis: 30%;">Họ tên</div>
+                        <div class="header-cell" style="flex-basis: 20%;">Khoa</div>
+                        <div class="header-cell" style="flex-basis: 20%;">Lớp</div>
+                        <div class="header-cell" style="flex-basis: 10%;">Trạng thái</div>
                     </div>
                     
                     <div class="event-table-body">
@@ -212,12 +190,10 @@
                                     echo '<div class="event-table-row">
                                         <div class="data-cell" style="flex-basis: 5%;">'.$index.'</div>
                                         <div class="data-cell" style="flex-basis: 15%;">'.$student['MSSV'].'</div>
-                                        <div class="data-cell" style="flex-basis: 25%;">'.$student['Ho'].' '.$student['Ten'].'</div>
-                                        <div class="data-cell" style="flex-basis: 25%;">'.$student['TenKhoa'].'</div>
-                                        <div class="data-cell" style="flex-basis: 15%;">'.$student['TrangThai'].'</div>
-                                        <div class="data-cell" style="flex-basis: 15%;">
-                                            <span class="action-links">[<a href="#">Xem chi tiết</a>, <a href="#">Xóa</a>]</span>
-                                        </div>
+                                        <div class="data-cell" style="flex-basis: 30%;">'.$student['Ho'].' '.$student['Ten'].'</div>
+                                        <div class="data-cell" style="flex-basis: 20%;">'.$student['TenKhoa'].'</div>
+                                        <div class="data-cell" style="flex-basis: 20%;">'.$student['TenLop'].'</div>
+                                         <div class="data-cell" style="flex-basis: 10%;">'.$student['TrangThai'].'</div>
                                     </div>';
                                     $index++;
                                 }

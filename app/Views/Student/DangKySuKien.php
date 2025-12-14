@@ -78,9 +78,9 @@
                     <div class="col-cell c-qty">Ghi chú</div>
                     <div class="col-cell c-action">Chức năng</div>
                 </div>
-                
+
                 <div class="table-body">
-                    
+
                 <?php foreach ($eventDaDKList as $event): ?>
                     <div class="table-row">
                         <div class="col-cell c-code"><?= $event['MaSK'] ?></div>
@@ -104,3 +104,26 @@
         </div>
 
     </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInputs = document.querySelectorAll(".search-input");
+
+        searchInputs.forEach(input => {
+            input.addEventListener("input", function () {
+                const keyword = this.value.toLowerCase().trim();
+
+                // card chứa ô search hiện tại
+                const card = this.closest(".custom-card");
+                if (!card) return;
+
+                const rows = card.querySelectorAll(".table-body .table-row");
+
+                rows.forEach(row => {
+                    const rowText = row.innerText.toLowerCase();
+
+                    row.style.display = rowText.includes(keyword) ? "" : "none";
+                });
+            });
+        });
+    });
+</script>

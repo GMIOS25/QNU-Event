@@ -62,9 +62,8 @@
         public function loadSKCanDuyetMinhChung($MaKhoa)
         {
             $data = [];
-        $sql = "SELECT SuKien.* FROM SuKien 
-        WHERE 
-            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY) AND MaKhoa = ?";
+        $sql = "SELECT SuKien.* FROM SuKien JOIN chophepsvkhoathamgia ON SuKien.MaSK = chophepsvkhoathamgia.MaSK  WHERE 
+            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY) AND chophepsvkhoathamgia.MaKhoa = ?";
             $sttm = $this->conn->prepare($sql);
             $sttm->bind_param("s", $MaKhoa);
             if($sttm->execute())

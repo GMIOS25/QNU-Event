@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <base href="<?php global $publicBase; echo $publicBase; ?>/" />
     <link rel="stylesheet" href="assest/css/auth/login.css" />
+    <link rel="icon" href="assest/img/logo.webp">
     <title>Đăng nhập - QNU Event</title>
 </head>
 <body>

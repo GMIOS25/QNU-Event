@@ -377,6 +377,12 @@
         case '/Student/ThongTinCaNhan':
             $studentController->showThongTinCaNhan();
             break;
+            case "/Admin/QLSuKien/XoaSuKien":
+                if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['EventID']))
+                {
+                    $adminController->deleteEvent();
+                    break;
+                }
         case '/Student/StudentHome':
             $baseController->redirect();
             break;

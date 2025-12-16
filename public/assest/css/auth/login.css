@@ -1,16 +1,16 @@
 /* Login page styles for QNU-Event — refined to match provided design */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 :root {
   --bg-overlay: rgba(0, 0, 0, 0.45);
   --card: #ffffff;
-  --accent: #00A8E8; /* button */
-  --accent-dark: #007EA7;
+  --accent: #00a8e8; /* button */
+  --accent-dark: #007ea7;
   --muted: #6b7280;
   --radius: 12px;
   --shadow: 0 18px 60px rgba(2, 6, 23, 0.45);
-  --bg-link: url("https://sceneplus.vn/storage/photos/shares/CONG/CANH-QUAN/DH-QUY-NHON/57.jpg");
+  --bg-link: url("../../img/Dep qua he.jpeg");
 }
 
 * {

@@ -439,7 +439,7 @@
         public function getRegisteredStudentsWithPagination($EventID, $limit, $offset)
         {
             $data = [];
-            $sql = "SELECT 
+            $sql = "SELECT DISTINCT
                         sinhvien.MSSV, 
                         sinhvien.Ho, 
                         sinhvien.Ten, 
@@ -458,8 +458,21 @@
                     LEFT JOIN lop ON sinhvien.malop = lop.malop
                     LEFT JOIN nganh ON lop.manganh = nganh.manganh
                     LEFT JOIN khoa ON nganh.makhoa = khoa.makhoa
-                    LEFT JOIN minhchungthamgiask on dksukien.mask = minhchungthamgiask.mask and sinhvien.mssv = minhchungthamgiask.mssv
+                    LEFT JOIN (
+                    SELECT mc1.*
+                    FROM minhchungthamgiask mc1
+                    JOIN (
+                        SELECT mssv, mask, MAX(ThoiGianNop) AS latest_time
+                        FROM minhchungthamgiask
+                        GROUP BY mssv, mask
+                    ) mc2 
+                    ON mc1.mssv = mc2.mssv 
+                    AND mc1.mask = mc2.mask 
+                    AND mc1.ThoiGianNop = mc2.latest_time) 
+                    minhchungthamgiask on dksukien.mask = minhchungthamgiask.mask
+                    and sinhvien.MSSV = minhchungthamgiask.mssv
                     WHERE dksukien.mask = ?  
+
                     ORDER BY dksukien.thoigiandk DESC
                     LIMIT ? OFFSET ?";
             

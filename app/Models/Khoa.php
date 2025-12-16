@@ -9,7 +9,7 @@
         }
         public function getAll()
         {
-            $sql = "Select * from Khoa";
+            $sql = "Select * from khoa";
             $result = $this->conn->query($sql);
             $data = [];
             if($result->num_rows > 0)
@@ -25,21 +25,21 @@
         }
         public function insertKhoa($makhoa, $tenkhoa)
         {
-            $sql = "Insert into Khoa (MaKhoa, TenKhoa) values (?, ?)";
+            $sql = "Insert into khoa (MaKhoa, TenKhoa) values (?, ?)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("ss", $makhoa, $tenkhoa);
             return $stmt->execute();
         }
         public function deleteKhoa($makhoa)
         {
-            $sql = "Delete from Khoa where MaKhoa = ?";
+            $sql = "Delete from khoa where MaKhoa = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $makhoa);
             return $stmt->execute();
         }
         public function getKhoaByMaKhoa($makhoa)
         {
-            $sql = "Select * from Khoa where MaKhoa = ?";
+            $sql = "Select * from khoa where MaKhoa = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $makhoa);
             $stmt->execute();
@@ -52,14 +52,14 @@
         }
         public function updateKhoa($makhoa, $tenkhoa)
         {
-            $sql = "Update Khoa set TenKhoa = ? where MaKhoa = ?";
+            $sql = "Update khoa set TenKhoa = ? where MaKhoa = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("ss", $tenkhoa, $makhoa);
             return $stmt->execute();
         }
         public function searchKhoa($keyword)
         {
-            $sql = "Select * from Khoa where TenKhoa like ? or MaKhoa like ?";
+            $sql = "Select * from khoa where TenKhoa like ? or MaKhoa like ?";
             $stmt = $this->conn->prepare($sql);
             $likeKeyword = "%" . $keyword . "%";
             $stmt->bind_param("ss", $likeKeyword, $likeKeyword);

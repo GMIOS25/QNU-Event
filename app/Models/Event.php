@@ -440,11 +440,11 @@
         {
             $data = [];
             $sql = "SELECT 
-                        sinhvien.mssv, 
-                        sinhvien.ho, 
-                        sinhvien.ten, 
-                        khoa.tenkhoa,
-                        lop.tenlop,
+                        sinhvien.MSSV, 
+                        sinhvien.Ho, 
+                        sinhvien.Ten, 
+                        khoa.TenKhoa,
+                        lop.TenLop,
                         CASE
                          WHEN minhchungthamgiask.trangthai IS NULL THEN 'Đăng ký'
                         WHEN minhchungthamgiask.trangthai = 'Đã duyệt' THEN 'Đã duyệt' 
@@ -454,12 +454,12 @@
                             END AS TrangThai,
                         dksukien.thoigiandk
                     FROM dksukien
-                    JOIN sinhvien ON dksukien.mssv = sinhvien.mssv
+                    LEFT JOIN sinhvien ON dksukien.mssv = sinhvien.mssv
                     LEFT JOIN lop ON sinhvien.malop = lop.malop
                     LEFT JOIN nganh ON lop.manganh = nganh.manganh
                     LEFT JOIN khoa ON nganh.makhoa = khoa.makhoa
                     LEFT JOIN minhchungthamgiask on dksukien.mask = minhchungthamgiask.mask and sinhvien.mssv = minhchungthamgiask.mssv
-                    WHERE dksukien.mask = ? AND dksukien.trangthai = 'Đăng ký'
+                    WHERE dksukien.mask = ?  
                     ORDER BY dksukien.thoigiandk DESC
                     LIMIT ? OFFSET ?";
             

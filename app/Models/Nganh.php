@@ -33,7 +33,7 @@
         }
         public function getNganh($MaNganh)
         {
-            $sql = "SELECT * FROM Nganh WHERE MaNganh = ?";
+            $sql = "SELECT * FROM nganh WHERE MaNganh = ?";
             $stmt = $this->conn->prepare($sql);
             $data = [];
             $stmt->bind_param('s', $MaNganh);
@@ -51,14 +51,14 @@
         }
         public function insertNganh($MaNganh, $TenNganh, $MaKhoa)
         {
-            $sql = "INSERT INTO NGANH (MaNganh, TenNganh, MaKhoa) VALUES(?, ?, ?)";
+            $sql = "INSERT INTO nganh (MaNganh, TenNganh, MaKhoa) VALUES(?, ?, ?)";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param('sss', $MaNganh, $TenNganh, $MaKhoa );
             return $stmt->execute();
         }
         public function updateNganh($MaNganh, $TenNganh, $MaKhoa)
         {
-            $sql = "UPDATE NGANH SET  TenNganh = ?, MaKhoa = ? WHERE MaNganh = ?";
+            $sql = "UPDATE nganh SET  TenNganh = ?, MaKhoa = ? WHERE MaNganh = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param('sss',  $TenNganh, $MaKhoa, $MaNganh );
             return $stmt->execute();
@@ -72,7 +72,7 @@
         }
         public function searchNganh($keyword)
         {
-            $sql = "SELECT Nganh.MaNganh, Nganh.TenNganh, Khoa.TenKhoa FROM Nganh join Khoa on Khoa.MaKhoa = Nganh.MaKhoa WHERE Nganh.MaNganh = ? OR TenNganh LIKE ?";
+            $sql = "SELECT nganh.MaNganh, nganh.TenNganh, khoa.TenKhoa FROM nganh join khoa on khoa.MaKhoa = nganh.MaKhoa WHERE nganh.MaNganh = ? OR TenNganh LIKE ?";
             $stm = $this->conn->prepare($sql);
             $likeKeyword = "%".$keyword."%";
             $stm->bind_param('ss', $keyword, $likeKeyword);
@@ -92,7 +92,7 @@
         }
         public function filterByMaKhoa($MaKhoa)
         {
-            $sql = "SELECT Nganh.MaNganh, Nganh.TenNganh, Khoa.TenKhoa FROM Nganh join Khoa on Khoa.MaKhoa = Nganh.MaKhoa WHERE Nganh.MaKhoa = ?";
+            $sql = "SELECT nganh.MaNganh, nganh.TenNganh, khoa.TenKhoa FROM nganh join khoa on khoa.MaKhoa = nganh.MaKhoa WHERE nganh.MaKhoa = ?";
             $stm = $this->conn->prepare($sql);
             $stm->bind_param('s', $MaKhoa);
             $data = [];

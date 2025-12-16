@@ -15,7 +15,7 @@
         // trả về uid nếu login thành công
         public function getKhoaSV($MSSV)
         {
-            $sql = "SELECT Khoa.* FROM sinhvien JOIN lop ON sinhvien.MaLop = lop.MaLop JOIN nganh ON lop.MaNganh = nganh.MaNganh JOIN khoa on khoa.MaKhoa = nganh.MaKhoa
+            $sql = "SELECT khoa.* FROM sinhvien JOIN lop ON sinhvien.MaLop = lop.MaLop JOIN nganh ON lop.MaNganh = nganh.MaNganh JOIN khoa on khoa.MaKhoa = nganh.MaKhoa
              WHERE sinhvien.MSSV = '".$MSSV."'";
             if($result = $this->conn->query($sql))
             {
@@ -63,7 +63,7 @@
         // lấy thông tin user từ db
         public function getStudentInfo($MSSV)
         {
-            $stm = $this->conn->prepare("Select SinhVien.*, Lop.*, Nganh.* from sinhvien join lop on sinhvien.malop = lop.malop join nganh on nganh.manganh = lop.manganh where MSSV = ?");
+            $stm = $this->conn->prepare("Select sinhvien.*, lop.*, nganh.* from sinhvien join lop on sinhvien.malop = lop.malop join nganh on nganh.manganh = lop.manganh where MSSV = ?");
             $stm->bind_param("s", $MSSV);
             $stm->execute();
             $result = $stm->get_result();

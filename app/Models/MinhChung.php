@@ -9,14 +9,14 @@
         }
         public function NopMinhChung($MSSV, $MaSK, $minhchung_img_path)
         {
-            $sql = "INSERT INTO MinhChungThamGiaSK (MSSV, MaSK,ThoiGianNop, FileMinhChung, TrangThai) VALUES (?, ?, NOW(), ?, 'Chờ duyệt')";
+            $sql = "INSERT INTO minhchungthamgiask (MSSV, MaSK,ThoiGianNop, FileMinhChung, TrangThai) VALUES (?, ?, NOW(), ?, 'Chờ duyệt')";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("sss", $MSSV, $MaSK, $minhchung_img_path);
             return $stmt->execute();
         }
         public function getMinhChungDaNop($MSSV)
         {
-            $sql = "SELECT IDMinhChung, TenSK ,ThoiGianNop, TrangThai FROM MinhChungThamGiaSK join SuKien on MinhChungThamGiaSK.MaSK = SuKien.MaSK WHERE MSSV = ? ORDER BY ThoiGianNop DESC";
+            $sql = "SELECT IDMinhChung, TenSK ,ThoiGianNop, TrangThai FROM minhchungthamgiask join sukien on minhchungthamgiask.MaSK = sukien.MaSK WHERE MSSV = ? ORDER BY ThoiGianNop DESC";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $MSSV);
             $stmt->execute();
@@ -30,12 +30,12 @@
         public function loadSKCanNopMinhChung($MSSV)
         {
             $data = [];
-        $sql = "SELECT DISTINCT SuKien.* FROM SuKien 
-        JOIN dksukien ON SuKien.MaSK = dksukien.MaSK 
+        $sql = "SELECT DISTINCT sukien.* FROM sukien
+        JOIN dksukien ON sukien.MaSK = dksukien.MaSK 
         LEFT JOIN minhchungthamgiask ON dksukien.MaSK = minhchungthamgiask.MaSK 
                                      AND dksukien.MSSV = minhchungthamgiask.MSSV 
         WHERE 
-            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY)
+            NOW() BETWEEN sukien.ThoiGianBatDauSK AND DATE_ADD(sukien.ThoiGianKetThucSK, INTERVAL 7 DAY)
             AND dksukien.MSSV = ? 
             AND dksukien.TrangThai = 'Đăng ký' 
             AND (minhchungthamgiask.TrangThai IS NULL OR minhchungthamgiask.TrangThai != 'Đã duyệt')";
@@ -62,8 +62,8 @@
         public function loadSKCanDuyetMinhChung($MaKhoa)
         {
             $data = [];
-        $sql = "SELECT SuKien.* FROM SuKien JOIN chophepsvkhoathamgia ON SuKien.MaSK = chophepsvkhoathamgia.MaSK  WHERE 
-            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY)
+        $sql = "SELECT sukien.* FROM sukien JOIN chophepsvkhoathamgia ON sukien.MaSK = chophepsvkhoathamgia.MaSK  WHERE 
+            NOW() BETWEEN sukien.ThoiGianBatDauSK AND DATE_ADD(sukien.ThoiGianKetThucSK, INTERVAL 7 DAY)
             AND chophepsvkhoathamgia.MaKhoa = ?";
             $sttm = $this->conn->prepare($sql);
             $sttm->bind_param("s", $MaKhoa);
@@ -88,9 +88,9 @@
         public function searchSKCanDuyetMinhChung($MaKhoa, $keywork)
         {
             $data = [];
-        $sql = "SELECT SuKien.* FROM SuKien 
+        $sql = "SELECT sukien.* FROM sukien 
         WHERE 
-            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY) AND MaKhoa = ? AND (MaSK = ? OR TenSK LIKE ?)";
+            NOW() BETWEEN sukien.ThoiGianBatDauSK AND DATE_ADD(sukien.ThoiGianKetThucSK, INTERVAL 7 DAY) AND MaKhoa = ? AND (MaSK = ? OR TenSK LIKE ?)";
             $sttm = $this->conn->prepare($sql);
             $likeTenSK = '%'. $keywork . '%';
             $sttm->bind_param("sss", $MaKhoa, $keywork, $likeTenSK);
@@ -203,14 +203,14 @@
         // tức là minh chứng đã từ chối -> sv nộp lại -> duyệt cái sv nộp thì minh chứng đã từ chối trc đó sẽ chuyển sang đã duyệt
         public function approveMinhChung($IDMinhChung)
         {
-            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Đã duyệt' WHERE IDMinhChung = ?";
+            $sql = "UPDATE minhchungthamgiask SET TrangThai = 'Đã duyệt' WHERE IDMinhChung = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $IDMinhChung);
             return $stmt->execute();
         }
         public function rejectMinhChung($IDMinhChung)
         {
-            $sql = "UPDATE MinhChungThamGiaSK SET TrangThai = 'Từ chối' WHERE IDMinhChung = ?";
+            $sql = "UPDATE minhchungthamgiask SET TrangThai = 'Từ chối' WHERE IDMinhChung = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $IDMinhChung);
             return $stmt->execute();

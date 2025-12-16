@@ -9,7 +9,7 @@
         }
         public function addKhoaThamGia($MaSK, $MaKhoa)
         {
-            $stmt = $this->conn->prepare("INSERT INTO `chophepsvkhoathamgia`(`MaSK`, `MaKhoa`) VALUES (?, ?)");
+            $stmt = $this->conn->prepare("INSERT INTO `chophepsvkhoathamgia`(`mask`, `makhoa`) VALUES (?, ?)");
             $stmt->bind_param("ss", $MaSK, $MaKhoa);
             if ($stmt->execute())
             {
@@ -20,7 +20,7 @@
         }
         public function deleteAllKhoaThamGia($MaSK)
         {
-            $stmt = $this->conn->prepare("DELETE FROM `chophepsvkhoathamgia` WHERE MaSK = ?");
+            $stmt = $this->conn->prepare("DELETE FROM `chophepsvkhoathamgia` WHERE mask = ?");
             $stmt->bind_param("s", $MaSK);
             if ($stmt->execute())
             {
@@ -31,7 +31,7 @@
         }
         public function addEvent($tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc, $DiemCong, $KhoaToChuc, $GhiChu, $listKhoaThamGia)
         {
-            $stmt = $this->conn->prepare("INSERT INTO `sukien`( `TenSK`, `ThoiGianMoDK`, `ThoiGianDongDK`, `ThoiGianBatDauSK`, `ThoiGianKetThucSK`, `GioiHanThamGia`,`NoiToChuc`, `DiemCong`, `MaKhoa`, `GhiChu`, MaHK) 
+            $stmt = $this->conn->prepare("INSERT INTO `sukien`( `tensk`, `thoigianmodk`, `thoigiandongdk`, `thoigianbatdausk`, `thoigianketthucsk`, `gioihanthamgia`,`noitochuc`, `diemcong`, `makhoa`, `ghichu`, mahk) 
             VALUES (?,?,?,?,?,?,?,?,?,?,?)");
             $stmt->bind_param("sssssisisss", $tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc , $DiemCong, $KhoaToChuc, $GhiChu, $_SESSION['currentTerm']['MaHK']);
             if ($stmt->execute())
@@ -60,9 +60,9 @@
         public function getAllEvent($limitElement=null,$page=null)
         {
             if($page == null)
-                $sql = "Select * from SuKien ORDER BY ThoiGianBatDauSK DESC";
+                $sql = "Select * from sukien ORDER BY thoigianbatdausk DESC";
             else
-                $sql = "Select * from SuKien ORDER BY ThoiGianBatDauSK DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement).""; 
+                $sql = "Select * from sukien ORDER BY thoigianbatdausk DESC LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement).""; 
             $result = $this->conn->query($sql);
             $data = [];
             if (mysqli_num_rows($result) > 0)   
@@ -99,7 +99,7 @@
         public function getEvent($eventID)
         {
             $data = [];
-            $sttm = $this->conn->prepare("Select * from SuKien where MaSK = ?");
+            $sttm = $this->conn->prepare("Select * from sukien where mask = ?");
             $sttm->bind_param('s', $eventID);
             if($sttm->execute())
             {
@@ -119,8 +119,8 @@
         public function getTenKhoaToChuc($eventID)
         {
             $data = [];
-            $sttm = $this->conn->prepare("select TenKhoa from SuKien join Khoa on SuKien.MaKhoa = Khoa.MaKhoa
-                                WHERE sukien.MaSK = ?");
+            $sttm = $this->conn->prepare("select tenkhoa from sukien join khoa on sukien.makhoa = khoa.makhoa
+                                WHERE sukien.mask = ?");
             $sttm->bind_param('s', $eventID);
             if($sttm->execute())
             {
@@ -140,8 +140,8 @@
         public function getDSTenKhoaDuocPhepThamGia($eventID)
         {
             $data = [];
-            $sttm = $this->conn->prepare("select * from chophepsvkhoathamgia JOIN Khoa on chophepsvkhoathamgia.MaKhoa = Khoa.MaKhoa 
-                                WHERE MaSK = ?");
+            $sttm = $this->conn->prepare("select * from chophepsvkhoathamgia JOIN khoa on chophepsvkhoathamgia.makhoa = khoa.makhoa 
+                                WHERE mask = ?");
             $sttm->bind_param('s', $eventID);
             if($sttm->execute())
             {
@@ -168,8 +168,8 @@
         // 4 - đã kết thúc
         public function getStateEvent($eventID)
         {
-            $sttm = $this->conn->prepare("select * from SuKien 
-                                WHERE MaSK = ?");
+            $sttm = $this->conn->prepare("select * from sukien 
+                                WHERE mask = ?");
             $sttm->bind_param('s', $eventID);
             if($sttm->execute())
             {
@@ -210,9 +210,9 @@
         public function modifyEvent($eventID, $tenSK, $thoiGianMoDK, $thoiGianDongDK, $thoiGianBatDauSK, $thoiGianKetThucSK, $GioiHanThamGia, $NoiToChuc, $DiemCong, $KhoaToChuc, $GhiChu, $listKhoaThamGia)
         {
             $sttm =  $this->conn->prepare("UPDATE sukien 
-            SET TenSK = ?, ThoiGianMoDK = ?, ThoiGianDongDK = ?, ThoiGianBatDauSK = ?, ThoiGianKetThucSK = ?, 
-                GioiHanThamGia = ?, NoiToChuc = ?, DiemCong = ?, MaKhoa = ?, GhiChu = ?, MaHK = ?
-            WHERE MaSK = ?");
+            SET tensk = ?, thoigianmodk = ?, thoigiandongdk = ?, thoigianbatdausk = ?, thoigianketthucsk = ?, 
+                gioihanthamgia = ?, noitochuc = ?, diemcong = ?, makhoa = ?, ghichu = ?, mahk = ?
+            WHERE mask = ?");
             $sttm->bind_param(
                     "sssssisissss",
                     $tenSK,
@@ -248,8 +248,8 @@
         }
         public function getSLSinhVienDangKySK($MaSK)
         {
-            $sttm = $this->conn->prepare("Select COUNT(MSSV) as SL from SuKien join dksukien on sukien.MaSK = dksukien.MaSK
-             where sukien.MaSK = ? and TrangThai = 'Đăng ký'");
+            $sttm = $this->conn->prepare("Select COUNT(mssv) as SL from sukien join dksukien on sukien.mask = dksukien.mask
+             where sukien.mask = ? and trangthai = 'Đăng ký'");
             $sttm->bind_param('s', $MaSK);
             if($sttm->execute())
             {
@@ -267,8 +267,8 @@
         public function getListSKDangKy($MaKhoa)
         {
             $data = [];
-            $sttm = $this->conn->prepare("Select DISTINCT sukien.* from sukien JOIN chophepsvkhoathamgia on sukien.`MaSK` = chophepsvkhoathamgia.`MaSK`
-                         WHERE chophepsvkhoathamgia.`MaKhoa`= ? AND (NOW() BETWEEN `ThoiGianMoDK` AND `ThoiGianDongDK`)");
+            $sttm = $this->conn->prepare("Select DISTINCT sukien.* from sukien JOIN chophepsvkhoathamgia on sukien.`mask` = chophepsvkhoathamgia.`mask`
+                         WHERE chophepsvkhoathamgia.`makhoa`= ? AND (NOW() BETWEEN `thoigianmodk` AND `thoigiandongdk`)");
             $sttm->bind_param('s', $MaKhoa);
             if($sttm->execute())
             {
@@ -291,8 +291,8 @@
         public function getListSKDaDangKy($MSSV)
         {
             $data = [];
-            $sttm = $this->conn->prepare("Select SuKien.* from dksukien join sukien on sukien.MaSk = dksukien.MaSK 
-             Where TrangThai = 'Đăng ký' and MSSV = ? and SuKien.MaHK = ?");
+            $sttm = $this->conn->prepare("Select sukien.* from dksukien join sukien on sukien.mask = dksukien.mask 
+             Where trangthai = 'Đăng ký' and mssv = ? and sukien.mahk = ?");
             $sttm->bind_param('ss', $MSSV, $_SESSION['currentTerm']['MaHK']);
             if($sttm->execute())
             {
@@ -314,7 +314,7 @@
         }
         public function DangKySuKien($MSSV, $EventID)
         {
-            $sttm = $this->conn->prepare("INSERT INTO dksukien(MSSV, MaSK, ThoiGianDK, TrangThai) values(?, ?, NOW(), 'Đăng ký')");
+            $sttm = $this->conn->prepare("INSERT INTO dksukien(mssv, mask, thoigiandk, trangthai) values(?, ?, NOW(), 'Đăng ký')");
             $sttm->bind_param('ss', $MSSV, $EventID);
             if($sttm->execute())
             {
@@ -325,7 +325,7 @@
         
         public function HuyDKSuKien($MSSV, $eventID)
         {
-            $sttm = $this->conn->prepare("UPDATE dksukien SET TrangThai = 'Hủy đăng ký' where MSSV=? and MaSK=? and TrangThai = 'Đăng ký'");
+            $sttm = $this->conn->prepare("UPDATE dksukien SET trangthai = 'Hủy đăng ký' where mssv=? and mask=? and trangthai = 'Đăng ký'");
             $sttm->bind_param('ss', $MSSV, $eventID);
             if($sttm->execute())
             {
@@ -340,12 +340,12 @@
             $data = [];
             $sttm = $this->conn->prepare("SELECT sk1.* 
                 FROM dksukien dk
-                JOIN sukien sk1 ON dk.MaSK = sk1.MaSK
-                JOIN sukien sk2 ON sk2.MaSK = ?
-                WHERE dk.MSSV = ? 
-                AND dk.TrangThai = 'Đăng ký'
+                JOIN sukien sk1 ON dk.mask = sk1.mask
+                JOIN sukien sk2 ON sk2.mask = ?
+                WHERE dk.mssv = ? 
+                AND dk.trangthai = 'Đăng ký'
                 AND (
-                    (sk1.ThoiGianBatDauSK <= sk2.ThoiGianKetThucSK AND sk1.ThoiGianKetThucSK >= sk2.ThoiGianBatDauSK)
+                    (sk1.thoigianbatdausk <= sk2.thoigianketthucsk AND sk1.thoigianketthucsk >= sk2.thoigianbatdausk)
                 )");
             $sttm->bind_param('ss', $EventID, $MSSV);
             if($sttm->execute())
@@ -362,12 +362,12 @@
         public function getSKDaDangKyByDay($MSSV, $date)
         {
             $data = [];
-            $sttm = $this->conn->prepare("SELECT SuKien.* 
+            $sttm = $this->conn->prepare("SELECT sukien.* 
                 FROM dksukien 
-                JOIN sukien ON sukien.MaSK = dksukien.MaSK
-                WHERE TrangThai = 'Đăng ký' 
-                AND MSSV = ? 
-                AND DATE(ThoiGianBatDauSK) = ?");
+                JOIN sukien ON sukien.mask = dksukien.mask
+                WHERE trangthai = 'Đăng ký' 
+                AND mssv = ? 
+                AND DATE(thoigianbatdausk) = ?");
             $sttm->bind_param('ss', $MSSV, $date);
             if($sttm->execute())
             {
@@ -392,19 +392,19 @@
         {
             $data = [];
             $sql = "SELECT 
-                        sinhvien.MSSV, 
-                        sinhvien.Ho, 
-                        sinhvien.Ten, 
-                        khoa.TenKhoa,
-                        dksukien.TrangThai,
-                        dksukien.ThoiGianDK
+                        sinhvien.mssv, 
+                        sinhvien.ho, 
+                        sinhvien.ten, 
+                        khoa.tenkhoa,
+                        dksukien.trangthai,
+                        dksukien.thoigiandk
                     FROM dksukien
-                    JOIN sinhvien ON dksukien.MSSV = sinhvien.MSSV
-                    LEFT JOIN lop ON sinhvien.MaLop = lop.MaLop
-                    LEFT JOIN nganh ON lop.MaNganh = nganh.MaNganh
-                    LEFT JOIN khoa ON nganh.MaKhoa = khoa.MaKhoa
-                    WHERE dksukien.MaSK = ? AND dksukien.TrangThai = 'Đăng ký'
-                    ORDER BY dksukien.ThoiGianDK DESC";
+                    JOIN sinhvien ON dksukien.mssv = sinhvien.mssv
+                    LEFT JOIN lop ON sinhvien.malop = lop.malop
+                    LEFT JOIN nganh ON lop.manganh = nganh.manganh
+                    LEFT JOIN khoa ON nganh.makhoa = khoa.makhoa
+                    WHERE dksukien.mask = ? AND dksukien.trangthai = 'Đăng ký'
+                    ORDER BY dksukien.thoigiandk DESC";
             
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $EventID);
@@ -440,27 +440,27 @@
         {
             $data = [];
             $sql = "SELECT 
-                        sinhvien.MSSV, 
-                        sinhvien.Ho, 
-                        sinhvien.Ten, 
-                        khoa.TenKhoa,
-                        lop.TenLop,
+                        sinhvien.mssv, 
+                        sinhvien.ho, 
+                        sinhvien.ten, 
+                        khoa.tenkhoa,
+                        lop.tenlop,
                         CASE
-                         WHEN minhchungthamgiask.TrangThai IS NULL THEN 'Đăng ký'
-                        WHEN minhchungthamgiask.TrangThai = 'Đã duyệt' THEN 'Đã duyệt' 
-                        WHEN minhchungthamgiask.TrangThai = 'Chờ duyệt' THEN 'Chờ duyệt' 
-                        WHEN minhchungthamgiask.TrangThai   = 'Từ chối'  THEN 'Từ chối'
+                         WHEN minhchungthamgiask.trangthai IS NULL THEN 'Đăng ký'
+                        WHEN minhchungthamgiask.trangthai = 'Đã duyệt' THEN 'Đã duyệt' 
+                        WHEN minhchungthamgiask.trangthai = 'Chờ duyệt' THEN 'Chờ duyệt' 
+                        WHEN minhchungthamgiask.trangthai   = 'Từ chối'  THEN 'Từ chối'
                             ELSE 'Không hợp lệ'
                             END AS TrangThai,
-                        dksukien.ThoiGianDK
+                        dksukien.thoigiandk
                     FROM dksukien
-                    JOIN sinhvien ON dksukien.MSSV = sinhvien.MSSV
-                    LEFT JOIN lop ON sinhvien.MaLop = lop.MaLop
-                    LEFT JOIN nganh ON lop.MaNganh = nganh.MaNganh
-                    LEFT JOIN khoa ON nganh.MaKhoa = khoa.MaKhoa
-                    LEFT JOIN minhchungthamgiask on dksukien.mask = minhchungthamgiask.mask and sinhvien.MSSV = minhchungthamgiask.MSSV
-                    WHERE dksukien.MaSK = ? AND dksukien.TrangThai = 'Đăng ký'
-                    ORDER BY dksukien.ThoiGianDK DESC
+                    JOIN sinhvien ON dksukien.mssv = sinhvien.mssv
+                    LEFT JOIN lop ON sinhvien.malop = lop.malop
+                    LEFT JOIN nganh ON lop.manganh = nganh.manganh
+                    LEFT JOIN khoa ON nganh.makhoa = khoa.makhoa
+                    LEFT JOIN minhchungthamgiask on dksukien.mask = minhchungthamgiask.mask and sinhvien.mssv = minhchungthamgiask.mssv
+                    WHERE dksukien.mask = ? AND dksukien.trangthai = 'Đăng ký'
+                    ORDER BY dksukien.thoigiandk DESC
                     LIMIT ? OFFSET ?";
             
             $stmt = $this->conn->prepare($sql);
@@ -495,7 +495,7 @@
         {
             $sql = "SELECT COUNT(*) as total
                     FROM dksukien
-                    WHERE dksukien.MaSK = ? AND dksukien.TrangThai = 'Đăng ký'";
+                    WHERE dksukien.mask = ? AND dksukien.trangthai = 'Đăng ký'";
             
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $EventID);
@@ -510,7 +510,7 @@
         }
         public function deleteEvent($EventID)
         {
-            $sql = "DELETE FROM SuKien where MaSK = ?";
+            $sql = "DELETE from sukien where mask = ?";
             $stmt = $this->conn->prepare($sql);
             $stmt->bind_param("s", $EventID);
             return $stmt->execute();

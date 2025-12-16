@@ -37,7 +37,7 @@
             $listEventRaw = [];
             if(!is_null($search))
             {
-                $numRows = $eventModel->getNumRows("Select * from SuKien where MaSK = '$search' or TenSK like '%$search%' ");
+                $numRows = $eventModel->getNumRows("Select * from sukien where MaSK = '$search' or TenSK like '%$search%' ");
                 $listEventRaw = $eventModel->getListEvent("Select * from sukien where MaSK = '$search' or TenSK like '%$search%' LIMIT ".$limitElement." OFFSET ".(($page*5) -$limitElement)."") ;
             }
             else if(!is_null($state))
@@ -79,14 +79,14 @@
                 }
                 else
                 {
-                    $numRows = $eventModel->getNumRows("Select * from SuKien");
+                    $numRows = $eventModel->getNumRows("Select * from sukien");
                     $listEventRaw = $eventModel->getAllEvent($limitElement,$page);
                 }
 
             }
             else
             {
-                $numRows = $eventModel->getNumRows("Select * from SuKien");
+                $numRows = $eventModel->getNumRows("Select * from sukien");
                 $listEventRaw = $eventModel->getAllEvent($limitElement, $page);
             }
             

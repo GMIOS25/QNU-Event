@@ -1,7 +1,7 @@
 <?php
 class Database 
 {
-    private static $servername = "localhost";
+    private static $servername = "26.145.182.44";
     private static $username = "root";
     private static $password = "";
     private static $dbname = "qnuevent";

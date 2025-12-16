@@ -98,7 +98,7 @@
           <div id="grpAccounts" class="collapse submenu">
             <a class="list-group-item" href="Student/DangKySuKien">Đăng ký sự kiện</a>
             <a class="list-group-item" href="Student/LichSuKien">Lịch sự kiện</a>
-            <a class="list-group-item" href="Student/NopMinhChungThamGiaSK">Nộp minh chứng</a>
+            <a class="list-group-item" href="Student/NopMinhChungThamGiaSK">Minh chứng sự kiện</a>
           </div>
         </div>
 

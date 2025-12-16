@@ -62,9 +62,9 @@
         public function loadSKCanDuyetMinhChung($MaKhoa)
         {
             $data = [];
-        $sql = "SELECT SuKien.* FROM SuKien 
-        WHERE 
-            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY) AND MaKhoa = ?";
+        $sql = "SELECT SuKien.* FROM SuKien JOIN chophepsvkhoathamgia ON SuKien.MaSK = chophepsvkhoathamgia.MaSK  WHERE 
+            NOW() BETWEEN SuKien.ThoiGianBatDauSK AND DATE_ADD(SuKien.ThoiGianKetThucSK, INTERVAL 7 DAY)
+            AND chophepsvkhoathamgia.MaKhoa = ?";
             $sttm = $this->conn->prepare($sql);
             $sttm->bind_param("s", $MaKhoa);
             if($sttm->execute())
@@ -154,11 +154,12 @@
             $sql = "Select IDMinhChung ,sinhvien.MSSV, sinhvien.Ho, sinhvien.Ten, FileMinhChung, lop.TenLop as Lop, ThoiGianNop from minhchungthamgiask 
             join sinhvien on minhchungthamgiask.MSSV = sinhvien.MSSV
             join lop on sinhvien.MaLop = lop.MaLop
-            where MaSK = ? and TrangThai = 'Chờ duyệt'
+            join bcsquanlylop on lop.MaLop = bcsquanlylop.MaLop
+            where MaSK = ? and bcsquanlylop.MSSV =? and TrangThai = 'Chờ duyệt'
             ORDER BY ThoiGianNop DESC
             LIMIT ? OFFSET ?";
             $sttm = $this->conn->prepare($sql);
-            $sttm->bind_param("sii", $EventID, $limit, $offset);
+            $sttm->bind_param("ssii", $EventID,$_SESSION['UID'], $limit, $offset);
             if($sttm->execute())
             {
                 $result = $sttm->get_result();

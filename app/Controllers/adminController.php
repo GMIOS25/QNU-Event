@@ -1275,6 +1275,23 @@
             global $publicBase;
            header("Location: ".$publicBase."/Admin/QuanLyTaiKhoanSV");
         }
+        public  function  deleteEvent()
+        {
+            $this->validateAdmin();
+            $eventModel = new Event();
+            $mess = $eventModel->deleteEvent($_GET['EventID']);
+            if($mess)
+            {
+                $_SESSION['message'] = "Xóa sự kiện thành công";
+            }
+            else
+            {
+                $_SESSION['message'] = "Xóa sự kiện thất bại";
+            }
+            global $publicBase;
+            header("Location: ".$publicBase."/Admin/QLSuKien");
+
+        }
     }
 
 ?>
